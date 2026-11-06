@@ -1,0 +1,90 @@
+---
+import Icon from './Icon.astro';
+import { Image } from 'astro:assets';
+import silk3 from '../assets/silk3.jpg';
+const parti = ['Chi sei', 'Cosa offri', 'Foto', 'Orari', 'Mappa', 'Contatti'];
+---
+<section id="cosa-ricevi" class="bg-ink" aria-labelledby="ricevi-t">
+  <div class="wrap py-24 sm:py-32">
+    <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+      <div>
+        <p class="t-kicker text-gold">Cosa ricevi a 197 €</p>
+        <h2 id="ricevi-t" class="t-h2 mt-4 max-w-[16ch]">Tutto quello che serve. <span class="em text-ivory/70">Niente di quello che non serve.</span></h2>
+      </div>
+    </div>
+
+    <ul class="bento mt-14 grid gap-4 lg:grid-cols-6">
+      <li class="card lg:col-span-4 lg:row-span-2">
+        <Image src={silk3} alt="" widths={[600, 1000]} sizes="(min-width: 1024px) 50rem, 100vw" class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[75%] w-full object-cover object-[50%_80%] opacity-60 [mask-image:linear-gradient(180deg,#000_20%,transparent)]" loading="lazy" />
+        <div class="flex h-full flex-col">
+          <Icon name="smartphone" class="size-8 text-gold" />
+          <h3 class="t-h3 mt-auto pt-16 !text-[clamp(1.6rem,1.1rem+1.8vw,2.6rem)] !leading-[1.05] max-w-[18ch]">Un sito di una pagina, pensato per il telefono.</h3>
+          <p class="mt-4 max-w-[34rem] text-ivory/75">Su un modello pulito e veloce. Chi sei, cosa offri (servizi o menu), foto, orari, mappa, contatti.</p>
+          <ul class="mt-7 flex flex-wrap gap-2" aria-label="Le parti della pagina">
+            {parti.map((p) => <li class="rounded-full border border-gold/25 px-3.5 py-1.5 font-display text-[0.88rem] text-gold-light">{p}</li>)}
+          </ul>
+        </div>
+      </li>
+      <li class="card lg:col-span-2">
+        <Icon name="message-circle" class="size-7 text-gold" />
+        <h3 class="t-h3 mt-8">Un pulsante per farti contattare.</h3>
+        <p class="mt-3 text-ivory/75">Chiamata, WhatsApp, prenotazione o preventivo: quello che ti serve.</p>
+      </li>
+      <li class="card lg:col-span-2">
+        <Icon name="map-pin" class="size-7 text-gold" />
+        <h3 class="t-h3 mt-8">Collegato alla tua scheda Google.</h3>
+        <p class="mt-3 text-ivory/75">Chi ti cerca trova le stesse informazioni ovunque.</p>
+      </li>
+      <li class="card lg:col-span-3">
+        <Icon name="search" class="size-7 text-gold" />
+        <h3 class="t-h3 mt-8">Le basi per Google.</h3>
+        <p class="mt-3 text-ivory/75">Titolo e descrizione scritti per farti trovare.</p>
+      </li>
+      <li class="card lg:col-span-3">
+        <Icon name="video" class="size-7 text-gold" />
+        <h3 class="t-h3 mt-8">Due videochiamate da 30 minuti.</h3>
+        <p class="mt-3 text-ivory/75">Una all’inizio, una alla consegna. Più un giro di modifiche.</p>
+      </li>
+    </ul>
+
+    <div class="mt-20 grid gap-12 md:grid-cols-2 md:gap-16">
+      <div class="border-t border-gold/30 pt-7">
+        <h3 class="t-h3 text-gold-light">A parte, e te lo dico prima di partire</h3>
+        <p class="mt-4 text-ivory/80">Il dominio (il tuo indirizzo .it o .com) è intestato a te. L’hosting puoi averlo tu, oppure lo gestisco io con un canone di manutenzione. L’informativa privacy, se ti serve, è a parte.</p>
+      </div>
+      <div class="border-t border-gold/30 pt-7">
+        <h3 class="t-h3 text-gold-light">Cosa mi serve da te</h3>
+        <p class="mt-4 text-ivory/80">Testi, foto e logo. Se ti mancano i testi, li scriviamo insieme partendo dalle risposte del questionario.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .card {
+    --mx: 50%; --my: 0%;
+    position: relative; isolation: isolate; overflow: hidden;
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+    border-radius: 1.75rem;
+    background: linear-gradient(180deg, #16141c, #100f15);
+    box-shadow: inset 0 0 0 1px rgb(214 178 106 / 0.13);
+    transition: box-shadow 0.5s var(--ease-out-soft), transform 0.6s var(--ease-out-soft);
+  }
+  .card::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; opacity: 0;
+    background: radial-gradient(420px circle at var(--mx) var(--my), rgb(214 178 106 / 0.14), transparent 60%);
+    transition: opacity 0.5s var(--ease-out-soft);
+  }
+  @media (hover: hover) {
+    .card:hover { box-shadow: inset 0 0 0 1px rgb(214 178 106 / 0.38); transform: translateY(-3px); }
+    .card:hover::before { opacity: 1; }
+  }
+</style>
+<script>
+  document.querySelectorAll<HTMLElement>('.bento .card').forEach((c) => {
+    c.addEventListener('pointermove', (e) => {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      c.style.setProperty('--my', `${e.clientY - r.top}px`);
+    }, { passive: true });
+  });
+</script>

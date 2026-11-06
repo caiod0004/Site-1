@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import Monogram from '../components/Monogram.astro';
+import { LEGALE } from '../config';
+---
+<Base title="Cookie policy | Caio Machado" description="Cookie policy del sito di Caio Machado, siti per piccole attività." path="/cookie" noindex>
+  <main id="contenuto" class="wrap min-h-[80vh] py-16">
+    <a href="/" class="inline-flex min-h-11 items-center gap-3 font-display"><Monogram /> Torna alla pagina principale</a>
+    <h1 class="t-h2 mt-14">Cookie policy</h1>
+    <p class="mt-8 max-w-[40rem] text-ivory/80"><span class="placeholder">[INFORMATIVA DA INSERIRE – Iubenda]</span></p>
+    <p class="mt-16 text-[0.85rem] text-mist">{LEGALE}</p>
+  </main>
+</Base>

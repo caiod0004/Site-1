@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import caterinho from '../assets/portfolio_caterinho.jpg';
+import studio from '../assets/portfolio_studio_legale.jpg';
+import Icon from './Icon.astro';
+import { STUDIO_LEGALE_URL } from '../config';
+const lavori = [
+  { nome: 'Caterinho', url: 'https://caterinho.it', host: 'caterinho.it', desc: 'La mia attività a Bergamo: catering ed esperienze.', stato: 'Online', img: caterinho, alt: 'Schermata del sito di Caterinho: il team davanti al locale, con il logo e il motto “Celebra di più. Preoccupati di meno.”' },
+  { nome: 'Studio Legale De Moura Machado', url: STUDIO_LEGALE_URL, host: STUDIO_LEGALE_URL ? STUDIO_LEGALE_URL.replace(/^https?:\/\//, '').replace(/\/$/, '') : '', desc: 'Sito istituzionale in due lingue.', stato: STUDIO_LEGALE_URL ? 'Online' : 'In pubblicazione', img: studio, alt: 'Schermata del sito dello Studio Legale De Moura Machado: pagina in portoghese sul riconoscimento del diploma brasiliano in Italia.' },
+];
+---
+<section id="lavori" class="on-paper bg-paper text-paper-ink" aria-labelledby="lavori-t">
+  <div class="wrap pb-24 pt-14 sm:pb-32 lg:pt-16">
+    <p class="t-kicker text-gold-deep">Lavori già fatti</p>
+    <h2 id="lavori-t" class="t-h2 mt-4">Pochi, veri, <span class="em">recenti.</span></h2>
+    <div class="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-10">
+      {lavori.map((l) => (
+        <article class="group">
+          <div class="browser overflow-hidden rounded-[1.1rem] bg-paper-ink shadow-[0_40px_80px_-40px_rgb(26_23_18/0.55),0_0_0_1px_rgb(26_23_18/0.9)] transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:-translate-y-1">
+            <div class="flex h-10 items-center gap-3 px-4" aria-hidden="true">
+              <span class="flex gap-1.5"><i class="size-2.5 rounded-full bg-ivory/25"></i><i class="size-2.5 rounded-full bg-ivory/25"></i><i class="size-2.5 rounded-full bg-ivory/25"></i></span>
+              <span class="mx-auto flex h-6 min-w-0 max-w-[70%] flex-1 items-center justify-center rounded-md bg-ivory/8 px-3 font-display text-[0.75rem] text-ivory/60">
+                {l.host ? l.host : '[INDIRIZZO DEL SITO]'}
+              </span>
+              <span class="w-[3.25rem]"></span>
+            </div>
+            <div class="aspect-[16/7.4] overflow-hidden">
+              <Image src={l.img} alt={l.alt} widths={[480, 760, 1140, 1520]} sizes="(min-width: 1024px) 38rem, 92vw" class="block h-full w-full object-cover object-top transition-transform duration-[1.4s] ease-[var(--ease-out-soft)] group-hover:scale-[1.025]" loading="lazy" />
+            </div>
+          </div>
+          <div class="mt-6 flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
+            <div>
+              <h3 class="t-h3">{l.nome}</h3>
+              <p class="mt-1.5 text-paper-muted">{l.desc}</p>
+            </div>
+            {l.url ? (
+              <a href={l.url} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-2 rounded-full border border-paper-ink/25 px-4 font-display text-[0.95rem] transition-colors hover:border-paper-ink hover:bg-paper-ink hover:text-paper">
+                <span class="size-2 rounded-full bg-[#2f8a57]" aria-hidden="true"></span>{l.stato}: {l.host}<Icon name="arrow-up-right" class="size-4" /><span class="sr-only">(si apre in una nuova scheda)</span>
+              </a>
+            ) : (
+              <span class="inline-flex min-h-11 items-center gap-2 rounded-full border border-dashed border-paper-ink/35 px-4 font-display text-[0.95rem] text-paper-muted">
+                <span class="size-2 rounded-full bg-gold-deep" aria-hidden="true"></span>{l.stato}
+              </span>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

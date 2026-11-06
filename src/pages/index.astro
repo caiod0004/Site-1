@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import TearEdge from '../components/TearEdge.astro';
+import Recognize from '../components/Recognize.astro';
+import Problem from '../components/Problem.astro';
+import Offer from '../components/Offer.astro';
+import Steps from '../components/Steps.astro';
+import Work from '../components/Work.astro';
+import Ladder from '../components/Ladder.astro';
+import About from '../components/About.astro';
+import Fit from '../components/Fit.astro';
+import Price from '../components/Price.astro';
+import Where from '../components/Where.astro';
+import Faq from '../components/Faq.astro';
+import Closing from '../components/Closing.astro';
+import Footer from '../components/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+import { SEO, FAQ } from '../data/content';
+import { SITE_URL } from '../config';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    '@id': `${SITE_URL}/#servizio`,
+    name: 'Caio Machado · siti per attività',
+    alternateName: 'Proverbi 123',
+    description: SEO.description,
+    url: `${SITE_URL}/`,
+    image: `${SITE_URL}/og-image.jpg`,
+    founder: { '@type': 'Person', name: 'Caio Machado' },
+    legalName: 'Proverbi 123 di Freitas de Moura Machado Caio',
+    vatID: 'IT04668830161',
+    address: { '@type': 'PostalAddress', addressLocality: 'Bergamo', addressRegion: 'BG', addressCountry: 'IT' },
+    areaServed: [{ '@type': 'Country', name: 'Italia' }, { '@type': 'City', name: 'Bergamo' }],
+    priceRange: '197 €',
+    makesOffer: {
+      '@type': 'Offer',
+      name: 'Sito web di una pagina, online in 7 giorni lavorativi',
+      price: '197',
+      priceCurrency: 'EUR',
+      availability: 'https://schema.org/LimitedAvailability',
+      itemOffered: { '@type': 'Service', name: 'Sito di una pagina per piccole attività', serviceType: 'Realizzazione sito web' },
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a.replace('[PREZZO DEL CANONE]', '').trim() },
+    })),
+  },
+];
+---
+<Base title={SEO.title} description={SEO.description} jsonLd={jsonLd}>
+  <Header />
+  <main id="contenuto">
+    <Hero />
+    <Marquee />
+    <TearEdge bg="bg-ink-2" />
+    <Recognize />
+    <Problem />
+    <Offer />
+    <Steps />
+    <TearEdge flip overlap />
+    <Work />
+    <Ladder />
+    <About />
+    <Fit />
+    <Price />
+    <Where />
+    <Faq />
+    <Closing />
+  </main>
+  <Footer />
+  <MobileBar />
+</Base>

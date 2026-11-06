@@ -1,0 +1,9 @@
+---
+import { Image } from 'astro:assets';
+import tear from '../assets/tear_edge.png';
+interface Props { flip?: boolean; bg?: string; overlap?: boolean }
+const { flip = false, bg = 'bg-ink', overlap = false } = Astro.props;
+---
+<div class={`pointer-events-none relative z-10 -mb-px leading-none ${bg} ${overlap ? '-mt-[clamp(2rem,7vw,7rem)] !bg-transparent' : ''}`} aria-hidden="true">
+  <Image src={tear} alt="" widths={[800, 1600, 2400]} sizes="100vw" format="webp" class={`block h-auto w-full ${flip ? '-scale-x-100' : ''}`} loading="lazy" />
+</div>

@@ -1,0 +1,30 @@
+---
+import Monogram from './Monogram.astro';
+import { LEGALE, WHATSAPP_URL, EMAIL } from '../config';
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-gold/15 bg-ink pb-28 pt-14 text-[0.95rem] lg:pb-14">
+  <div class="wrap grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
+    <div>
+      <div class="flex items-center gap-3">
+        <Monogram />
+        <p class="font-display"><span class="font-medium">Caio Machado</span><span class="text-mist"> · Siti per piccole attività</span></p>
+      </div>
+      <p class="mt-4 text-mist">Online in tutta Italia, di persona a Bergamo</p>
+      <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+        <li>{WHATSAPP_URL ? <a class="inline-flex min-h-11 items-center underline decoration-gold/50 underline-offset-4 hover:text-gold-light" href={WHATSAPP_URL} target="_blank" rel="noopener">WhatsApp</a> : <span class="inline-flex min-h-11 items-center text-mist"><span class="placeholder">[WHATSAPP]</span></span>}</li>
+        <li>{EMAIL ? <a class="inline-flex min-h-11 items-center underline decoration-gold/50 underline-offset-4 hover:text-gold-light" href={`mailto:${EMAIL}`}>{EMAIL}</a> : <span class="inline-flex min-h-11 items-center text-mist"><span class="placeholder">[EMAIL]</span></span>}</li>
+      </ul>
+    </div>
+    <nav aria-label="Note legali">
+      <ul class="flex gap-2">
+        <li><a href="/privacy" class="inline-flex min-h-11 items-center rounded-full px-3 text-ivory/80 hover:text-gold-light">Privacy</a></li>
+        <li><a href="/cookie" class="inline-flex min-h-11 items-center rounded-full px-3 text-ivory/80 hover:text-gold-light">Cookie</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap mt-10">
+    <div class="hairline"></div>
+    <p class="mt-6 text-[0.85rem] text-mist">{LEGALE} · © {year}</p>
+  </div>
+</footer>

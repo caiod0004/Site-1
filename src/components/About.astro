@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import silk3 from '../assets/silk3.jpg';
+import Monogram from './Monogram.astro';
+---
+<section id="chi-sono" class="relative isolate overflow-hidden bg-ink" aria-labelledby="chi-t">
+  <Image src={silk3} alt="" widths={[640, 1200, 2000]} sizes="100vw" class="absolute inset-x-0 bottom-0 -z-10 h-[70%] w-full object-cover object-bottom opacity-55" loading="lazy" />
+  <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,#0b0a10_30%,rgb(11_10_16/0.7)_80%,#0b0a10_100%)]" aria-hidden="true"></div>
+  <div class="wrap grid gap-14 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <div class="relative grid aspect-[4/3] w-full max-w-[26rem] sm:aspect-[4/5] place-items-center rounded-[1.75rem] border border-dashed border-gold/45 bg-ink-2/70">
+        <div class="text-center">
+          <Monogram class="!size-16 !text-2xl" />
+          <p class="mt-4 font-display text-[0.95rem] text-gold-light">[FOTO DI CAIO]</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="t-kicker text-gold">Chi sono</p>
+      <h2 id="chi-t" class="t-h2 mt-4 max-w-[15ch]">Programmazione, grafica, <span class="em text-gold-light">e poi la cucina.</span></h2>
+      <div class="mt-10 max-w-[38rem] space-y-5 text-[1.08rem] text-ivory/80">
+        <p><strong class="font-semibold text-ivory">Mi chiamo Caio Machado.</strong> Sono arrivato in Italia dal Brasile con studi di programmazione alle spalle. Ho studiato grafica pubblicitaria (senza finire il percorso), ho frequentato l’Accademia di Brera studiando nuove tecnologie per l’arte e ho fatto uno stage di web design e programmazione.</p>
+        <p>Poi la vita mi ha portato in cucina: lavoro nella ristorazione dal 2009, a tempo pieno dal 2013. In Temakinho, dal 2013 al 2018, sono passato da capo bar a executive chef.</p>
+        <p>Oggi la mia attività principale è Caterinho, che sto facendo crescere insieme a dei soci. Sito, social e gestione di Caterinho li ho costruiti io, con l’aiuto dell’intelligenza artificiale: è il laboratorio dove provo tutto prima di proporlo a te.</p>
+        <p>Per questo il tempo che dedico ai siti degli altri è poco, e te lo dico chiaramente:</p>
+      </div>
+      <p class="mt-8 max-w-[22ch] font-serif text-[clamp(1.9rem,1.2rem+2.6vw,3.1rem)] italic leading-[1.08] text-gold-light">un sito a settimana, seguito da me.</p>
+    </div>
+  </div>
+</section>

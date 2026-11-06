@@ -1,0 +1,46 @@
+---
+import { Picture } from 'astro:assets';
+import heroSilk from '../assets/hero_silk.jpg';
+import PhoneMock from './PhoneMock.astro';
+import Icon from './Icon.astro';
+import { QUESTIONARIO_URL } from '../config';
+---
+<section id="top" class="relative isolate overflow-hidden pt-[4.5rem]">
+  <div class="hero-bg absolute inset-0 -z-10" aria-hidden="true">
+    <Picture src={heroSilk} formats={['avif', 'webp']} widths={[640, 960, 1440, 2400]} sizes="100vw" alt="" loading="eager" fetchpriority="high" class="h-full w-full object-cover object-[60%_50%]" />
+  </div>
+  <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(11_10_16/0.55)_0%,rgb(11_10_16/0.35)_40%,rgb(11_10_16/0.92)_100%)] lg:bg-[linear-gradient(90deg,rgb(11_10_16/0.9)_0%,rgb(11_10_16/0.55)_50%,rgb(11_10_16/0.2)_100%)]" aria-hidden="true"></div>
+
+  <div class="wrap grid items-center gap-14 pb-16 pt-10 sm:pt-16 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)] lg:gap-10 lg:pb-28 lg:pt-20">
+    <div>
+      <p class="t-kicker inline-flex items-center gap-2.5 rounded-full border border-gold/35 bg-ink/40 px-3.5 py-1.5 text-gold-light backdrop-blur-sm">
+        <span class="size-1.5 rounded-full bg-gold shadow-[0_0_10px_2px_rgb(214_178_106/0.7)]" aria-hidden="true"></span>
+        Un sito a settimana · posti limitati
+      </p>
+      <h1 class="t-hero mt-7 max-w-[13ch] text-ivory">
+        Il sito della tua attività, online in <span class="em gold-sheen">7&nbsp;giorni.</span> A&nbsp;197&nbsp;€.
+      </h1>
+      <p class="t-lead mt-7 max-w-[36rem] text-ivory/80">
+        Una pagina sola, fatta bene: chi sei, cosa offri, dove sei, come contattarti. Si legge bene dal telefono, si trova su Google, e chi la apre sa subito come chiamarti, scriverti o prenotare.
+      </p>
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <a href={QUESTIONARIO_URL} class="btn btn-gold">Richiedi il tuo sito <Icon name="arrow-right" /></a>
+        <a href="#cosa-ricevi" class="btn btn-ghost">Cosa ricevo?</a>
+      </div>
+      <ul class="mt-9 grid gap-2.5 text-[0.95rem] text-ivory/75 sm:flex sm:flex-wrap sm:gap-x-6">
+        {['197 € prezzo finale, nessuna IVA', 'dominio intestato a te', 'rimborso se non è online in tempo'].map((t) => (
+          <li class="flex items-center gap-2"><Icon name="check" class="size-4 text-gold" stroke={2} />{t}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="relative pt-4 lg:pt-0">
+      <PhoneMock />
+    </div>
+  </div>
+</section>
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.ready) .hero-bg { animation: slow-zoom 28s ease-in-out infinite alternate; transform-origin: 65% 50%; }
+  }
+  @keyframes slow-zoom { from { transform: scale(1); } to { transform: scale(1.09); } }
+</style>

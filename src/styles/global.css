@@ -1,0 +1,148 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0b0a10;
+  --color-ink-2: #14121a;
+  --color-ink-3: #1d1a24;
+  --color-ivory: #f3eee4;
+  --color-mist: #a39c90;
+  --color-gold: #d6b26a;
+  --color-gold-light: #ecd7a6;
+  --color-gold-deep: #7a5b1e;
+  --color-paper: #f4efe6;
+  --color-paper-2: #ebe4d6;
+  --color-paper-ink: #1a1712;
+  --color-paper-muted: #5c564c;
+
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    background: var(--color-ink);
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-ink);
+    color: var(--color-ivory);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection { background: var(--color-gold); color: var(--color-ink); }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .on-paper :focus-visible { outline-color: var(--color-gold-deep); }
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
+  p { text-wrap: pretty; }
+}
+
+@layer components {
+  /* Scala tipografica fluida */
+  .t-hero {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.65rem, 1.2rem + 6.4vw, 6.9rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+  .t-h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2rem, 1.1rem + 3.6vw, 4.25rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .t-h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.55rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .t-lead { font-size: clamp(1.08rem, 1rem + 0.35vw, 1.3rem); line-height: 1.55; }
+  .t-kicker {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  /* Parola in corsivo serif dentro i titoli */
+  .em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    padding-right: 0.04em;
+  }
+  /* Oro con riflesso che scorre (solo su fondo scuro) */
+  .gold-sheen {
+    color: var(--color-gold);
+    background: linear-gradient(100deg, #c9a253 0%, #d6b26a 35%, #fff1cc 48%, #d6b26a 60%, #b8934a 100%);
+    background-size: 250% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+  }
+  .ready .gold-sheen { animation: sheen 5.5s var(--ease-out-soft) infinite; }
+  @keyframes sheen {
+    0% { background-position: 100% 0; }
+    45%, 100% { background-position: 0% 0; }
+  }
+
+  .wrap { width: 100%; max-width: 78rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 2.5rem); }
+
+  /* Bottoni */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+    min-height: 3.25rem; padding: 0 1.6rem; border-radius: 999px;
+    font-family: var(--font-display); font-weight: 500; font-size: 1.02rem; letter-spacing: -0.01em;
+    transition: transform 0.35s var(--ease-out-soft), background-color 0.3s, color 0.3s, box-shadow 0.35s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn svg { width: 1.1em; height: 1.1em; transition: transform 0.35s var(--ease-out-soft); }
+  .btn:hover svg { transform: translateX(3px); }
+  .btn:active { transform: scale(0.98); }
+  .btn-gold {
+    background: var(--color-gold); color: var(--color-ink);
+    box-shadow: 0 0 0 1px rgb(255 241 204 / 0.35) inset, 0 10px 30px -12px rgb(214 178 106 / 0.6);
+  }
+  .btn-gold:hover { background: var(--color-gold-light); box-shadow: 0 0 0 1px rgb(255 241 204 / 0.5) inset, 0 14px 40px -12px rgb(214 178 106 / 0.75); }
+  .btn-ghost { color: var(--color-ivory); box-shadow: 0 0 0 1px rgb(243 238 228 / 0.28) inset; }
+  .btn-ghost:hover { box-shadow: 0 0 0 1px rgb(214 178 106 / 0.8) inset; color: var(--color-gold-light); }
+  .btn-ink { background: var(--color-paper-ink); color: var(--color-paper); }
+  .btn-ink:hover { background: #000; }
+
+  .placeholder {
+    font-family: var(--font-display); font-size: 0.85em; letter-spacing: 0.01em;
+    padding: 0.05em 0.45em; border-radius: 4px;
+    border: 1px dashed currentColor; opacity: 0.85; white-space: nowrap;
+  }
+
+  .hairline { height: 1px; background: linear-gradient(90deg, transparent, rgb(214 178 106 / 0.45), transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .gold-sheen { animation: none; background-position: 50% 0; }
+}

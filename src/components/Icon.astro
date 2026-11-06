@@ -1,0 +1,15 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+interface Props { name: string; class?: string; stroke?: number }
+const { name, class: cls = '', stroke = 1.5 } = Astro.props;
+const file = path.resolve('node_modules/lucide-static/icons', `${name}.svg`);
+let svg = fs.readFileSync(file, 'utf8');
+svg = svg
+  .replace(/<!--[\s\S]*?-->/g, '')
+  .replace(/class="[^"]*"/, `class="${cls}"`)
+  .replace(/stroke-width="[^"]*"/, `stroke-width="${stroke}"`)
+  .replace('<svg', '<svg aria-hidden="true" focusable="false"')
+  .replace(/width="24"/, '').replace(/height="24"/, '');
+---
+<Fragment set:html={svg} />

@@ -1,0 +1,52 @@
+---
+import Monogram from './Monogram.astro';
+import Icon from './Icon.astro';
+import { QUESTIONARIO_URL } from '../config';
+const nav = [
+  { href: '#cosa-ricevi', label: 'Cosa ricevi' },
+  { href: '#come-funziona', label: 'Come funziona' },
+  { href: '#lavori', label: 'Lavori' },
+  { href: '#prezzo', label: 'Prezzo' },
+];
+---
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500" data-scrolled="false">
+  <div class="wrap flex h-[4.5rem] items-center justify-between gap-4">
+    <a href="#top" class="flex min-h-11 items-center gap-3">
+      <Monogram />
+      <span class="font-display text-[0.98rem] leading-tight tracking-[-0.01em]">
+        <span class="font-medium text-ivory">Caio Machado</span>
+        <span class="hidden text-mist sm:inline"> · siti per attività</span>
+        <span class="sr-only">, torna all’inizio</span>
+      </span>
+    </a>
+    <nav aria-label="Sezioni della pagina" class="hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {nav.map((n) => (
+          <li><a href={n.href} class="inline-flex min-h-11 items-center rounded-full px-4 font-display text-[0.95rem] text-ivory/80 transition-colors hover:text-gold-light">{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <a href={QUESTIONARIO_URL} class="btn btn-gold !min-h-11 !px-5 !text-[0.95rem]">
+      <span class="sm:hidden">Richiedi il sito</span><span class="hidden sm:inline">Richiedi il tuo sito</span>
+      <Icon name="arrow-right" />
+    </a>
+  </div>
+</header>
+<style>
+  #site-header[data-scrolled='true'] {
+    background-color: rgb(11 10 16 / 0.62);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    box-shadow: 0 1px 0 rgb(214 178 106 / 0.16);
+  }
+</style>
+<script>
+  const h = document.getElementById('site-header')!;
+  let on = false;
+  const set = () => {
+    const s = window.scrollY > 24;
+    if (s !== on) { on = s; h.dataset.scrolled = String(s); }
+  };
+  set();
+  window.addEventListener('scroll', set, { passive: true });
+</script>
