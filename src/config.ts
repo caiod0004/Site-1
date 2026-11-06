@@ -4,7 +4,7 @@
 // ─────────────────────────────────────────────────────────────
 
 /** Dominio definitivo (senza / finale). Usato per canonical, sitemap, Open Graph. */
-export const SITE_URL = 'https://dominio-da-inserire.it';
+export const SITE_URL = 'https://caiomachado.it';
 
 /** Tutti i bottoni "Richiedi il tuo sito" puntano qui (Moduli Google). */
 export const QUESTIONARIO_URL = '#richiedi';

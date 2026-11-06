@@ -1,0 +1,5 @@
+# Cloudflare Pages – redirect interni
+# Temporaneo finché la nuova home non è pubblicata (poi togliere questa riga)
+/        /sito/  302
+# Il vecchio link hub di Instagram
+/link    /bio/   301
