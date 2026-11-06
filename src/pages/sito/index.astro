@@ -1,25 +1,25 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Header from '../../components/Header.astro';
-import Hero from '../../components/Hero.astro';
-import Marquee from '../../components/Marquee.astro';
-import TearEdge from '../../components/TearEdge.astro';
-import Recognize from '../../components/Recognize.astro';
-import Problem from '../../components/Problem.astro';
-import Offer from '../../components/Offer.astro';
-import Steps from '../../components/Steps.astro';
-import Work from '../../components/Work.astro';
-import Ladder from '../../components/Ladder.astro';
-import About from '../../components/About.astro';
-import Fit from '../../components/Fit.astro';
-import Price from '../../components/Price.astro';
-import Where from '../../components/Where.astro';
-import Faq from '../../components/Faq.astro';
-import Closing from '../../components/Closing.astro';
-import Footer from '../../components/Footer.astro';
-import MobileBar from '../../components/MobileBar.astro';
-import { SEO, FAQ } from '../../data/content';
-import { SITE_URL } from '../../config';
+import Header from '../../components/ui/Header.astro';
+import Hero from '../../components/sito/Hero.astro';
+import Marquee from '../../components/ui/Marquee.astro';
+import TearEdge from '../../components/ui/TearEdge.astro';
+import Recognize from '../../components/sito/Recognize.astro';
+import Problem from '../../components/sito/Problem.astro';
+import Offer from '../../components/sito/Offer.astro';
+import Steps from '../../components/sito/Steps.astro';
+import Work from '../../components/sito/Work.astro';
+import Ladder from '../../components/sito/Ladder.astro';
+import About from '../../components/sito/About.astro';
+import Fit from '../../components/sito/Fit.astro';
+import Price from '../../components/sito/Price.astro';
+import Where from '../../components/sito/Where.astro';
+import Faq from '../../components/sito/Faq.astro';
+import Closing from '../../components/sito/Closing.astro';
+import Footer from '../../components/ui/Footer.astro';
+import MobileBar from '../../components/ui/MobileBar.astro';
+import { SEO, FAQ, VANTAGGI } from '../../data/content';
+import { SITE_URL, QUESTIONARIO_URL } from '../../config';
 
 const jsonLd = [
   {
@@ -57,17 +57,19 @@ const jsonLd = [
   },
 ];
 ---
-<Base title={SEO.title} description={SEO.description} path="/sito/" jsonLd={jsonLd}>
-  <Header />
+<Base title={SEO.title} description={SEO.description} path="/sito/" jsonLd={jsonLd} theme="sito" themeColor="#1C1C19">
+  <Header sub="siti per attività"
+    nav={[{ href: '#cosa-ricevi', label: 'Cosa ricevi' }, { href: '#come-funziona', label: 'Come funziona' }, { href: '#lavori', label: 'Lavori' }, { href: '#prezzo', label: 'Prezzo' }]}
+    cta={{ href: QUESTIONARIO_URL, label: 'Richiedi il tuo sito', short: 'Richiedi' }} />
   <main id="contenuto">
     <Hero />
-    <Marquee />
+    <Marquee items={VANTAGGI} />
     <Recognize />
-    <TearEdge from="#f0f1dc" to="#211d1a" rim="rgb(240 241 220 / 0.18)" seed={11} />
+    <TearEdge from="var(--color-paper)" to="var(--color-ink)" rim="rgb(241 241 219 / 0.12)" seed={11} />
     <Problem />
     <Offer />
     <Steps />
-    <TearEdge from="#211d1a" to="#f0f1dc" seed={5} />
+    <TearEdge from="var(--color-ink)" to="var(--color-paper)" rim="rgb(205 180 108 / 0.35)" seed={5} />
     <Work />
     <Ladder />
     <About />
@@ -77,6 +79,6 @@ const jsonLd = [
     <Faq />
     <Closing />
   </main>
-  <Footer />
-  <MobileBar />
+  <Footer extra="Un progetto TocStory." />
+  <MobileBar href={QUESTIONARIO_URL} label="Richiedi il tuo sito" price="197 €" hideAt="richiedi" />
 </Base>

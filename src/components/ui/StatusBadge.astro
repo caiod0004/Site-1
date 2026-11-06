@@ -1,0 +1,8 @@
+---
+interface Props { stato: string }
+const { stato } = Astro.props;
+const tone = /USO/.test(stato) ? 'bg-[#2f8a57]' : /TEST/.test(stato) ? 'bg-coral' : 'bg-lime';
+---
+<span class="inline-flex items-center gap-2 rounded-full border border-current/20 px-3 py-1 font-display text-[0.78rem] font-medium tracking-[0.02em]">
+  <span class={`size-2 rounded-full ${tone}`} aria-hidden="true"></span>{stato}
+</span>

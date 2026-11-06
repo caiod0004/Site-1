@@ -1,0 +1,208 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Header from '../components/ui/Header.astro';
+import Footer from '../components/ui/Footer.astro';
+import MobileBar from '../components/ui/MobileBar.astro';
+import Icon from '../components/ui/Icon.astro';
+import Timeline from '../components/ui/Timeline.astro';
+import Faq from '../components/ui/Faq.astro';
+import StepForm from '../components/forms/StepForm.astro';
+import caio from '../assets/caio_pensieroso.jpg';
+import { FORMS } from '../data/forms';
+import { SEO_CONSULENZA, RICONOSCI_C, AREE, PASSI_C, CAMBIA, FIT_SI_C, FIT_NO_C, FAQ_CONSULENZA } from '../data/consulenza';
+import { SITE_URL, SESSIONE_1A1_URL, PREZZO_SESSIONE_1A1, PREZZO_SESSIONE_STRATEGICA, DURATA_SESSIONE_STRATEGICA, NOTA_IVA_CONSULENZA } from '../config';
+const iva = NOTA_IVA_CONSULENZA.replace(/\[([^\]]+)\]/, '<span class="placeholder whitespace-normal">[$1]</span>');
+const porte = [
+  { t: 'Il sito in 7 giorni – 197 €.', d: 'Una pagina chiara che ti fa trovare e contattare.', href: '/sito/' },
+  { t: 'Diagnosi Food Cost – 197 €.', d: 'Per i locali: quanto ti costa davvero ogni piatto e quale ti fa guadagnare.', href: '/diagnosi-food-cost/' },
+  { t: `Sessione 1:1 – ${PREZZO_SESSIONE_1A1}.`, d: 'Un’ora sul problema che hai adesso, con un piano scritto.', href: SESSIONE_1A1_URL },
+];
+const jsonLd = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service', name: 'Consulenza su misura per ristoranti e PMI', serviceType: 'Consulenza aziendale e controllo di gestione',
+    provider: { '@type': 'Person', name: 'Caio Machado', url: `${SITE_URL}/` }, areaServed: { '@type': 'Country', name: 'Italia' },
+    offers: { '@type': 'Offer', name: `Sessione strategica (${DURATA_SESSIONE_STRATEGICA})`, price: '250', priceCurrency: 'EUR' },
+  },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ_CONSULENZA.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title={SEO_CONSULENZA.title} description={SEO_CONSULENZA.description} path="/consulenza/" theme="consulenza" themeColor="#0C2530" jsonLd={jsonLd} og="/og-consulenza.jpg">
+  <Header sub="Consulenza su misura"
+    nav={[{ href: '#aree', label: 'Aree' }, { href: '#come-funziona', label: 'Come funziona' }, { href: '#investimento', label: 'Investimento' }, { href: '#faq', label: 'Domande' }]}
+    cta={{ href: '#candidatura', label: 'Candidati per un percorso', short: 'Candidati' }} />
+  <main id="contenuto">
+    <section id="top" class="on-paper relative isolate overflow-hidden bg-paper pt-[4.5rem] text-paper-ink">
+      <div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_85%_20%,rgb(143_208_232/0.16),transparent_60%),radial-gradient(50%_50%_at_10%_90%,rgb(228_96_108/0.08),transparent_60%)]" aria-hidden="true"></div>
+      <div class="wrap pb-20 pt-10 sm:pt-16 lg:pb-28 lg:pt-20">
+        <p class="t-kicker inline-flex items-center gap-2.5 rounded-full border border-lime/30 px-3.5 py-1.5 text-lime"><span class="size-1.5 rounded-full bg-lime" aria-hidden="true"></span>Per attività già avviate · pochi percorsi alla volta</p>
+        <h1 class="t-hero mt-7 max-w-[20ch] !text-[clamp(2.5rem,1.3rem+4.8vw,5.6rem)]">Un sistema su misura per la tua attività: <span class="em text-lime">numeri, clienti e tecnologia che lavorano insieme.</span></h1>
+        <p class="t-lead mt-7 max-w-[42rem] text-paper-muted">La tua attività c’è e lavora. Ma i numeri li guardi a fine mese, i clienti arrivano quando arrivano e gli strumenti non si parlano. Costruiamo insieme il sistema che ti manca: su misura, con un preventivo scritto prima di iniziare.</p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href="#candidatura" class="btn btn-lime text-[#0c2530]">Candidati per un percorso <Icon name="arrow-right" /></a>
+          <a href="#tre-porte" class="btn btn-ghost">Preferisci partire in piccolo? Vedi le tre porte d’ingresso</a>
+        </div>
+        <p class="mt-6 text-[0.95rem] text-paper-muted">Ristoranti e piccole e medie imprese · online in tutta Italia, di persona a Bergamo</p>
+      </div>
+    </section>
+
+    <section class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="ric-t">
+      <div class="wrap grid gap-12 py-24 sm:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <h2 id="ric-t" class="t-h2 lg:sticky lg:top-28 lg:self-start">Ti <span class="em text-lime">riconosci?</span></h2>
+        <ul class="border-b border-paper-ink/15">
+          {RICONOSCI_C.map((r) => <li class="border-t border-paper-ink/15 py-6 font-display text-[1.2rem] leading-snug sm:text-[1.4rem]">{r}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="bg-ink text-ivory" aria-labelledby="prob-t">
+      <div class="wrap py-24 sm:py-32">
+        <p class="t-kicker text-lime">Il vero problema</p>
+        <h2 id="prob-t" class="t-h2 mt-5 max-w-[18ch] !text-[clamp(2.2rem,1rem+4.4vw,5rem)]">Non ti manca un altro strumento. <span class="em text-lime">Ti manca un sistema.</span></h2>
+        <p class="t-lead mt-8 max-w-[40rem] text-ivory/80">Un sistema è quando i numeri, i clienti e gli strumenti sono collegati: sai ogni giorno cosa sta succedendo, sai cosa fare per primo, e una parte del lavoro gira anche quando non ci sei. Non si compra a scaffale: si costruisce sulla tua attività.</p>
+      </div>
+    </section>
+
+    <section id="aree" class="on-paper bg-paper text-paper-ink" aria-labelledby="aree-t">
+      <div class="wrap py-24 sm:py-32">
+        <p class="t-kicker text-lime">Su cosa lavoriamo</p>
+        <h2 id="aree-t" class="t-h2 mt-4">Tre aree, <span class="em text-lime">un solo sistema.</span></h2>
+        <ol class="mt-14 grid gap-4 lg:grid-cols-3">
+          {AREE.map((a, i) => (
+            <li class="rounded-[1.75rem] bg-paper-3 p-7 shadow-[inset_0_1px_0_rgb(255_255_255/0.06),0_30px_60px_-40px_rgb(0_0_0/0.8)] sm:p-9">
+              <div class="flex items-center justify-between"><span class="grid size-12 place-items-center rounded-full bg-lime text-[#0c2530]"><Icon name={a.icon} class="size-6" /></span><span class="font-display text-[2.4rem] font-medium leading-none text-paper-ink/20" aria-hidden="true">{i + 1}</span></div>
+              <h3 class="t-h3 mt-8"><span class="sr-only">{i + 1}. </span>{a.t}</h3>
+              <ul class="mt-5 space-y-3 text-paper-muted">{a.punti.map((p) => <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-lime" aria-hidden="true"></span>{p}</li>)}</ul>
+            </li>
+          ))}
+        </ol>
+        <p class="mt-10 max-w-[44rem] text-paper-muted">Non facciamo tutto per forza: partiamo da dove ti fa più male, e il resto si aggiunge solo se serve.</p>
+      </div>
+    </section>
+
+    <section id="come-funziona" class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="come-t" style="--tl-bg: var(--color-paper-2)">
+      <div class="wrap grid gap-14 py-24 sm:py-32 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+        <h2 id="come-t" class="t-h2 lg:sticky lg:top-28 lg:self-start">Come <span class="em text-lime">funziona</span></h2>
+        <Timeline items={PASSI_C} />
+      </div>
+    </section>
+
+    <section class="bg-ink text-ivory" aria-labelledby="cambia-t">
+      <div class="wrap py-24 sm:py-28">
+        <h2 id="cambia-t" class="t-h2">Cosa cambia <span class="em text-lime">alla fine del percorso</span></h2>
+        <ul class="mt-12 grid gap-4 sm:grid-cols-2">
+          {CAMBIA.map((c) => <li class="flex gap-4 rounded-[1.5rem] bg-ink-2 p-6"><Icon name="check" class="mt-0.5 size-6 shrink-0 text-lime" stroke={2} />{c}</li>)}
+        </ul>
+        <p class="mt-8 max-w-[44rem] font-serif text-[1.35rem] italic text-ivory/80">Non prometto numeri di fatturato: dipendono da troppe cose che non controllo. Prometto un sistema che funziona e che sai usare.</p>
+      </div>
+    </section>
+
+    <section class="on-paper bg-paper text-paper-ink" aria-labelledby="chi-t">
+      <div class="wrap grid items-center gap-14 py-24 sm:py-32 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+        <Image src={caio} alt="Caio Machado" widths={[400, 640]} sizes="(min-width: 1024px) 22rem, 80vw" class="aspect-[4/5] w-full max-w-[22rem] rounded-[2rem] object-cover object-top" loading="lazy" />
+        <div>
+          <p class="t-kicker text-lime">Chi sono</p>
+          <h2 id="chi-t" class="t-h2 mt-4">Due strade <span class="em text-lime">che si incontrano.</span></h2>
+          <div class="mt-8 max-w-[40rem] space-y-5 text-paper-muted">
+            <p><strong class="text-paper-ink">Mi chiamo Caio Machado.</strong> Lavoro nella ristorazione dal 2009, a tempo pieno dal 2013: in Temakinho, dal 2013 al 2018, sono passato da capo bar a executive chef, ho seguito le cucine di Milano e Roma e l’apertura di Londra Soho.</p>
+            <p>Prima della cucina c’erano la programmazione, la grafica pubblicitaria (senza finire il percorso), l’Accademia di Brera con le nuove tecnologie per l’arte e uno stage di web design. Oggi le due strade si incontrano.</p>
+            <p>La mia attività principale è Caterinho, a Bergamo, che sto facendo crescere insieme a dei soci. Sito, CRM, gestione dei social con TocStory e controllo dei numeri li ho costruiti lì, uno alla volta. Non è una vetrina di successi: è il laboratorio dove provo tutto prima di proporlo a te.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="perchi-t">
+      <div class="wrap py-24 sm:py-28">
+        <h2 id="perchi-t" class="t-h2">Per chi è, <span class="em text-lime">e per chi non è</span></h2>
+        <div class="mt-12 grid gap-5 md:grid-cols-2">
+          <div class="rounded-[1.75rem] bg-paper-3 p-7 shadow-[inset_0_0_0_1px_rgb(143_208_232/0.35)] sm:p-10">
+            <h3 class="t-h3 text-lime">È per te se</h3>
+            <ul class="mt-6 space-y-4">{FIT_SI_C.map((t) => <li class="flex gap-3"><span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-lime text-[#0c2530]"><Icon name="check" class="size-4" stroke={2.25} /></span>{t}</li>)}</ul>
+          </div>
+          <div class="rounded-[1.75rem] p-7 shadow-[inset_0_0_0_1px_rgb(241_241_219/0.15)] sm:p-10">
+            <h3 class="t-h3">Non è per te se</h3>
+            <ul class="mt-6 space-y-4 text-paper-muted">{FIT_NO_C.map((t) => <li class="flex gap-3"><span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-paper-ink/30"><Icon name="x" class="size-4" stroke={2} /></span>{t}</li>)}</ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="investimento" class="on-paper bg-paper text-paper-ink" aria-labelledby="inv-t">
+      <div class="wrap grid gap-12 py-24 sm:py-32 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <p class="t-kicker text-lime">Investimento</p>
+          <h2 id="inv-t" class="t-h2 mt-4">Un preventivo scritto, <span class="em text-lime">prima di iniziare.</span></h2>
+          <p class="mt-6 max-w-[34rem] text-paper-muted">Ogni percorso ha un preventivo scritto, costruito sulla tua attività e deciso prima di iniziare.</p>
+          <p class="mt-4 max-w-[34rem] text-paper-muted"><span class="placeholder whitespace-normal">[DA DECIDERE: se il costo della sessione si scala dal percorso quando parti.]</span></p>
+          <p class="mt-4 max-w-[34rem] text-paper-muted"><strong class="text-paper-ink">Garanzia:</strong> <span class="placeholder whitespace-normal">[DA DECIDERE – proposta: se dopo la sessione strategica non hai trovato valore, ti restituisco il costo della sessione.]</span></p>
+        </div>
+        <div class="grid gap-4">
+          <div class="rounded-[1.75rem] bg-lime p-7 text-[#0c2530] sm:p-9">
+            <p class="t-kicker">Si parte da qui</p>
+            <p class="mt-3 flex flex-wrap items-end gap-x-3"><span class="font-display text-[clamp(3.4rem,2.6rem+3vw,4.8rem)] font-medium leading-none tracking-[-0.05em]">{PREZZO_SESSIONE_STRATEGICA}</span><span class="pb-1.5">sessione strategica · {DURATA_SESSIONE_STRATEGICA}</span></p>
+            <p class="mt-4">Una giornata di lavoro insieme: guardiamo la tua attività, raccolgo tutte le informazioni e preparo il piano di sviluppo.</p>
+          </div>
+          <div class="rounded-[1.75rem] bg-paper-3 p-7 sm:p-9">
+            <p class="flex flex-wrap items-end gap-x-3"><span class="font-display text-[2.6rem] font-medium leading-none tracking-[-0.04em]">{PREZZO_SESSIONE_1A1}</span><span class="pb-1 text-paper-muted">l’ora</span></p>
+            <p class="mt-3 text-paper-muted">Dopo la sessione strategica il lavoro si fa a ore, oppure con un pacchetto su misura scritto nella proposta.</p>
+            <p class="mt-3 text-[0.9rem] text-paper-muted" set:html={iva} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-ink text-ivory" aria-labelledby="pochi-t">
+      <div class="wrap py-20">
+        <h2 id="pochi-t" class="t-h3 !text-[clamp(1.6rem,1.3rem+1.2vw,2.3rem)]">Pochi percorsi alla volta</h2>
+        <p class="mt-4 max-w-[44rem] text-ivory/80">Seguo io ogni percorso, e la mia attività viene prima. Per questo ne apro pochi alla volta: <span class="placeholder">[NUMERO]</span> per volta. Se il posto non c’è, ti metto in lista e ti dico quando si libera.</p>
+      </div>
+    </section>
+
+    <section id="tre-porte" class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="porte-t">
+      <div class="wrap py-24 sm:py-28">
+        <h2 id="porte-t" class="t-h2">Non sei ancora pronto? <span class="em text-lime">Parti da una delle tre porte</span></h2>
+        <p class="mt-5 max-w-[36rem] text-paper-muted">Non serve partire dal gradino più alto. Puoi cominciare da qui:</p>
+        <ul class="mt-12 grid gap-4 lg:grid-cols-3">
+          {porte.map((p) => (
+            <li class="flex flex-col rounded-[1.5rem] bg-paper-3 p-7">
+              <h3 class="t-h3">{p.t}</h3>
+              <p class="mt-3 text-paper-muted">{p.d}</p>
+              {p.href ? <a href={p.href} class="mt-auto inline-flex min-h-11 items-center gap-2 pt-6 font-display font-medium text-lime underline-offset-4 hover:underline">Scopri <Icon name="arrow-right" class="size-4" /></a>
+                : <p class="mt-auto pt-6"><span class="placeholder">[LINK DI PRENOTAZIONE SESSIONE 1:1]</span></p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <Faq items={FAQ_CONSULENZA} />
+
+    <section id="chiusura" class="relative isolate overflow-hidden bg-ink text-ivory" aria-labelledby="chiusura-t">
+      <div class="wrap flex flex-col items-center py-24 text-center sm:py-32">
+        <h2 id="chiusura-t" class="t-hero max-w-[16ch] !text-[clamp(2.4rem,1.3rem+4.4vw,5rem)]">Il tuo sistema non esiste ancora. <span class="em text-lime">Costruiamolo.</span></h2>
+        <p class="t-lead mt-7 max-w-[38rem] text-ivory/80">Raccontami la tua attività. Se ha senso lavorare insieme, ti preparo una proposta scritta. Se non ha senso, ti dico da dove partire.</p>
+        <a href="#candidatura" class="btn btn-lime mt-9 !min-h-14 !px-8 text-[#0c2530]">Candidati per un percorso <Icon name="arrow-right" /></a>
+      </div>
+    </section>
+
+    <section id="candidatura" class="on-paper bg-paper text-paper-ink" aria-labelledby="cand-t">
+      <div class="wrap grid gap-12 py-24 sm:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <div class="lg:sticky lg:top-28 lg:self-start">
+          <p class="t-kicker text-lime">Candidatura · 10 minuti</p>
+          <h2 id="cand-t" class="t-h2 mt-4">Raccontami <span class="em text-lime">la tua attività.</span></h2>
+          <p class="mt-6 max-w-[30rem] text-paper-muted">Mi racconti la tua attività, i numeri che conosci e dove vuoi arrivare. Leggo ogni risposta io.</p>
+        </div>
+        <div class="rounded-[1.75rem] bg-paper-3 p-6 sm:p-10">
+          <StepForm def={FORMS.candidatura} />
+          <div id="tre-porte-form" class="mt-8 rounded-2xl border border-lime/40 p-6" hidden>
+            <p class="font-display font-medium">Non serve partire dal gradino più alto.</p>
+            <ul class="mt-4 space-y-2">{porte.map((p) => <li>{p.href ? <a href={p.href} class="inline-flex min-h-11 items-center gap-2 text-lime underline underline-offset-4">{p.t}</a> : <span>{p.t} <span class="placeholder">[LINK]</span></span>}</li>)}</ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <MobileBar href="#candidatura" label="Candidati per un percorso" hideAt="candidatura" />
+</Base>

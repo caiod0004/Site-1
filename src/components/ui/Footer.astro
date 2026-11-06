@@ -1,0 +1,58 @@
+---
+import Monogram from './Monogram.astro';
+import { INSTAGRAM_URL, LINKEDIN_URL, WHATSAPP_URL, EMAIL } from '../../config';
+interface Props { extra?: string }
+const { extra } = Astro.props;
+const year = new Date().getFullYear();
+const pagine = [
+  { href: '/', label: 'Home' },
+  { href: '/diagnosi-food-cost/', label: 'Diagnosi Food Cost' },
+  { href: '/sito/', label: 'Sito in 7 giorni' },
+  { href: '/consulenza/', label: 'Consulenza su misura' },
+  { href: '/risorse/', label: 'Libro e risorse' },
+  { href: '/blog/', label: 'Diario dal laboratorio' },
+];
+const emailParts = EMAIL ? EMAIL.split('@') : [];
+const link = 'inline-flex min-h-11 items-center text-ivory/85 underline-offset-4 hover:text-lime-light hover:underline';
+---
+<footer class="bg-ink pb-28 pt-16 text-[0.95rem] text-ivory lg:pb-14">
+  <div class="wrap grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
+    <div>
+      <div class="flex items-center gap-3">
+        <Monogram />
+        <p class="font-display"><span class="font-medium">Caio Machado</span><span class="text-mist"> · Ristorazione e tecnologia</span></p>
+      </div>
+      <p class="mt-4 max-w-[28rem] text-mist">Online in tutta Italia. Incontri su appuntamento da Caterinho, a Bergamo.</p>
+      {extra && <p class="mt-3 text-mist">{extra}</p>}
+    </div>
+    <nav aria-label="Pagine del sito">
+      <p class="font-display font-medium">Pagine</p>
+      <ul class="mt-2">{pagine.map((p) => <li><a class={link} href={p.href}>{p.label}</a></li>)}</ul>
+    </nav>
+    <div>
+      <p class="font-display font-medium">Contatti</p>
+      <ul class="mt-2">
+        <li><a class={link} href={INSTAGRAM_URL} target="_blank" rel="noopener">Instagram</a></li>
+        <li>{LINKEDIN_URL ? <a class={link} href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn</a> : <span class="inline-flex min-h-11 items-center text-mist">LinkedIn <span class="placeholder ml-2">[URL LINKEDIN]</span></span>}</li>
+        <li>{WHATSAPP_URL ? <a class={link} href={WHATSAPP_URL} target="_blank" rel="noopener">WhatsApp</a> : <span class="inline-flex min-h-11 items-center text-mist">WhatsApp <span class="placeholder ml-2">[WHATSAPP]</span></span>}</li>
+        {EMAIL && <li><a class={link} href="#" data-mail-user={emailParts[0]} data-mail-domain={emailParts[1]}>Scrivimi un’email</a></li>}
+      </ul>
+    </div>
+  </div>
+  <div class="wrap mt-10">
+    <div class="hairline"></div>
+    <p class="mt-6 text-[0.85rem] leading-relaxed text-mist">
+      Caio Machado · Servizio erogato da Proverbi 123 di Freitas de Moura Machado Caio · P.IVA 04668830161 · Regime forfettario · © {year}
+    </p>
+    <ul class="mt-1 flex gap-2 text-[0.85rem]">
+      <li><a href="/privacy/" class="inline-flex min-h-11 items-center pr-3 text-ivory/80 hover:text-lime-light">Privacy</a></li>
+      <li><a href="/cookie/" class="inline-flex min-h-11 items-center px-3 text-ivory/80 hover:text-lime-light">Cookie</a></li>
+    </ul>
+  </div>
+</footer>
+<script>
+  // L'indirizzo email viene composto solo nel browser, per ridurre lo spam dei robot.
+  document.querySelectorAll<HTMLAnchorElement>('a[data-mail-user]').forEach((a) => {
+    a.href = `mailto:${a.dataset.mailUser}@${a.dataset.mailDomain}`;
+  });
+</script>

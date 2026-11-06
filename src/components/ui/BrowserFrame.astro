@@ -1,0 +1,15 @@
+---
+import { Image } from 'astro:assets';
+interface Props { img: ImageMetadata; alt: string; host?: string; sizes?: string }
+const { img, alt, host = '', sizes = '(min-width: 1024px) 38rem, 92vw' } = Astro.props;
+---
+<div class="overflow-hidden rounded-[1.1rem] bg-[#1b1b18] shadow-[0_40px_80px_-40px_rgb(0_0_0/0.6),0_0_0_1px_rgb(255_255_255/0.08)]">
+  <div class="flex h-10 items-center gap-3 px-4" aria-hidden="true">
+    <span class="flex gap-1.5"><i class="size-2.5 rounded-full bg-[#f1f1db]/25"></i><i class="size-2.5 rounded-full bg-[#f1f1db]/25"></i><i class="size-2.5 rounded-full bg-[#f1f1db]/25"></i></span>
+    <span class="mx-auto flex h-6 min-w-0 max-w-[70%] flex-1 items-center justify-center rounded-md bg-[#f1f1db]/10 px-3 font-display text-[0.75rem] text-[#f1f1db]/70">{host || '[INDIRIZZO DEL SITO]'}</span>
+    <span class="w-[3.25rem]"></span>
+  </div>
+  <div class="aspect-[16/7.4] overflow-hidden">
+    <Image src={img} alt={alt} widths={[480, 760, 1140, 1520]} sizes={sizes} class="block h-full w-full object-cover object-top" loading="lazy" />
+  </div>
+</div>

@@ -1,60 +1,68 @@
-# Landing "Sito in 7 giorni a 197 €" – Caio Machado
+# caiomachado.it
 
-Sito statico fatto con **Astro** + **Tailwind CSS**. Nessun backend, nessun PHP, nessun tracciamento attivo.
+Sito completo di Caio Machado, fatto con **Astro** + **Tailwind CSS** (build statica, niente backend).
 
-## Avviare in locale
+| Percorso | Pagina | Tema |
+|---|---|---|
+| `/` | Home: storia, strumenti, libro, Analisi del tuo caso | avorio + azzurro (`home`) |
+| `/sito/` | Sito in 7 giorni – 197 € | scuro + oro (`sito`) |
+| `/diagnosi-food-cost/` | Diagnosi Food Cost – 197 € | avorio + lime (`diagnosi`) |
+| `/consulenza/` | Consulenza su misura + candidatura | blu notte (`consulenza`) |
+| `/analisi/gestione/` · `/analisi/online/` · `/analisi/vendite/` | I tre moduli dell'Analisi | home |
+| `/analisi/grazie/` | Conferma dopo l'invio (non indicizzata) | home |
+| `/risorse/` | Libro, guida Food Cost, lista d'attesa | home |
+| `/bio/` | Link hub di Instagram (link con `utm_source=instagram&utm_medium=bio`) | home |
+| `/blog/` · `/blog/<articolo>/` · `/blog/categoria/<cat>/` · `/blog/rss.xml` | Diario dal laboratorio | home |
+| `/privacy/` · `/cookie/` | Testo da Iubenda (segnaposto) | – |
 
-Serve Node.js 20 o più recente.
+## Avviare e pubblicare
 
 ```bash
 npm install
-npm run dev        # apre http://localhost:4321
+npm run dev        # http://localhost:4321
+npm run build      # crea dist/
+npm run preview    # controlla la build
 ```
 
-## Build per la pubblicazione
+## Dove si cambia cosa
 
-```bash
-npm run build      # crea la cartella dist/
-npm run preview    # controlla la build in locale
-```
+- **Link, prezzi, endpoint, stato degli strumenti**: `src/config.ts` (un valore vuoto mostra un `[SEGNAPOSTO]`).
+- **Testi**: `src/data/*.ts` (home, diagnosi, consulenza, content = sito) e le pagine in `src/pages/`.
+- **Domande dei moduli**: `src/data/forms.ts`.
+- **Colori**: `src/styles/global.css` → blocco `@theme` (default = Diagnosi) e i blocchi `html[data-theme='home' | 'sito' | 'consulenza']`.
+- **Componenti condivisi**: `src/components/ui/` (header, footer, timeline, FAQ, cornice browser, libro 3D, badge, barra mobile, strappo di carta) e `src/components/forms/StepForm.astro`. Componenti della pagina Sito: `src/components/sito/`.
+- **Immagini**: `src/assets/` (ottimizzate in automatico). Loghi delle aziende: `src/assets/loghi/`. Copertina e logo Italian Method anche in `public/img/`.
+- **Immagini per i social**: `public/og-home.jpg`, `og-image.jpg` (sito), `og-diagnosi.jpg`, `og-consulenza.jpg`.
 
-Carica **il contenuto di `dist/`** su qualsiasi hosting (il tuo hosting via FTP, Netlify, Vercel…).
-Su Netlify/Vercel: comando di build `npm run build`, cartella di pubblicazione `dist`.
+## Blog
 
-## Dove cambiare link e segnaposto
+Un articolo = un file Markdown in `src/content/blog/`. Campi: `title`, `description`, `date`, `categoria` (`gestione-e-numeri`, `presenza-online`, `vendite`, `dietro-le-quinte`), `porta` (`gestione`, `online`, `vendite`: dove porta il bottone finale), `draft`. Con `draft: true` l'articolo non viene pubblicato. Il file di esempio è una bozza.
 
-Quasi tutto è in **`src/config.ts`**:
+## Moduli (Google Apps Script)
 
-| Costante | A cosa serve | Ora |
-|---|---|---|
-| `SITE_URL` | dominio definitivo (canonical, sitemap, Open Graph, robots) | `https://dominio-da-inserire.it` |
-| `QUESTIONARIO_URL` | tutti i bottoni "Richiedi il tuo sito" | `#richiedi` (mostra `[LINK AL QUESTIONARIO DA INSERIRE]`) |
-| `WHATSAPP_URL` | link WhatsApp nel footer | vuoto → `[WHATSAPP]` |
-| `EMAIL` | email nel footer | vuoto → `[EMAIL]` |
-| `STUDIO_LEGALE_URL` | link al sito dello Studio Legale | vuoto → "In pubblicazione", nessun link |
-| `PREZZO_CANONE` | prezzo del canone hosting (FAQ) | vuoto → `[PREZZO DEL CANONE]` |
-| `IUBENDA`, `GOOGLE_ANALYTICS` | banner cookie e statistiche | spenti |
+1. Segui le istruzioni in `docs/apps-script/Code.gs` (foglio Google + Apps Script + "App web").
+2. Incolla l'URL `/exec` in `src/config.ts`: `FORM_ENDPOINT_GESTIONE`, `FORM_ENDPOINT_ONLINE`, `FORM_ENDPOINT_VENDITE`, `FORM_ENDPOINT_CANDIDATURA`, `WAITLIST_ENDPOINT`, `GUIDA_ENDPOINT` (può essere lo stesso per tutti).
+3. Ogni invio finisce in una scheda del foglio (una per modulo) e arriva via email a `caio.d0004@gmail.com`.
 
-Altri punti:
+Finché un endpoint è vuoto il modulo lo dice chiaramente e propone di inviare le risposte via email (già compilate), senza perdere i dati. Anti-spam: campo trappola invisibile e blocco degli invii più veloci di 3 secondi. Ogni invio porta con sé porta d'ingresso, pagina, provenienza e utm.
 
-- **Testi** della pagina: un file per sezione in `src/components/`. FAQ e striscia dei vantaggi in `src/data/content.ts` (le FAQ alimentano anche i dati strutturati per Google).
-- **Foto di Caio**: `src/assets/caio_pensieroso.jpg` e `src/assets/caio_sushi.jpg` (prese dal progetto Canva "Fede Sale e Pepe"). Per cambiarle sostituisci i file mantenendo il nome.
-- **Logo TocStory**: `src/assets/tocstory_logo.png` (dal progetto Canva "LOGO TOC STORY").
-- **Colori**: in `src/styles/global.css`, blocco `@theme` (lime, crema, scuro caldo, celeste, corallo, taupe dal brand).
-- **Privacy e cookie**: `src/pages/privacy.astro` e `src/pages/cookie.astro` (testo da Iubenda).
-- **Immagine per i social**: `public/og-image.jpg` (1200×630).
+**Prima di collegare i moduli serve l'informativa privacy vera (Iubenda)**: i moduli raccolgono dati personali.
 
-## Privacy: come accendere Iubenda e Google Analytics
+## Pubblicazione su Cloudflare Pages + dominio Register.it
 
-1. In `src/config.ts` metti `IUBENDA.enabled = true` con `siteId` e `cookiePolicyId`.
-2. Solo dopo, se vuoi le statistiche: `GOOGLE_ANALYTICS.enabled = true` e `measurementId`.
-   Google Analytics viene caricato bloccato e lo attiva Iubenda **solo dopo il consenso** (finalità "misurazione").
+1. Cloudflare → Workers & Pages → Crea → Pages → collega il repository GitHub `caiod0004/Site-1`, branch `sito-completo` (o `main` dopo il merge).
+2. Impostazioni di build: comando `npm run build`, cartella `dist`, variabile `NODE_VERSION = 22`.
+3. **Dominio caiomachado.it** (consigliato): aggiungi il dominio a Cloudflare (piano gratuito) → Cloudflare ti dà due nameserver → su Register.it, *Gestione dominio → DNS e nameserver → Modifica nameserver*, inserisci quelli di Cloudflare. Poi in Pages → *Domini personalizzati* aggiungi `caiomachado.it` e `www.caiomachado.it`.
+   - In alternativa, senza cambiare nameserver: su Register.it crea un record `CNAME www → <progetto>.pages.dev` e un redirect della radice verso `www` (la radice nuda richiede i nameserver Cloudflare).
+4. **Redirect tra domini** (si fanno lato dominio, non nel codice):
+   - `caiomachado.eu` e `caiomachado.online` → **301** su `https://caiomachado.it` (Cloudflare: *Regole → Redirect Rules*, oppure il redirect di Register.it).
+   - `tocstory.it` e `tocstory.com` → per ora **302** su `https://caiomachado.it/#strumenti`.
+5. Redirect interni: `public/_redirects` (oggi: `/link → /bio/`).
 
-I font sono ospitati sul sito stesso (nessuna chiamata a Google Fonts).
+## Privacy
 
-## Note
+Niente tracciamento attivo. Iubenda e Google Analytics sono predisposti e spenti (`IUBENDA`, `GOOGLE_ANALYTICS` in `src/config.ts`): GA parte solo dopo il consenso. Font ospitati sul sito.
 
-- Le immagini in `src/assets/` vengono convertite in AVIF/WebP durante la build.
-- Animazioni disattivate automaticamente con "riduci movimento" del sistema.
-- Nessuna immagine Envato: gli sfondi a seta/onda dorata sono stati tolti e lo strappo di carta è disegnato in codice (`src/components/TearEdge.astro`), quindi non ci sono licenze di terzi da verificare.
-- Materiale di partenza (brief, copy, ricerca, bozza): `docs/` e `riferimento/`. Screenshot: `docs/screenshot/`.
+## Materiale di partenza
+
+`docs/pacchetto-v2/` (prompt, brief, copy, ricerca), `docs/` (pacchetto della prima landing), `riferimento/`. Screenshot: `docs/screenshot/sito-completo/`.

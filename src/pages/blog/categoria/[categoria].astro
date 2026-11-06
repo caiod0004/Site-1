@@ -1,0 +1,9 @@
+---
+import { CATEGORIE } from '../../../content.config';
+import Lista from '../index.astro';
+export function getStaticPaths() {
+  return Object.keys(CATEGORIE).map((categoria) => ({ params: { categoria } }));
+}
+const { categoria } = Astro.params as { categoria: keyof typeof CATEGORIE };
+---
+<Lista categoria={categoria} />

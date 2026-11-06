@@ -1,0 +1,17 @@
+---
+import Icon from '../ui/Icon.astro';
+import { QUESTIONARIO_URL, isPlaceholderUrl } from '../../config';
+---
+<section id="richiedi" class="relative isolate overflow-hidden bg-ink" aria-labelledby="chiusura-t">
+  <div class="pointer-events-none absolute left-1/2 top-[calc(100%-5.5rem)] -z-10 aspect-square w-[max(56rem,120vw)] -translate-x-1/2 rounded-full bg-lime sm:top-[calc(100%-7rem)]" aria-hidden="true"></div>
+  <div class="wrap flex flex-col items-center pb-40 pt-28 text-center sm:pb-52 sm:pt-36">
+    <p class="t-kicker inline-flex items-center gap-2.5 rounded-full border border-lime/35 px-3.5 py-1.5 text-lime-light">
+      <span class="size-1.5 rounded-full bg-lime" aria-hidden="true"></span>Un sito a settimana, non di più
+    </p>
+    <h2 id="chiusura-t" class="t-hero mt-8 max-w-[12ch]">Il tuo potrebbe essere <span class="em lime-sheen">il prossimo.</span></h2>
+    <p class="t-lead mt-8 max-w-[36rem] text-ivory/80">Non è una tecnica per metterti fretta. È il tempo che ho davvero, perché la mia attività viene prima. Preferisco consegnare un sito fatto bene a settimana piuttosto che cinque fatti di corsa.</p>
+    <a href={QUESTIONARIO_URL} class="btn btn-lime mt-10 !min-h-14 !px-8 !text-[1.08rem]">Compila il questionario <Icon name="arrow-right" /></a>
+    <p class="mt-4 text-[0.95rem] text-ivory/65">5 minuti · poi paghi e prenoti la prima chiamata</p>
+    {isPlaceholderUrl(QUESTIONARIO_URL) && <p class="mt-6 text-[0.85rem] text-lime-light"><span class="placeholder">[LINK AL QUESTIONARIO DA INSERIRE]</span></p>}
+  </div>
+</section>

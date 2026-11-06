@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+interface Props { href: string; label: string; price?: string; hideAt?: string; external?: boolean }
+const { href, label, price, hideAt = 'chiusura', external = false } = Astro.props;
+const ext = external ? { target: '_blank', rel: 'noopener' } : {};
+---
+<div id="mobile-bar" class="fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 lg:hidden" data-show="false" data-hide-at={hideAt}>
+  <a href={href} {...ext} class="btn btn-ink w-full !min-h-[3.4rem] justify-between !px-6 shadow-[0_18px_40px_-10px_rgb(0_0_0/0.6)]">
+    <span>{label}</span>
+    <span class="flex items-center gap-2">{price && <span class="font-serif text-[1.25rem] italic">{price}</span>}<Icon name="arrow-right" /></span>
+  </a>
+</div>
+<style>
+  #mobile-bar { transform: translateY(120%); transition: transform 0.5s var(--ease-out-soft); }
+  #mobile-bar[data-show='true'] { transform: none; }
+</style>
+<script>
+  const bar = document.getElementById('mobile-bar')!;
+  const hero = document.getElementById('top');
+  const end = document.getElementById(bar.dataset.hideAt || 'chiusura');
+  let pastHero = false, atEnd = false;
+  const sync = () => { const show = pastHero && !atEnd; bar.dataset.show = String(show); bar.inert = !show; };
+  if (hero) new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; sync(); }).observe(hero);
+  if (end) new IntersectionObserver(([e]) => { atEnd = e.isIntersecting; sync(); }, { threshold: 0.2 }).observe(end);
+  sync();
+</script>

@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/ui/Header.astro';
+import Footer from '../../components/ui/Footer.astro';
+import Icon from '../../components/ui/Icon.astro';
+import StepForm from '../../components/forms/StepForm.astro';
+import { FORMS } from '../../data/forms';
+import { PORTE } from '../../data/home';
+
+export function getStaticPaths() {
+  return [
+    { params: { porta: 'gestione' }, props: { i: 0 } },
+    { params: { porta: 'online' }, props: { i: 1 } },
+    { params: { porta: 'vendite' }, props: { i: 2 } },
+  ];
+}
+const { porta } = Astro.params as { porta: 'gestione' | 'online' | 'vendite' };
+const p = PORTE[Astro.props.i];
+const def = FORMS[porta];
+const titoli = { gestione: 'Analisi della tua gestione', online: 'Analisi della tua presenza online', vendite: 'Analisi delle tue vendite' };
+---
+<Base title={`${titoli[porta]} | Caio Machado`} description={`${p.titolo}: ${p.testo} Il modulo richiede 4 minuti. Leggo io ogni risposta.`} path={`/analisi/${porta}/`} theme="home" themeColor="#F1F1DB">
+  <Header nav={[{ href: '/#analisi', label: 'Le tre analisi' }]} />
+  <main id="contenuto">
+    <section id="top" class="on-paper bg-paper pt-[4.5rem] text-paper-ink">
+      <div class="wrap grid gap-12 pb-24 pt-10 sm:pt-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <div class="lg:sticky lg:top-28 lg:self-start">
+          <a href="/#analisi" class="inline-flex min-h-11 items-center gap-2 text-paper-muted underline-offset-4 hover:underline"><Icon name="arrow-left" class="size-4" />Le tre analisi</a>
+          <p class="t-kicker mt-6 text-lime-deep">Analisi del tuo caso · {p.titolo}</p>
+          <h1 class="t-h2 mt-4">“{p.frase}”</h1>
+          <p class="mt-6 max-w-[30rem] text-paper-muted">{p.testo}</p>
+          <p class="mt-4 max-w-[30rem] text-paper-muted">Ogni modulo richiede 4 minuti e contiene domande precise, così la prima chiamata parte dai tuoi dati e non da frasi generiche. Leggo io ogni risposta. Se non posso aiutarti, te lo dico.</p>
+        </div>
+        <div class="rounded-[1.75rem] bg-paper-3 p-6 shadow-[inset_0_0_0_1px_rgb(42_42_38/0.08)] sm:p-10">
+          <StepForm def={def} />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

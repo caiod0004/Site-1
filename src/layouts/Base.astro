@@ -2,6 +2,7 @@
 import '@fontsource-variable/space-grotesk/wght.css';
 import '@fontsource-variable/inter/wght.css';
 import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource/instrument-serif/400.css';
 import '../styles/global.css';
 import displayFont from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
 import { SITE_URL, IUBENDA, GOOGLE_ANALYTICS } from '../config';
@@ -12,15 +13,21 @@ interface Props {
   path?: string;
   noindex?: boolean;
   jsonLd?: object[];
+  /** Tema della pagina: 'home' | 'sito' | 'diagnosi' | 'consulenza' */
+  theme?: string;
+  /** Immagine Open Graph (percorso in /public), default /og-image.jpg */
+  og?: string;
+  ogType?: string;
+  themeColor?: string;
 }
-const { title, description, path = '/', noindex = false, jsonLd = [] } = Astro.props;
+const { title, description, path = '/', noindex = false, jsonLd = [], theme = 'diagnosi', og = '/og-image.jpg', ogType = 'website', themeColor = '#2A2A26' } = Astro.props;
 const canonical = new URL(path, SITE_URL).href;
-const ogImage = new URL('/og-image.jpg', SITE_URL).href;
+const ogImage = new URL(og, SITE_URL).href;
 const consentOn = IUBENDA.enabled && IUBENDA.siteId && IUBENDA.cookiePolicyId;
 const gaOn = consentOn && GOOGLE_ANALYTICS.enabled && GOOGLE_ANALYTICS.measurementId;
 ---
 <!doctype html>
-<html lang="it">
+<html lang="it" data-theme={theme}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -31,19 +38,20 @@ const gaOn = consentOn && GOOGLE_ANALYTICS.enabled && GOOGLE_ANALYTICS.measureme
     <meta name="theme-color" content="#211d1a" />
     <meta name="color-scheme" content="dark light" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Diario dal laboratorio" href="/blog/rss.xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="it_IT" />
-    <meta property="og:site_name" content="Caio Machado · siti per attività" />
+    <meta property="og:site_name" content="Caio Machado" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Il sito della tua attività, online in 7 giorni. A 197 €." />
+    <meta property="og:image:alt" content={title} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />

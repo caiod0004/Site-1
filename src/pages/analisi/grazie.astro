@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/ui/Header.astro';
+import Footer from '../../components/ui/Footer.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { TEMPO_RISPOSTA, INSTAGRAM_URL } from '../../config';
+---
+<Base title="Ricevuto | Caio Machado" description="Ho ricevuto il tuo caso." path="/analisi/grazie/" theme="home" themeColor="#F1F1DB" noindex>
+  <Header />
+  <main id="contenuto" class="on-paper bg-paper pt-[4.5rem] text-paper-ink">
+    <section class="wrap flex min-h-[70svh] flex-col justify-center py-20">
+      <span class="grid size-14 place-items-center rounded-full bg-lime"><Icon name="check" class="size-7" stroke={2} /></span>
+      <h1 class="t-hero mt-8 !text-[clamp(3rem,2rem+4vw,5.5rem)]">Ricevuto.</h1>
+      <p class="t-lead mt-6 max-w-[38rem] text-paper-muted">Leggo il tuo caso entro {TEMPO_RISPOSTA} e ti scrivo su WhatsApp o email con il passo giusto per te, anche se il passo giusto non sono io.</p>
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+        <a href="/" class="btn btn-ink">Torna alla home</a>
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="btn btn-line">Intanto seguimi su Instagram <Icon name="arrow-up-right" /></a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

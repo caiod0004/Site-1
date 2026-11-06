@@ -1,0 +1,246 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Header from '../components/ui/Header.astro';
+import Footer from '../components/ui/Footer.astro';
+import MobileBar from '../components/ui/MobileBar.astro';
+import Icon from '../components/ui/Icon.astro';
+import Marquee from '../components/ui/Marquee.astro';
+import Timeline from '../components/ui/Timeline.astro';
+import Faq from '../components/ui/Faq.astro';
+import StepForm from '../components/forms/StepForm.astro';
+import impiattamento from '../assets/impiattamento.jpg';
+import caio from '../assets/caio_pensieroso.jpg';
+import buffet from '../assets/piatti_buffet.jpg';
+import { FORMS } from '../data/forms';
+import { SEO_DIAGNOSI, SEGNALI, METODO, RICEVI, PASSI, PERCORSO, FIT_SI, FIT_NO, FAQ_DIAGNOSI } from '../data/diagnosi';
+import { FOODCOST_PRENOTAZIONE_URL as PREN, SITE_URL } from '../config';
+const ext = { target: '_blank', rel: 'noopener' };
+const jsonLd = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service', '@id': `${SITE_URL}/diagnosi-food-cost/#servizio`,
+    name: 'Diagnosi Food Cost', serviceType: 'Consulenza ristorazione: food cost, prezzi e menu engineering',
+    provider: { '@type': 'Person', name: 'Caio Machado', url: `${SITE_URL}/` },
+    areaServed: { '@type': 'Country', name: 'Italia' },
+    offers: { '@type': 'Offer', price: '197', priceCurrency: 'EUR', availability: 'https://schema.org/LimitedAvailability' },
+  },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ_DIAGNOSI.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title={SEO_DIAGNOSI.title} description={SEO_DIAGNOSI.description} path="/diagnosi-food-cost/" theme="diagnosi" themeColor="#F1F1DB" jsonLd={jsonLd} og="/og-diagnosi.jpg">
+  <Header sub="Consulenza ristorazione"
+    nav={[{ href: '#metodo', label: 'Il metodo' }, { href: '#cosa-ricevi', label: 'Cosa ricevi' }, { href: '#chi-sono', label: 'Chi sono' }, { href: '#prezzo', label: 'Prezzo' }]}
+    cta={{ href: PREN, label: 'Chiamata gratuita', short: 'Chiamata', external: true }} />
+  <main id="contenuto">
+    <!-- HERO -->
+    <section id="top" class="on-paper relative isolate overflow-hidden bg-paper pt-[4.5rem] text-paper-ink">
+      <div class="pointer-events-none absolute -right-40 top-24 -z-10 size-[38rem] rounded-full bg-lime/70 max-lg:hidden" aria-hidden="true"></div>
+      <div class="wrap grid items-center gap-12 pb-16 pt-8 sm:pt-14 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.8fr)] lg:pb-24 lg:pt-16">
+        <div>
+          <p class="t-kicker text-lime-deep">Diagnosi Food Cost · Caio Machado, consulente della ristorazione</p>
+          <h1 class="t-hero mt-6 max-w-[15ch] !text-[clamp(2.5rem,1.3rem+5vw,5.6rem)]">Il locale è pieno ma non ti resta niente? <span class="em mark">Consulenza ristorazione, piatto per piatto.</span></h1>
+          <p class="t-lead mt-7 max-w-[38rem] text-paper-muted">Con la Diagnosi Food Cost calcolo quanto ti costa davvero ogni piatto, quale ti fa guadagnare e quale ti fa lavorare gratis. Con i tuoi numeri, non con le medie di settore. Online, in tutta Italia.</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href={PREN} {...ext} class="btn btn-ink">Prenota la chiamata gratuita di 20 minuti <Icon name="arrow-right" /><span class="sr-only">(Google Calendar, si apre in una nuova scheda)</span></a>
+            <a href="#prezzo" class="btn btn-line">Vedi il prezzo</a>
+          </div>
+          <p class="mt-5 text-[0.95rem] text-paper-muted">Nessun impegno. Se la diagnosi non ti serve, te lo dico io.</p>
+          <ul class="mt-8 grid gap-2.5 text-[0.95rem] sm:flex sm:flex-wrap sm:gap-x-6">
+            {['Nella ristorazione dal 2009, a tempo pieno dal 2013', 'Ex executive chef di Temakinho fino al 2018', 'Avviamento di Poke Samba da zero'].map((t) => (
+              <li class="flex items-center gap-2"><span class="grid size-5 place-items-center rounded-full bg-lime"><Icon name="check" class="size-3.5" stroke={2.5} /></span>{t}</li>
+            ))}
+          </ul>
+        </div>
+        <figure class="relative mx-auto w-full max-w-[26rem]">
+          <Image src={impiattamento} alt="Impiattamento in cucina: una corona di tartare su un piatto bianco" widths={[400, 640, 700]} sizes="(min-width: 1024px) 26rem, 85vw" class="aspect-[4/5] w-full rounded-[2rem] object-cover object-[50%_60%] shadow-[0_40px_80px_-40px_rgb(42_42_38/0.6)]" loading="eager" fetchpriority="high" />
+          <figcaption class="absolute -bottom-5 left-6 rounded-2xl bg-paper-ink px-5 py-3 font-display text-paper"><span class="text-[0.8rem] text-lime">Il metodo</span><br /><span class="text-[1.25rem] font-medium">Costo → Prezzo → Menu</span></figcaption>
+        </figure>
+      </div>
+    </section>
+    <Marquee items={['Food cost', 'Prezzi di vendita', 'Menu engineering', 'Controllo di gestione', 'Margini piatto per piatto']} label="Di cosa si occupa la diagnosi" />
+
+    <!-- TI RICONOSCI -->
+    <section class="on-paper bg-paper text-paper-ink" aria-labelledby="segnali-t">
+      <div class="wrap py-24 sm:py-32">
+        <div class="grid gap-6 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <p class="t-kicker text-lime-deep">Ti riconosci?</p>
+            <h2 id="segnali-t" class="t-h2 mt-4">I segnali che il food cost del tuo ristorante è <span class="em">fuori controllo</span></h2>
+          </div>
+          <p class="max-w-[36rem] text-paper-muted lg:pt-10">Non è colpa tua. Nessuno ti ha insegnato a leggere il tuo locale come un’azienda. Ti hanno insegnato a cucinare, a servire, a tenere duro. I numeri, di solito, si imparano sbagliando.</p>
+        </div>
+        <ul class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {SEGNALI.map((s) => <li class="rounded-[1.5rem] bg-paper-3 p-7 font-serif text-[1.45rem] leading-[1.25] shadow-[inset_0_0_0_1px_rgb(42_42_38/0.08)]">“{s}”</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <!-- QUANTO TI COSTA -->
+    <section class="bg-ink text-ivory" aria-labelledby="costo-t">
+      <div class="wrap grid items-center gap-14 py-24 sm:py-32 lg:grid-cols-2 lg:gap-20">
+        <div>
+          <p class="t-kicker text-lime">Quanto ti costa non saperlo</p>
+          <h2 id="costo-t" class="t-h2 mt-4">Il problema non è quanto vendi. <span class="em text-lime">È quanto perdi senza vederlo.</span></h2>
+          <p class="mt-6 max-w-[34rem] text-ivory/80">Quella cifra non la trovi in nessuno scontrino. La trovi solo quando metti in fila ricetta, grammi, prezzo del fornitore e prezzo in carta.</p>
+        </div>
+        <figure class="rounded-[1.75rem] bg-ink-2 p-7 shadow-[inset_0_0_0_1px_rgb(216_230_78/0.25)] sm:p-10">
+          <figcaption class="t-kicker text-lime">Un esempio di calcolo</figcaption>
+          <dl class="mt-6 font-display text-[1.15rem]">
+            <div class="flex justify-between border-b border-ivory/10 py-4"><dt class="text-ivory/75">Perdita per piatto</dt><dd>0,80 €</dd></div>
+            <div class="flex justify-between border-b border-ivory/10 py-4"><dt class="text-ivory/75">× piatti al giorno</dt><dd>80</dd></div>
+            <div class="flex justify-between border-b border-ivory/10 py-4"><dt class="text-ivory/75">× giorni di apertura</dt><dd>26</dd></div>
+            <div class="flex items-end justify-between pt-6"><dt class="text-lime">Spariti in un mese</dt><dd class="text-[clamp(2.4rem,1.6rem+3vw,3.6rem)] font-medium leading-none tracking-[-0.04em] text-lime">1.664 €</dd></div>
+          </dl>
+          <p class="mt-6 text-[0.9rem] text-ivory/65">Esempio di calcolo, non un dato medio del settore.</p>
+        </figure>
+      </div>
+    </section>
+
+    <!-- METODO -->
+    <section id="metodo" class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="metodo-t">
+      <div class="wrap py-24 sm:py-32">
+        <p class="t-kicker text-lime-deep">Il metodo</p>
+        <h2 id="metodo-t" class="t-h2 mt-4 max-w-[22ch]">Controllo di gestione per ristoranti, in tre passi: <span class="em">Costo, Prezzo, Menu</span></h2>
+        <ol class="mt-14 grid gap-4 lg:grid-cols-3">
+          {METODO.map((m, i) => (
+            <li class="relative overflow-hidden rounded-[1.75rem] bg-paper-3 p-7 sm:p-9">
+              <span class="font-display text-[4.5rem] font-medium leading-none tracking-[-0.06em] text-lime-deep/30" aria-hidden="true">{i + 1}</span>
+              <h3 class="t-h3 mt-6 !text-[1.9rem]">{m.t}</h3>
+              <p class="mt-3 text-paper-muted">{m.d}</p>
+            </li>
+          ))}
+        </ol>
+        <p class="mt-10 max-w-[44rem] text-paper-muted">Non è teoria. È lo stesso metodo con cui calcolo il food cost di ogni piatto nel mio laboratorio di Bergamo.</p>
+      </div>
+    </section>
+
+    <!-- COSA RICEVI -->
+    <section id="cosa-ricevi" class="on-paper bg-paper text-paper-ink" aria-labelledby="ricevi-t">
+      <div class="wrap grid gap-12 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div class="lg:sticky lg:top-28 lg:self-start">
+          <p class="t-kicker text-lime-deep">Cosa ricevi</p>
+          <h2 id="ricevi-t" class="t-h2 mt-4">Cosa c’è dentro la <span class="em">Diagnosi Food Cost</span></h2>
+          <p class="mt-6 text-paper-muted">Non una chiacchierata generica. Numeri tuoi, scritti, con delle decisioni da prendere.</p>
+          <Image src={buffet} alt="Piatti di un buffet preparato in cucina" widths={[400, 700]} sizes="(min-width: 1024px) 24rem, 0px" class="mt-10 aspect-[4/3] w-full rounded-[1.5rem] object-cover max-lg:hidden" loading="lazy" />
+        </div>
+        <div>
+          <ul class="border-b border-paper-ink/15">
+            {RICEVI.map((r) => <li class="flex gap-4 border-t border-paper-ink/15 py-5"><span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-lime"><Icon name="check" class="size-4" stroke={2.25} /></span><span class="text-[1.05rem]">{r}</span></li>)}
+          </ul>
+          <p class="mt-6 flex gap-4 rounded-2xl bg-lime p-5"><Icon name="plus" class="mt-0.5 size-6 shrink-0" stroke={2} /><span><strong>In regalo:</strong> il foglio di calcolo del food cost, per continuare da solo dopo la diagnosi.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COME FUNZIONA -->
+    <section id="come-funziona" class="bg-ink text-ivory" aria-labelledby="come-t" style="--tl-bg: var(--color-ink)">
+      <div class="wrap grid gap-14 py-24 sm:py-32 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+        <div class="lg:sticky lg:top-28 lg:self-start">
+          <p class="t-kicker text-lime">Come funziona</p>
+          <h2 id="come-t" class="t-h2 mt-4">Come funziona la consulenza per ristoranti, <span class="em text-lime">passo per passo</span></h2>
+        </div>
+        <Timeline items={PASSI} />
+      </div>
+    </section>
+
+    <!-- CHI SONO -->
+    <section id="chi-sono" class="on-paper bg-paper text-paper-ink" aria-labelledby="chi-t">
+      <div class="wrap grid gap-14 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <figure class="lg:sticky lg:top-28 lg:self-start">
+          <Image src={caio} alt="Caio Machado" widths={[400, 640, 830]} sizes="(min-width: 1024px) 26rem, 85vw" class="aspect-[4/5] w-full max-w-[26rem] rounded-[2rem] object-cover object-top" loading="lazy" />
+          <figcaption class="mt-4 font-display text-paper-muted">Caio Machado</figcaption>
+        </figure>
+        <div>
+          <p class="t-kicker text-lime-deep">Chi sono</p>
+          <h2 id="chi-t" class="t-h2 mt-4">Sono partito da zero. <span class="em">Per questo so dove si perdono i soldi.</span></h2>
+          <div class="mt-8 max-w-[40rem] space-y-5 text-paper-muted">
+            <p><strong class="text-paper-ink">Mi chiamo Caio Machado.</strong> Sono uno chef brasiliano, un imprenditore della ristorazione e oggi un consulente per ristoranti che parte dai numeri.</p>
+            <p>Ho iniziato dietro un bancone: a Londra nel 2009, poi per qualche mese a San Paolo, dove ho imparato tutte le tecniche della caipirinha. Dopo ho studiato e lavorato nella programmazione. Nel 2013 sono entrato da Temakinho, sul Naviglio a Milano, come capo bar.</p>
+            <p>La cucina era la mia passione da quando avevo 9 anni. Temakinho se n’è accorta e mi ha proposto un percorso di crescita: in un anno e mezzo sono passato da aiuto cuoco a executive chef. Con un master in marketing e management della ristorazione a Roma ho capito che a quasi tutti i cuochi mancava la stessa abilità: la confidenza con i numeri e con la tecnologia. Così ho portato il computer dentro le cucine di Temakinho Roma.</p>
+            <p>Da lì sono diventato executive chef responsabile delle cucine di Milano (Naviglio e Brera) e di Roma (Monti e Borgo). Ho supervisionato Ibiza, avviato il catering per eventi e il locale di Magenta, aperto da executive chef il ristorante di Londra Soho. Sono rimasto fino al 2018, l’anno in cui Temakinho, nata a Milano nel 2012, è stata acquisita dal gruppo Cigierre.</p>
+            <p>Poi sono passato dall’altra parte del tavolo: una piccola quota in Cacau Temakeria, dove ho seguito burocrazia e numeri, e l’avviamento da zero di Poke Samba, da 50 metri quadri a un laboratorio centrale e un secondo punto vendita in un anno.</p>
+            <p>Con il Covid mi sono ritrovato senza lavoro e ho ricominciato dalla cucina di casa. Oggi è Caterinho, con un laboratorio su strada in Via Sant’Alessandro, nel centro di Bergamo. Lo sto costruendo un passo alla volta, con lo stesso metodo che propongo a te: ogni piatto ha il suo food cost calcolato.</p>
+          </div>
+          <p class="mt-8 font-serif text-[clamp(1.7rem,1.2rem+1.8vw,2.6rem)] italic leading-[1.1]">Non serve lavorare di più. Serve sapere dove stai lavorando gratis.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERCORSO -->
+    <section class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="percorso-t">
+      <div class="wrap py-24 sm:py-28">
+        <p class="t-kicker text-lime-deep">Il percorso</p>
+        <h2 id="percorso-t" class="t-h2 mt-4">Quello che ho costruito, <span class="em">non quello che prometto</span></h2>
+        <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {PERCORSO.map((p) => <li class="rounded-[1.5rem] bg-paper-3 p-7"><p class="font-display text-[clamp(2rem,1.5rem+1.6vw,2.8rem)] font-medium leading-none tracking-[-0.04em]">{p.n}</p><p class="mt-4 text-paper-muted">{p.d}</p></li>)}
+        </ul>
+        <p class="mt-8 max-w-[44rem] text-paper-muted">Le testimonianze arriveranno dalle prime diagnosi concluse, con il consenso dei clienti. Nessuna recensione scritta da noi.</p>
+      </div>
+    </section>
+
+    <!-- PER CHI -->
+    <section class="on-paper bg-paper text-paper-ink" aria-labelledby="perchi-t">
+      <div class="wrap py-24 sm:py-28">
+        <h2 id="perchi-t" class="t-h2 max-w-[24ch]">Per chi è questa consulenza: <span class="em">ristoranti, trattorie, pizzerie, bar con cucina, delivery</span></h2>
+        <div class="mt-12 grid gap-5 md:grid-cols-2">
+          <div class="rounded-[1.75rem] bg-lime p-7 sm:p-10">
+            <h3 class="t-h3">È per te se…</h3>
+            <ul class="mt-6 space-y-4">{FIT_SI.map((t) => <li class="flex gap-3"><span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-paper-ink text-lime"><Icon name="check" class="size-4" stroke={2.25} /></span>{t}</li>)}</ul>
+          </div>
+          <div class="rounded-[1.75rem] p-7 shadow-[inset_0_0_0_1px_rgb(42_42_38/0.15)] sm:p-10">
+            <h3 class="t-h3">Non è per te se…</h3>
+            <ul class="mt-6 space-y-4 text-paper-muted">{FIT_NO.map((t) => <li class="flex gap-3"><span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-paper-ink/30"><Icon name="x" class="size-4" stroke={2} /></span>{t}</li>)}</ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREZZO -->
+    <section id="prezzo" class="on-paper bg-lime text-paper-ink" aria-labelledby="prezzo-t">
+      <div class="wrap grid gap-12 py-24 sm:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+        <div>
+          <p class="t-kicker">Prezzo</p>
+          <h2 id="prezzo-t" class="t-h2 mt-4">Consulenza ristorazione: <span class="em">prezzi chiari, scritti qui</span></h2>
+          <p class="mt-6 max-w-[34rem]">Quanto costa un consulente per ristoranti? Quasi nessuno lo scrive: devi chiamare per scoprirlo. Io lo scrivo.</p>
+          <p class="mt-4 max-w-[34rem] text-paper-ink/80">Nell’esempio di prima, 197 € sono meno di quanto un menu sbagliato può farti perdere in una settimana.</p>
+        </div>
+        <div class="rounded-[2rem] bg-paper-3 p-7 shadow-[0_40px_70px_-40px_rgb(42_42_38/0.6)] sm:p-10">
+          <p class="t-kicker text-lime-deep">Diagnosi Food Cost</p>
+          <p class="mt-3 flex items-end gap-3"><span class="font-display text-[clamp(4rem,3rem+4vw,6rem)] font-medium leading-none tracking-[-0.06em]">197 €</span><span class="pb-2 text-paper-muted">prezzo finale</span></p>
+          <p class="mt-2 text-paper-muted">Nessuna IVA da aggiungere (regime forfettario).</p>
+          <ul class="mt-6 space-y-2.5">{['Tutto il menu analizzato', 'Report scritto in 5 giorni lavorativi', 'Call di restituzione di 30 minuti', 'Foglio di calcolo in regalo'].map((t) => <li class="flex items-center gap-3"><Icon name="check" class="size-5 text-lime-deep" stroke={2.25} />{t}</li>)}</ul>
+          <p class="mt-6 rounded-xl bg-paper p-4 text-[0.95rem]"><strong>Garanzia incondizionata.</strong> Se dopo aver ricevuto il report non sei soddisfatto, per qualsiasi motivo, scrivimi entro 7 giorni e ti restituisco i 197 €. Senza domande.</p>
+          <a href={PREN} {...ext} class="btn btn-ink mt-7 w-full">Prenota la chiamata gratuita <Icon name="arrow-right" /></a>
+          <p class="mt-4 text-[0.9rem] text-paper-muted">Posti limitati per davvero: ascolto un solo locale a settimana, il martedì alle 16:30, e lavoro una diagnosi alla volta.</p>
+        </div>
+      </div>
+    </section>
+
+    <Faq items={FAQ_DIAGNOSI} titleHtml='Food cost e consulenza ristorazione: <span class="em">le risposte</span>' />
+
+    <!-- CHIUSURA -->
+    <section id="chiusura" class="bg-ink text-ivory" aria-labelledby="chiusura-t">
+      <div class="wrap flex flex-col items-center py-24 text-center sm:py-32">
+        <h2 id="chiusura-t" class="t-hero max-w-[16ch] !text-[clamp(2.4rem,1.3rem+4.4vw,5rem)]">Il prossimo mese può essere uguale a questo. <span class="em text-lime">Oppure no.</span></h2>
+        <p class="t-lead mt-7 max-w-[38rem] text-ivory/80">Puoi continuare a lavorare tanto e sperare che i conti tornino. Oppure puoi prenderti 20 minuti, guardare i tuoi numeri con qualcuno che c’è passato, e decidere.</p>
+        <a href={PREN} {...ext} class="btn btn-lime mt-9 !min-h-14 !px-8">Prenota la chiamata gratuita di 20 minuti <Icon name="arrow-right" /></a>
+        <p class="mt-5 max-w-[36rem] text-[0.95rem] text-ivory/70">Una sola chiamata a settimana: il martedì alle 16:30, su Google Meet. Se il posto di questa settimana è già preso, trovi il primo martedì libero. Se poi non puoi esserci, cancella: liberi il posto per un altro ristoratore.</p>
+        <p class="mt-10 max-w-[40rem] text-ivory/80"><strong>P.S.</strong> Ogni mese senza sapere il food cost dei tuoi piatti è un mese in cui decidi i prezzi al buio. La chiamata è gratuita e la diagnosi ha la garanzia incondizionata: il rischio più grande è non farla.</p>
+      </div>
+    </section>
+
+    <!-- GUIDA -->
+    <section id="guida" class="on-paper bg-paper text-paper-ink" aria-labelledby="guida-t">
+      <div class="wrap grid gap-10 py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div>
+          <h2 id="guida-t" class="t-h2 !text-[clamp(1.8rem,1.3rem+2vw,2.8rem)]">Non sei ancora pronto per parlarne?</h2>
+          <p class="mt-4 text-paper-muted">Scarica la guida gratuita: come calcolare il food cost dei tuoi piatti in un pomeriggio.</p>
+          <p class="mt-3 text-[0.9rem] text-paper-muted">Niente spam. Una mail utile alla settimana, puoi cancellarti quando vuoi.</p>
+        </div>
+        <div class="rounded-[1.75rem] bg-paper-3 p-6 sm:p-8"><StepForm def={FORMS.guida} compact /></div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <MobileBar href={PREN} label="Prenota la chiamata gratuita" external hideAt="chiusura" />
+</Base>

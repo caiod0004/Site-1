@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/ui/Header.astro';
+import Footer from '../../components/ui/Footer.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { CATEGORIE } from '../../content.config';
+import { INSTAGRAM_URL } from '../../config';
+interface Props { categoria?: keyof typeof CATEGORIE }
+const { categoria } = Astro.props;
+const posts = (await getCollection('blog', ({ data }) => !data.draft && (!categoria || data.categoria === categoria)))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+const titolo = categoria ? `${CATEGORIE[categoria]} – Diario dal laboratorio | Caio Machado` : 'Diario dal laboratorio | Caio Machado';
+const path = categoria ? `/blog/categoria/${categoria}/` : '/blog/';
+---
+<Base title={titolo} description="Quello che imparo mentre costruisco Caterinho e i miei strumenti. Errori compresi." path={path} theme="home" themeColor="#F1F1DB">
+  <Header nav={[{ href: '/#storia', label: 'Storia' }, { href: '/#analisi', label: 'Analisi' }]} cta={{ href: '/#analisi', label: 'Fai l’analisi del tuo caso', short: 'Analisi' }} />
+  <main id="contenuto" class="on-paper bg-paper pt-[4.5rem] text-paper-ink">
+    <section id="top" class="wrap pb-24 pt-12 sm:pt-20">
+      <h1 class="t-hero !text-[clamp(2.8rem,1.6rem+5vw,6rem)]">Diario dal <span class="em text-lime-deep">laboratorio</span></h1>
+      <p class="t-lead mt-6 max-w-[38rem] text-paper-muted">Quello che imparo mentre costruisco Caterinho e i miei strumenti. Errori compresi.</p>
+      <nav aria-label="Categorie" class="mt-10">
+        <ul class="flex flex-wrap gap-2">
+          <li><a href="/blog/" class={`choice-link ${!categoria ? 'on' : ''}`} aria-current={!categoria ? 'page' : undefined}>Tutti</a></li>
+          {Object.entries(CATEGORIE).map(([k, v]) => <li><a href={`/blog/categoria/${k}/`} class={`choice-link ${categoria === k ? 'on' : ''}`} aria-current={categoria === k ? 'page' : undefined}>{v}</a></li>)}
+        </ul>
+      </nav>
+      {posts.length ? (
+        <ul class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p) => (
+            <li class="flex flex-col rounded-[1.5rem] bg-paper-3 p-7">
+              <p class="t-kicker text-lime-deep">{CATEGORIE[p.data.categoria]} · <time datetime={p.data.date.toISOString()}>{fmt.format(p.data.date)}</time></p>
+              <h2 class="t-h3 mt-4"><a href={`/blog/${p.id}/`} class="hover:underline">{p.data.title}</a></h2>
+              <p class="mt-3 text-paper-muted">{p.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="mt-14 flex flex-col gap-4 rounded-[1.5rem] border border-dashed border-paper-ink/25 p-8 sm:flex-row sm:items-center sm:justify-between">
+          <p class="font-serif text-[1.8rem] leading-tight">Primi articoli in arrivo.</p>
+          <a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="btn btn-line">Seguimi su Instagram <Icon name="arrow-up-right" /></a>
+        </div>
+      )}
+    </section>
+  </main>
+  <Footer />
+</Base>
+<style>
+  .choice-link { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.4rem 1rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--color-paper-ink) 25%, transparent); }
+  .choice-link:hover { border-color: var(--color-paper-ink); }
+  .choice-link.on { background: var(--color-paper-ink); color: var(--color-paper); }
+</style>

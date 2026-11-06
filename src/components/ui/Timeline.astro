@@ -1,0 +1,51 @@
+---
+/**
+ * Linea del tempo verticale che si riempie allo scroll.
+ * Usata per: storia (home), passi (diagnosi, consulenza, sito).
+ */
+export interface TimelineItem { label?: string; title: string; body: string }
+interface Props { items: TimelineItem[]; numbered?: boolean; class?: string }
+const { items, numbered = true, class: cls = '' } = Astro.props;
+---
+<ol class={`timeline relative ${cls}`} data-timeline>
+  <span class="rail absolute bottom-6 left-[1.4rem] top-6 w-px bg-current opacity-15" aria-hidden="true"></span>
+  <span class="rail-fill absolute bottom-6 left-[1.4rem] top-6 w-px origin-top bg-lime" aria-hidden="true"></span>
+  {items.map((it, i) => (
+    <li class="step relative grid grid-cols-[2.8rem_1fr] gap-5 pb-14 last:pb-0 sm:gap-6" data-step>
+      <span class="dot relative z-10 grid size-[2.8rem] place-items-center rounded-full border border-current/20 bg-[var(--tl-bg,var(--color-paper))] font-display text-[0.95rem] transition-colors duration-500" aria-hidden="true">
+        {numbered ? i + 1 : <span class="size-2 rounded-full bg-current opacity-50"></span>}
+      </span>
+      <div class="pt-1.5">
+        {it.label && <p class="t-kicker text-lime-deep">{it.label}</p>}
+        <h3 class="t-h3 mt-1 !text-[clamp(1.3rem,1.1rem+0.9vw,1.8rem)]">{it.title}</h3>
+        <div class="tl-body mt-3 max-w-[38rem] space-y-3 opacity-85" set:html={it.body.replace(/\[([^\]]+)\]/g, '<span class="placeholder">[$1]</span>')} />
+      </div>
+    </li>
+  ))}
+</ol>
+<style>
+  .rail-fill { transform: scaleY(var(--p, 0)); }
+  .step.on .dot { border-color: var(--color-lime); background: var(--color-lime); color: var(--color-paper-ink); }
+  :global(html[data-theme='sito']) .step.on .dot, :global(html[data-theme='consulenza']) .step.on .dot { color: #2a2a26; }
+  @media (prefers-reduced-motion: reduce) { .rail-fill { transform: scaleY(1); } }
+</style>
+<script>
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLElement>('[data-timeline]').forEach((tl) => {
+    const fill = tl.querySelector<HTMLElement>('.rail-fill')!;
+    const steps = [...tl.querySelectorAll<HTMLElement>('[data-step]')];
+    if (calm) { steps.forEach((s) => s.classList.add('on')); return; }
+    let ticking = false, visible = false;
+    const update = () => {
+      ticking = false;
+      const r = fill.getBoundingClientRect();
+      const line = window.innerHeight * 0.62;
+      fill.style.setProperty('--p', Math.min(1, Math.max(0, (line - r.top) / r.height)).toFixed(4));
+      steps.forEach((s) => { const d = s.querySelector<HTMLElement>('.dot')!.getBoundingClientRect(); s.classList.toggle('on', d.top + d.height / 2 < line); });
+    };
+    const onScroll = () => { if (visible && !ticking) { ticking = true; requestAnimationFrame(update); } };
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) onScroll(); }).observe(tl);
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+  });
+</script>

@@ -1,0 +1,10 @@
+---
+/** Monogramma: la "I" con il puntino del logo Italian Method, nel colore d'accento della pagina. */
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<span class={`inline-grid size-10 shrink-0 place-items-center rounded-full bg-paper-ink ring-1 ring-lime/40 ${cls}`} aria-hidden="true">
+  <svg viewBox="0 0 24 24" class="h-[58%] w-[58%]">
+    <path d="M8.5 2.5h4.2a4 4 0 0 0 4.3 3.8V21.5H8.5z" fill="var(--color-lime)" />
+  </svg>
+</span>

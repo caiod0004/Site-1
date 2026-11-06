@@ -1,0 +1,32 @@
+---
+/** Copertina del libro in un piccolo mockup 3D (solo CSS). */
+import { Image } from 'astro:assets';
+import cover from '../../assets/libro-copertina.png';
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<div class={`book-scene ${cls}`}>
+  <div class="book">
+    <Image src={cover} alt="Copertina del libro 08 Erros que quebram restaurantes, collana Italian Method, di Chef Caio Machado" widths={[300, 480, 700]} sizes="(min-width: 1024px) 20rem, 60vw" class="book-cover" loading="lazy" />
+    <span class="book-pages" aria-hidden="true"></span>
+  </div>
+</div>
+<style>
+  .book-scene { perspective: 1400px; width: min(64vw, 20rem); margin-inline: auto; }
+  .book {
+    position: relative; aspect-ratio: 1352 / 2000; transform-style: preserve-3d;
+    transform: rotateY(-24deg) rotateX(4deg); transition: transform 0.9s var(--ease-out-soft);
+  }
+  .book:hover { transform: rotateY(-12deg) rotateX(2deg); }
+  .book-cover {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 2px 6px 6px 2px;
+    box-shadow: inset 4px 0 6px -2px rgb(0 0 0 / 0.25), 30px 40px 60px -20px rgb(0 0 0 / 0.45);
+    transform: translateZ(14px);
+  }
+  .book-pages {
+    position: absolute; top: 1.5%; bottom: 1.5%; right: 0; width: 28px;
+    background: repeating-linear-gradient(90deg, #f7f7ee 0 2px, #e3e3d2 2px 3px);
+    transform: rotateY(90deg) translateZ(-14px) translateX(14px); transform-origin: right;
+  }
+  @media (prefers-reduced-motion: reduce) { .book { transition: none; } }
+</style>

@@ -8,8 +8,6 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   build: { inlineStylesheets: 'always' },
-  // Temporaneo: finché la home non è costruita, la root manda alla landing del sito.
-  redirects: { '/': '/sito/' },
   integrations: [sitemap({ filter: (page) => !/\/(privacy|cookie)\/?$/.test(page) })],
   vite: { plugins: [tailwindcss()] },
 });

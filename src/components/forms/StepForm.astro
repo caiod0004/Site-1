@@ -1,0 +1,237 @@
+---
+/**
+ * Modulo a schermate (una o più domande per schermata), con barra di avanzamento,
+ * salvataggio nel browser, campo trappola anti-spam e invio a Google Apps Script.
+ * Senza JavaScript resta un modulo normale con tutte le domande visibili.
+ */
+import type { FormDef } from '../../data/forms';
+import Icon from '../ui/Icon.astro';
+import { EMAIL } from '../../config';
+interface Props { def: FormDef; compact?: boolean }
+const { def, compact = false } = Astro.props;
+const multi = def.steps.length > 1;
+const [mu, md] = EMAIL ? EMAIL.split('@') : ['', ''];
+const fid = (n: string) => `${def.id}-${n}`;
+const input = 'mt-2 block w-full rounded-xl border border-paper-ink/25 bg-paper-3 px-4 py-3 text-[1rem] text-paper-ink placeholder:text-paper-muted/70 focus:border-lime-deep focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2';
+---
+<form class="stepform on-paper text-paper-ink" data-stepform data-id={def.id} data-endpoint={def.endpoint} data-success={def.success ?? ''} data-success-message={def.successMessage ?? 'Ricevuto.'} data-mu={mu} data-md={md} novalidate={false} method="post" action={def.endpoint || undefined}>
+  <input type="hidden" name="modulo" value={def.id} />
+  <input type="hidden" name="porta" value={def.porta} />
+  <input type="hidden" name="pagina" value="" data-auto="pagina" />
+  <input type="hidden" name="provenienza" value="" data-auto="referrer" />
+  <input type="hidden" name="utm" value="" data-auto="utm" />
+  <input type="hidden" name="inizio" value="" data-auto="inizio" />
+  <!-- campo trappola: le persone non lo vedono, i robot lo compilano -->
+  <div class="hp" aria-hidden="true"><label>Lascia vuoto questo campo <input type="text" name="sito_web" tabindex="-1" autocomplete="off" /></label></div>
+
+  {multi && (
+    <div class="progress mb-8" aria-hidden="true">
+      <div class="flex items-center justify-between font-display text-[0.9rem] text-paper-muted"><span data-progress-label>Passo 1 di {def.steps.length}</span><span data-progress-title>{def.steps[0].title}</span></div>
+      <div class="mt-3 h-1.5 overflow-hidden rounded-full bg-paper-ink/10"><div class="bar h-full rounded-full bg-lime-deep" style={`width:${100 / def.steps.length}%`}></div></div>
+    </div>
+  )}
+
+  {def.steps.map((st, si) => (
+    <fieldset class="step" data-step={si}>
+      <legend class={multi ? 't-h3 mb-6' : 'sr-only'}>{st.title}</legend>
+      <div class={compact ? 'grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end' : 'grid gap-7'}>
+        {st.fields.map((f) => (
+          f.type === 'radio' || f.type === 'checkbox' ? (
+            <fieldset class="field" data-reveal-value={f.reveal?.value} data-reveal-target={f.reveal?.target}>
+              <legend class="font-display font-medium">{f.label}{f.required && <span class="text-paper-muted"> *</span>}</legend>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {f.options!.map((o, oi) => (
+                  <label class="choice">
+                    <input type={f.type} name={f.name} value={o} required={f.type === 'radio' && f.required && oi === 0} class="peer sr-only" />
+                    <span>{o}</span>
+                  </label>
+                ))}
+              </div>
+              {f.other && (
+                <div class="other mt-3" data-other-for={f.other} hidden>
+                  <label class="text-[0.95rem] text-paper-muted" for={fid(f.name + '_altro')}>{f.other === 'Sì' ? 'Incolla il link' : 'Quale?'}</label>
+                  <input id={fid(f.name + '_altro')} name={`${f.name}_dettaglio`} type="text" class={input} />
+                </div>
+              )}
+            </fieldset>
+          ) : (
+            <div class="field">
+              <label for={fid(f.name)} class="font-display font-medium">{f.label}{f.required && <span class="text-paper-muted"> *</span>}</label>
+              {f.type === 'textarea'
+                ? <textarea id={fid(f.name)} name={f.name} rows="3" required={f.required} class={input}></textarea>
+                : <input id={fid(f.name)} name={f.name} type={f.type} required={f.required} autocomplete={f.autocomplete} placeholder={f.placeholder} class={input} />}
+            </div>
+          )
+        ))}
+      </div>
+    </fieldset>
+  ))}
+
+  <div class="mt-7">
+    <label class="flex items-start gap-3 text-[0.95rem] text-paper-muted">
+      <input type="checkbox" name="consenso_privacy" value="sì" required class="mt-1 size-5 shrink-0 accent-[var(--color-lime-deep)]" />
+      <span>Ho letto l’<a href="/privacy/" class="underline underline-offset-2">informativa privacy</a> e acconsento al trattamento dei miei dati per ricevere una risposta. *</span>
+    </label>
+  </div>
+
+  <div class="nav mt-8 flex flex-wrap items-center gap-3">
+    {multi && <button type="button" class="btn btn-line" data-prev hidden>Indietro</button>}
+    {multi && <button type="button" class="btn btn-ink" data-next>Avanti <Icon name="arrow-right" /></button>}
+    <button type="submit" class="btn btn-ink" data-submit>{def.submit} <Icon name="arrow-right" /></button>
+  </div>
+  <p class="mt-4 text-[0.85rem] text-paper-muted" data-saved hidden>Le tue risposte restano salvate in questo browser finché non le invii.</p>
+
+  <div class="mt-6 rounded-2xl border border-paper-ink/20 bg-paper-3 p-5" data-status role="status" aria-live="polite" hidden></div>
+</form>
+
+<style>
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .choice span {
+    display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.5rem 1rem; border-radius: 999px; cursor: pointer;
+    border: 1px solid color-mix(in srgb, var(--color-paper-ink) 25%, transparent); font-size: 0.97rem;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .choice:hover span { border-color: var(--color-paper-ink); }
+  .choice input:checked + span { background: var(--color-paper-ink); color: var(--color-paper); border-color: var(--color-paper-ink); }
+  .choice input:focus-visible + span { outline: 2px solid var(--color-lime-deep); outline-offset: 2px; }
+  :global(.js-form) .stepform[data-multi='true'] .step:not(.active) { display: none; }
+  :global(.js-form) .stepform[data-multi='true'] [data-submit] { display: none; }
+  :global(.js-form) .stepform[data-multi='true'].last [data-submit] { display: inline-flex; }
+  :global(.js-form) .stepform[data-multi='true'].last [data-next] { display: none; }
+  :global(.js-form) .stepform[data-multi='true'] .consent-wrap { display: none; }
+  .step + .step { margin-top: 2.5rem; }
+  :global(.js-form) .step + .step { margin-top: 0; }
+</style>
+
+<script>
+  document.documentElement.classList.add('js-form');
+  const ENC = (o: Record<string, string>) => Object.entries(o).map(([k, v]) => `${k}: ${v}`).join('\n');
+
+  document.querySelectorAll<HTMLFormElement>('form[data-stepform]').forEach((form) => {
+    const id = form.dataset.id!;
+    const KEY = `cm-form-${id}`;
+    const steps = [...form.querySelectorAll<HTMLFieldSetElement>('fieldset.step')];
+    const multi = steps.length > 1;
+    form.dataset.multi = String(multi);
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const saved = form.querySelector<HTMLElement>('[data-saved]')!;
+    const consent = form.querySelector<HTMLElement>('input[name="consenso_privacy"]')!.closest('div')!;
+    let cur = 0;
+
+    // campi automatici: pagina, provenienza, utm, ora di inizio
+    const q = new URLSearchParams(location.search);
+    const utm = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].map((k) => q.get(k) ? `${k}=${q.get(k)}` : '').filter(Boolean).join('&');
+    const set = (n: string, v: string) => { const el = form.querySelector<HTMLInputElement>(`[data-auto="${n}"]`); if (el) el.value = v; };
+    set('pagina', location.pathname + location.search);
+    set('referrer', document.referrer || 'diretto');
+    set('utm', utm || sessionStorage.getItem('cm-utm') || '');
+    if (utm) sessionStorage.setItem('cm-utm', utm);
+    set('inizio', String(Date.now()));
+
+    // "altro: quale?" e blocchi da mostrare
+    const syncExtras = () => {
+      form.querySelectorAll<HTMLElement>('[data-other-for]').forEach((box) => {
+        const fs = box.closest('fieldset.field')!;
+        const on = [...fs.querySelectorAll<HTMLInputElement>('input[type=radio],input[type=checkbox]')].some((i) => i.checked && i.value === box.dataset.otherFor);
+        box.hidden = !on;
+      });
+      form.querySelectorAll<HTMLElement>('[data-reveal-target]').forEach((fs) => {
+        const t = document.getElementById(fs.dataset.revealTarget!);
+        if (!t) return;
+        const on = [...fs.querySelectorAll<HTMLInputElement>('input')].some((i) => i.checked && i.value === fs.dataset.revealValue);
+        t.hidden = !on;
+      });
+    };
+
+    // salvataggio nel browser
+    const collect = () => {
+      const fd = new FormData(form); const o: Record<string, string> = {};
+      for (const [k, v] of fd.entries()) { const s = String(v); o[k] = o[k] ? `${o[k]}, ${s}` : s; }
+      return o;
+    };
+    const save = () => {
+      try {
+        const o = collect(); delete o.inizio; delete o.sito_web;
+        localStorage.setItem(KEY, JSON.stringify({ o, step: cur })); saved.hidden = false;
+      } catch {}
+    };
+    const restore = () => {
+      try {
+        const raw = localStorage.getItem(KEY); if (!raw) return;
+        const { o, step } = JSON.parse(raw);
+        Object.entries(o as Record<string, string>).forEach(([k, v]) => {
+          const els = form.querySelectorAll<HTMLInputElement>(`[name="${k}"]`);
+          els.forEach((el) => {
+            if (el.type === 'radio' || el.type === 'checkbox') el.checked = v.split(', ').includes(el.value);
+            else if (el.type !== 'hidden') el.value = v;
+          });
+        });
+        cur = Math.min(step || 0, steps.length - 1); saved.hidden = false;
+      } catch {}
+    };
+
+    const show = (i: number, focus = true) => {
+      cur = i;
+      steps.forEach((s, si) => s.classList.toggle('active', si === i));
+      form.classList.toggle('last', i === steps.length - 1);
+      consent.style.display = !multi || i === steps.length - 1 ? '' : 'none';
+      const prev = form.querySelector<HTMLButtonElement>('[data-prev]'); if (prev) prev.hidden = i === 0;
+      const lab = form.querySelector('[data-progress-label]'); if (lab) lab.textContent = `Passo ${i + 1} di ${steps.length}`;
+      const tit = form.querySelector('[data-progress-title]'); if (tit) tit.textContent = steps[i].querySelector('legend')!.textContent;
+      const bar = form.querySelector<HTMLElement>('.bar'); if (bar) bar.style.width = `${((i + 1) / steps.length) * 100}%`;
+      if (focus && multi) { steps[i].querySelector<HTMLElement>('input,textarea')?.focus({ preventScroll: true }); form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    };
+    const valid = (st: HTMLElement) => {
+      for (const el of st.querySelectorAll<HTMLInputElement>('input,textarea')) {
+        if (el.closest('[hidden]')) continue;
+        if (!el.checkValidity()) { el.reportValidity(); return false; }
+      }
+      return true;
+    };
+
+    restore(); syncExtras();
+    if (multi) show(cur, false); else { steps[0].classList.add('active'); form.classList.add('last'); }
+    form.addEventListener('input', () => { syncExtras(); save(); });
+    form.addEventListener('change', () => { syncExtras(); save(); });
+    form.querySelector('[data-next]')?.addEventListener('click', () => { if (valid(steps[cur])) { show(cur + 1); save(); } });
+    form.querySelector('[data-prev]')?.addEventListener('click', () => show(cur - 1));
+
+    const fallback = (o: Record<string, string>, msg: string) => {
+      const user = form.dataset.mu, dom = form.dataset.md;
+      const body = encodeURIComponent(ENC(o));
+      status.hidden = false;
+      status.innerHTML = `<p class="font-display font-medium">${msg}</p><p class="mt-2 text-paper-muted">Le tue risposte non sono andate perse: restano salvate in questo browser. Puoi mandarmele subito via email, già compilate.</p>
+        <div class="mt-4 flex flex-wrap gap-3">${user ? `<a class="btn btn-ink" href="mailto:${user}@${dom}?subject=${encodeURIComponent('Modulo ' + id)}&body=${body}">Invia via email</a>` : '<span class="placeholder">[EMAIL]</span>'}
+        <button type="button" class="btn btn-line" data-copy>Copia le risposte</button></div>`;
+      status.querySelector('[data-copy]')?.addEventListener('click', async (e) => {
+        try { await navigator.clipboard.writeText(ENC(o)); (e.target as HTMLElement).textContent = 'Copiate'; } catch { (e.target as HTMLElement).textContent = 'Copia non riuscita'; }
+      });
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!valid(form)) return;
+      const o = collect();
+      if (o.sito_web) return; // robot
+      const secs = (Date.now() - Number(o.inizio || 0)) / 1000;
+      if (secs < 3) return; // troppo veloce per una persona
+      delete o.sito_web;
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) { fallback(o, 'Il modulo non è ancora collegato all’invio automatico.'); return; }
+      const btn = form.querySelector<HTMLButtonElement>('[data-submit]')!; btn.disabled = true; btn.textContent = 'Invio in corso…';
+      try {
+        const r = await fetch(endpoint, { method: 'POST', body: JSON.stringify(o), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+        const res = await r.json().catch(() => ({ ok: r.ok }));
+        if (!r.ok || res.ok === false) throw new Error('invio');
+        try { localStorage.removeItem(KEY); } catch {}
+        if (form.dataset.success) { location.href = `${form.dataset.success}?porta=${encodeURIComponent(o.porta)}`; return; }
+        status.hidden = false;
+        status.innerHTML = `<p class="font-display font-medium">${form.dataset.successMessage}</p>`;
+        form.querySelectorAll('fieldset.step, .nav').forEach((el) => ((el as HTMLElement).hidden = true));
+      } catch {
+        btn.disabled = false; btn.textContent = 'Riprova';
+        fallback(o, 'L’invio non è riuscito.');
+      }
+    });
+  });
+</script>

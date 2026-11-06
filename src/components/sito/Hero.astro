@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import caio from '../../assets/caio_pensieroso.jpg';
+import PhoneMock from './PhoneMock.astro';
+import Icon from '../ui/Icon.astro';
+import { QUESTIONARIO_URL, WHATSAPP_URL } from '../../config';
+---
+<section id="top" class="on-paper relative isolate overflow-hidden bg-paper pt-[4.5rem] text-paper-ink">
+  <div class="disc pointer-events-none absolute -z-10 rounded-full bg-lime" aria-hidden="true"></div>
+  <div class="dots pointer-events-none absolute inset-0 -z-20" aria-hidden="true"></div>
+
+  <div class="wrap grid items-center gap-12 pb-16 pt-8 sm:pt-14 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] md:gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)] lg:gap-10 lg:pb-24 lg:pt-16">
+    <div>
+      <p class="t-kicker inline-flex items-center gap-2.5 rounded-full border border-paper-ink/15 bg-paper-3 px-3.5 py-1.5 text-paper-ink">
+        <span class="size-2 rounded-full bg-lime ring-2 ring-lime-deep/30" aria-hidden="true"></span>
+        Un sito a settimana · posti limitati
+      </p>
+      <h1 class="t-hero mt-6 max-w-[13ch]">
+        Il sito della tua attività, online in <span class="em mark">7&nbsp;giorni.</span> A&nbsp;197&nbsp;€.
+      </h1>
+      <p class="t-lead mt-6 max-w-[36rem] text-paper-muted">
+        Una pagina sola, fatta bene: chi sei, cosa offri, dove sei, come contattarti. Si legge bene dal telefono, si trova su Google, e chi la apre sa subito come chiamarti, scriverti o prenotare.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <a href={QUESTIONARIO_URL} class="btn btn-ink">Richiedi il tuo sito <Icon name="arrow-right" /></a>
+        {WHATSAPP_URL
+          ? <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="btn btn-line"><Icon name="message-circle" />Scrivimi su WhatsApp</a>
+          : <a href="#cosa-ricevi" class="btn btn-line">Cosa ricevo?</a>}
+      </div>
+      <ul class="mt-8 grid gap-2.5 text-[0.95rem] text-paper-muted sm:flex sm:flex-wrap sm:gap-x-6">
+        {['197 € prezzo finale, nessuna IVA', 'dominio intestato a te', 'rimborso se non è online in tempo'].map((t) => (
+          <li class="flex items-center gap-2"><span class="grid size-5 place-items-center rounded-full bg-lime text-paper-ink"><Icon name="check" class="size-3.5" stroke={2.5} /></span>{t}</li>
+        ))}
+      </ul>
+      <a href="#chi-sono" class="mt-9 inline-flex min-h-11 items-center gap-3 rounded-full border border-paper-ink/12 bg-paper-3 py-1.5 pl-1.5 pr-5 transition-colors hover:border-paper-ink/40">
+        <Image src={caio} alt="" widths={[96, 144]} sizes="48px" class="size-12 rounded-full object-cover object-[50%_20%]" loading="eager" />
+        <span class="text-[0.95rem] leading-tight"><span class="font-display font-medium">Caio Machado</span><br /><span class="text-paper-muted">Un sito a settimana, seguito da me.</span></span>
+      </a>
+    </div>
+    <div class="relative pt-2 lg:pt-0">
+      <PhoneMock />
+    </div>
+  </div>
+</section>
+<style>
+  .disc { width: min(118vw, 46rem); aspect-ratio: 1; right: -24vw; bottom: -6rem; }
+  :global(html[data-theme='sito']) .disc {
+    background: radial-gradient(circle at 32% 28%, #f6ebc0 0%, #d9c27f 22%, #b39a52 55%, #6f5e2d 100%);
+    box-shadow: inset -30px -40px 80px rgb(0 0 0 / 0.35), 0 60px 120px -40px rgb(0 0 0 / 0.7);
+  }
+  @media (min-width: 1024px) { .disc { width: 44rem; right: -6rem; top: 50%; bottom: auto; transform: translateY(-46%); } }
+  .dots {
+    background-image: radial-gradient(color-mix(in srgb, var(--color-paper-ink) 12%, transparent) 1px, transparent 1.2px);
+    background-size: 22px 22px;
+    mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
+  }
+</style>

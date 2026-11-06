@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/ui/Header.astro';
+import Footer from '../components/ui/Footer.astro';
+import Icon from '../components/ui/Icon.astro';
+import BookMockup from '../components/ui/BookMockup.astro';
+import StepForm from '../components/forms/StepForm.astro';
+import { FORMS } from '../data/forms';
+import { LIBRO_AMAZON_URL, GUIDA_FOODCOST_URL, SITE_URL } from '../config';
+const jsonLd = [{
+  '@context': 'https://schema.org', '@type': 'Book',
+  name: '08 Erros que quebram restaurantes e como evitar antes de investir 1 real',
+  author: { '@type': 'Person', name: 'Caio Machado', url: `${SITE_URL}/` },
+  inLanguage: 'pt-BR', datePublished: '2025', url: LIBRO_AMAZON_URL, image: `${SITE_URL}/img/libro-copertina.png`,
+}];
+---
+<Base title="Libro e risorse Italian Method | Caio Machado" description="Il libro 08 Erros que quebram restaurantes e la guida Food Cost, in portoghese. Lista d'attesa per le edizioni italiane." path="/risorse/" theme="home" themeColor="#F1F1DB" jsonLd={jsonLd}>
+  <Header nav={[{ href: '/#storia', label: 'Storia' }, { href: '/#analisi', label: 'Analisi' }, { href: '/blog/', label: 'Blog' }]} cta={{ href: '#lista-attesa', label: 'Lista d’attesa', short: 'Lista' }} />
+  <main id="contenuto">
+    <section id="top" class="on-paper bg-paper pt-[4.5rem] text-paper-ink">
+      <div class="wrap pb-14 pt-12 sm:pt-20">
+        <div class="flex items-center gap-4">
+          <img src="/img/logo-italian-method.png" alt="Logo della collana Italian Method" width="500" height="500" class="size-20 rounded-xl bg-white p-1 shadow-[0_0_0_1px_rgb(42_42_38/0.08)]" />
+          <p class="t-kicker text-lime-deep">Risorse Italian Method</p>
+        </div>
+        <h1 class="t-hero mt-8 max-w-[18ch] !text-[clamp(2.6rem,1.4rem+4.6vw,5.5rem)] !leading-[1.03]">Gli strumenti che ho scritto <span class="em text-lime-deep">per chi parte da zero.</span></h1>
+        <p class="t-lead mt-6 max-w-[38rem] text-paper-muted">Le edizioni italiane sono in preparazione. Chi è in lista riceve una sola email quando sono pronte.</p>
+      </div>
+    </section>
+    <section class="on-paper bg-paper text-paper-ink" aria-label="Le risorse">
+      <div class="wrap grid gap-5 pb-24 lg:grid-cols-2">
+        <article class="flex flex-col rounded-[1.75rem] bg-paper-2 p-7 sm:p-10">
+          <BookMockup class="!w-[min(48vw,13rem)] !mx-0" />
+          <p class="t-kicker mt-10 text-lime-deep">Il libro · in portoghese</p>
+          <h2 class="t-h3 mt-3 !text-[clamp(1.5rem,1.2rem+1vw,2rem)]">08 Erros que quebram restaurantes</h2>
+          <p class="mt-3 text-paper-muted">E come evitarli prima di investire 1 real. Collana Italian Method, 2025, su Amazon Brasile.</p>
+          <div class="mt-auto flex flex-col gap-3 pt-8 sm:flex-row sm:flex-wrap">
+            <a href={LIBRO_AMAZON_URL} target="_blank" rel="noopener" class="btn btn-ink">Acquista la copia in portoghese <Icon name="arrow-up-right" /><span class="sr-only">(Amazon, si apre in una nuova scheda)</span></a>
+            <a href="#lista-attesa" class="btn btn-line">Entra in lista d’attesa per l’edizione italiana</a>
+          </div>
+        </article>
+        <article class="flex flex-col rounded-[1.75rem] bg-paper-2 p-7 sm:p-10">
+          <div class="grid aspect-[4/3] w-full max-w-[16rem] place-items-center rounded-2xl border border-dashed border-paper-ink/30 bg-paper-3 p-6 text-center">
+            <Icon name="calculator" class="size-10 text-lime-deep" />
+            <span class="placeholder mt-3 whitespace-normal">[COPERTINA DELLA GUIDA]</span>
+          </div>
+          <p class="t-kicker mt-10 text-lime-deep">Guida Food Cost · in portoghese</p>
+          <h2 class="t-h3 mt-3 !text-[clamp(1.5rem,1.2rem+1vw,2rem)]"><span class="placeholder whitespace-normal">[TITOLO ESATTO DELLA GUIDA – probabilmente “Sal, Pimenta e Planilha – Food Cost”]</span></h2>
+          <div class="mt-auto flex flex-col gap-3 pt-8 sm:flex-row sm:flex-wrap">
+            {GUIDA_FOODCOST_URL
+              ? <a href={GUIDA_FOODCOST_URL} target="_blank" rel="noopener" class="btn btn-ink">Richiedi la copia in portoghese <Icon name="arrow-up-right" /></a>
+              : <span class="btn btn-line pointer-events-none">Richiedi la copia in portoghese <span class="placeholder">[LINK O MODULO]</span></span>}
+            <a href="#lista-attesa" class="btn btn-line">Entra in lista d’attesa per la versione italiana</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section id="lista-attesa" class="bg-ink text-ivory" aria-labelledby="lista-t">
+      <div class="wrap grid gap-12 py-24 sm:py-28 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+        <div>
+          <p class="t-kicker text-lime">Lista d’attesa</p>
+          <h2 id="lista-t" class="t-h2 mt-4">Le edizioni italiane <span class="em text-lime-light">sono in preparazione.</span></h2>
+          <p class="mt-6 max-w-[30rem] text-ivory/80">Chi è in lista riceve una sola email quando sono pronte.</p>
+        </div>
+        <div class="rounded-[1.75rem] bg-paper p-7 sm:p-10" id="chiusura">
+          <StepForm def={FORMS.waitlist} />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

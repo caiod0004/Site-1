@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import tocLogo from '../../assets/tocstory_logo.png';
+const passi = [
+  { n: 'Il sito', tag: 'Si parte da qui · 197 €', d: 'La base: una pagina chiara che ti fa trovare e contattare.', main: true },
+  { n: 'TocStory', logo: true, tag: 'Prova gratuita per i clienti', d: 'Per gestire da solo social e Google senza perderci le serate: cosa pubblicare, quando, e cosa funziona. È il sistema che uso nella mia attività. Chi ha già il sito con me può provarlo gratis per un periodo.' },
+  { n: 'Il CRM', tag: 'Il passo più completo', d: 'Per non perdere più un contatto: richieste, clienti e richiami, tutto in un posto.' },
+];
+---
+<section class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="dopo-t">
+  <div class="wrap py-24 sm:py-32">
+    <div class="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-16">
+      <div>
+        <p class="t-kicker text-lime-deep">E dopo il sito?</p>
+        <h2 id="dopo-t" class="t-h2 mt-4">Tre passi, <span class="em">uno alla volta.</span></h2>
+      </div>
+      <p class="max-w-[34rem] text-paper-muted lg:pb-2">Senza un sito, tutto il resto non ha dove poggiare. Per questo si parte da lì. Nessuno dei passi dopo è obbligatorio.</p>
+    </div>
+    <ol class="mt-16 grid gap-4 lg:grid-cols-3 lg:items-end">
+      {passi.map((p, i) => (
+        <li class={`stair relative flex flex-col rounded-[1.6rem] p-7 sm:p-8 ${p.main ? 'bg-paper-ink text-paper' : 'bg-paper text-paper-ink shadow-[inset_0_0_0_1px_rgb(33_29_26/0.12)]'}`} style={`--lift:${i}`}>
+          {p.logo && <Image src={tocLogo} alt="" widths={[120, 240]} sizes="5.5rem" class="absolute right-6 top-6 h-auto w-[5.5rem]" loading="lazy" />}
+          <span class={`font-display text-[3.5rem] font-medium leading-none tracking-[-0.05em] ${p.main ? 'text-lime' : 'text-paper-ink/30'}`} aria-hidden="true">{i + 1}</span>
+          <h3 class="t-h3 mt-10 lg:mt-auto lg:pt-10"><span class="sr-only">Passo {i + 1}: </span>{p.n}</h3>
+          <p class={`mt-2 inline-flex w-fit rounded-full px-3 py-1 font-display text-[0.85rem] ${p.main ? 'bg-lime text-ink' : 'border border-paper-ink/20 text-paper-ink'}`}>{p.tag}</p>
+          <p class={`mt-5 ${p.main ? 'text-paper/80' : 'text-paper-muted'}`}>{p.d}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+<style>
+  @media (min-width: 1024px) {
+    .stair { min-height: calc(22rem + var(--lift) * 3.5rem); }
+  }
+</style>

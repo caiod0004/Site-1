@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/ui/Icon.astro';
+import caio from '../assets/caio_pensieroso.jpg';
+import { withUtm, LIBRO_AMAZON_URL, CATERINHO_URL, WHATSAPP_URL } from '../config';
+const grandi = [
+  { label: 'Consulenza per ristoranti', href: withUtm('/diagnosi-food-cost/') },
+  { label: 'La tua presenza online', href: withUtm('/sito/') },
+  { label: 'Consulenza 1:1 / su misura', href: withUtm('/#analisi') },
+];
+const piccoli = [
+  { label: 'Diario dal laboratorio', href: withUtm('/blog/') },
+  { label: 'Il libro', href: LIBRO_AMAZON_URL, ext: true },
+  { label: 'Caterinho', href: CATERINHO_URL, ext: true },
+];
+---
+<Base title="Caio Machado – Link" description="Ristorazione e tecnologia. Dal 2009 in cucina, oggi da Caterinho (Bergamo)." path="/bio/" theme="home" themeColor="#F1F1DB">
+  <main id="contenuto" class="on-paper min-h-svh bg-paper px-5 pb-12 pt-12 text-paper-ink">
+    <div class="mx-auto flex max-w-[26rem] flex-col items-center text-center">
+      <Image src={caio} alt="Caio Machado" widths={[192, 288]} sizes="96px" class="size-24 rounded-full object-cover object-[50%_20%] ring-2 ring-lime ring-offset-4 ring-offset-paper" loading="eager" fetchpriority="high" />
+      <h1 class="t-h2 mt-6 !text-[2.4rem]">Caio Machado</h1>
+      <p class="mt-3 text-paper-muted">Ristorazione e tecnologia. Dal 2009 in cucina, oggi da Caterinho (Bergamo).</p>
+      <ul class="mt-9 grid w-full gap-3">
+        {grandi.map((g, i) => (
+          <li><a href={g.href} class={`btn w-full !min-h-16 justify-between !px-6 !text-[1.08rem] ${i === 0 ? 'btn-ink' : 'btn-line'}`}>{g.label}<Icon name="arrow-right" /></a></li>
+        ))}
+      </ul>
+      <ul class="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-1 text-[0.95rem]">
+        {piccoli.map((p) => <li><a href={p.href} {...(p.ext ? { target: '_blank', rel: 'noopener' } : {})} class="inline-flex min-h-11 items-center underline underline-offset-4">{p.label}</a></li>)}
+        <li>{WHATSAPP_URL ? <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline underline-offset-4">WhatsApp</a> : <span class="inline-flex min-h-11 items-center text-paper-muted">WhatsApp <span class="placeholder ml-2">[WHATSAPP]</span></span>}</li>
+      </ul>
+    </div>
+  </main>
+</Base>
