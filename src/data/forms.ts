@@ -1,7 +1,7 @@
 // Moduli del sito — domande esatte da COPY_0 (sezione 6), COPY_2 e COPY_3.
 import {
   FORM_ENDPOINT_GESTIONE, FORM_ENDPOINT_ONLINE, FORM_ENDPOINT_VENDITE,
-  FORM_ENDPOINT_CANDIDATURA, WAITLIST_ENDPOINT, GUIDA_ENDPOINT,
+  FORM_ENDPOINT_CANDIDATURA, FORM_ENDPOINT_SESSIONE, WAITLIST_ENDPOINT, GUIDA_ENDPOINT,
 } from '../config';
 
 export type FieldType = 'text' | 'email' | 'tel' | 'textarea' | 'radio' | 'checkbox';
@@ -120,8 +120,7 @@ export const FORMS: Record<string, FormDef> = {
         { name: 'attivita', label: 'Nome e tipo di attività, città', type: 'text', required: true, autocomplete: 'organization' },
         { name: 'anni', label: 'Da quanti anni è aperta?', type: 'text', required: true },
         { name: 'persone', label: 'Quante persone ci lavorano?', type: 'text', required: true },
-        // Fasce proposte da Claude: da confermare con Caio
-        { name: 'fatturato', label: 'Fatturato annuo indicativo', type: 'radio', options: ['Meno di 100.000 €', '100.000–300.000 €', '300.000 €–1 milione', 'Oltre 1 milione', 'Preferisco non dirlo'], required: true },
+        { name: 'fatturato', label: 'Fatturato annuo indicativo (facoltativo)', type: 'radio', options: ['Non ancora aperta', 'Meno di 150.000 €', '150.000–400.000 €', '400.000 €–1 milione', 'Oltre 1 milione', 'Preferisco non dirlo'] },
       ] },
       { title: 'Dove fa male', fields: [
         { name: 'area', label: 'Quale area ti fa più male?', type: 'radio', options: ['Gestione e numeri', 'Vendite e marketing', 'Tecnologia e presenza online', 'Non lo so'], required: true },
@@ -135,6 +134,24 @@ export const FORMS: Record<string, FormDef> = {
       ] },
       { title: 'I tuoi contatti', fields: [
         { name: 'nome', label: 'Nome e cognome', type: 'text', required: true, autocomplete: 'name' },
+        { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
+        { name: 'whatsapp', label: 'WhatsApp o telefono', type: 'tel', required: true, autocomplete: 'tel' },
+      ] },
+    ],
+  },
+  sessione: {
+    id: 'sessione-strategica', porta: 'sessione', endpoint: FORM_ENDPOINT_SESSIONE, submit: 'Invia i miei dati', success: '/analisi/grazie/',
+    steps: [
+      { title: 'La tua attività', fields: [
+        { name: 'nome', label: 'Nome e cognome', type: 'text', required: true, autocomplete: 'name' },
+        { name: 'attivita', label: 'Nome e tipo di attività, città', type: 'text', required: true, autocomplete: 'organization' },
+      ] },
+      { title: 'I tuoi dati', fields: [
+        { name: 'numeri', label: 'Numeri indicativi (incassi, coperti o clienti, costi che conosci)', type: 'textarea' },
+        { name: 'canali', label: 'Canali di vendita', type: 'textarea' },
+        { name: 'strumenti', label: 'Strumenti che usi', type: 'textarea' },
+      ] },
+      { title: 'Come ti ricontatto', fields: [
         { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
         { name: 'whatsapp', label: 'WhatsApp o telefono', type: 'tel', required: true, autocomplete: 'tel' },
       ] },

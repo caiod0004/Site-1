@@ -1,5 +1,5 @@
 // Testi da docs/pacchetto-v2/copy/COPY_3_consulenza_su_misura.md (+ prezzi decisi da Caio il 6/11)
-import { PREZZO_SESSIONE_STRATEGICA, DURATA_SESSIONE_STRATEGICA } from '../config';
+import { PREZZO_SESSIONE_STRATEGICA, GIORNI_PROPOSTA } from '../config';
 export const SEO_CONSULENZA = {
   title: 'Consulenza aziendale su misura per ristoranti e PMI | Caio Machado',
   description: 'Numeri, clienti e tecnologia che lavorano insieme: un percorso su misura per la tua attività, con preventivo scritto. Online in Italia, di persona a Bergamo.',
@@ -18,8 +18,8 @@ export const AREE = [
 ];
 export const PASSI_C = [
   { title: 'Ti candidi (10 minuti).', body: '<p>Mi racconti la tua attività, i numeri che conosci e dove vuoi arrivare. Leggo ogni risposta io.</p>' },
-  { title: `Sessione strategica 1:1 (${DURATA_SESSIONE_STRATEGICA}, ${PREZZO_SESSIONE_STRATEGICA}).`, body: '<p>Guardiamo insieme la tua attività e decidiamo se ha senso lavorare insieme. Se non ha senso, te lo dico e ti indico la strada più adatta. Le sessioni si fanno il lunedì pomeriggio.</p>' },
-  { title: 'Proposta su misura, scritta.', body: '<p>Entro [GIORNI] giorni ricevi cosa faremo, in che ordine, in quanto tempo e a quale prezzo. Nessuna sorpresa dopo.</p>' },
+  { title: `Sessione strategica 1:1 (${PREZZO_SESSIONE_STRATEGICA}).`, body: '<p>Guardiamo insieme la tua attività e decidiamo se ha senso lavorare insieme. Se non ha senso, te lo dico e ti indico la strada più adatta. Due ore insieme, il lunedì pomeriggio, e quattro ore di lavoro mio. <a href="/sessione/" class="underline underline-offset-4">Come funziona la sessione</a>.</p>' },
+  { title: 'Proposta su misura, scritta.', body: `<p>Entro ${GIORNI_PROPOSTA} [DA CONFERMARE] ricevi cosa faremo, in che ordine, in quanto tempo e a quale prezzo. Nessuna sorpresa dopo.</p>` },
   { title: 'Implementazione.', body: '<p>Costruiamo il sistema, un’area alla volta, con te dentro: alla fine sai usarlo da solo.</p>' },
   { title: 'Accompagnamento mensile (se vuoi).', body: '<p>Controllo, aggiustamenti e supporto, con un canone e condizioni scritte.</p>' },
 ];

@@ -27,7 +27,7 @@ export const FAQ: { q: string; a: string }[] = [
   { q: 'Il sito è mio?', a: 'Sì. Il dominio è intestato a te e il sito puoi portarlo via quando vuoi.' },
   {
     q: 'E l’hosting?',
-    a: `Puoi usare un hosting tuo, oppure il mio: in quel caso c’è un canone mensile che comprende anche la manutenzione. ${PREZZO_CANONE ? `Il canone è di ${PREZZO_CANONE}.` : '[PREZZO DEL CANONE]'}`,
+    a: `Puoi usare un hosting tuo, oppure il mio: in quel caso c’è un canone mensile che comprende anche la manutenzione. ${PREZZO_CANONE ? `Il canone è di ${PREZZO_CANONE}.` : '[PREZZO DEL CANONE DI MANUTENZIONE E GESTIONE]'}`,
   },
   {
     q: 'Da quando partono i 7 giorni?',

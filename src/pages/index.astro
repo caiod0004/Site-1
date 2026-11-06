@@ -14,7 +14,6 @@ import fotoControluce from '../assets/foto/chef_controluce.jpg';
 import fotoGiacca from '../assets/foto/chef_giacca.jpg';
 import fotoBar from '../assets/foto/bar_caterinho.jpg';
 import fotoSushi from '../assets/foto/sushi_occhiali.jpg';
-import fotoTemakinho from '../assets/foto/temakinho_navigli.jpg';
 import fotoTartare from '../assets/foto/tartare_sacapoche.jpg';
 import fotoSalsa from '../assets/foto/salsa_caterinho.jpg';
 import fotoGuarnizione from '../assets/foto/bar_guarnizione.jpg';
@@ -35,11 +34,11 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-const loghi = [
+const loghi: { src: ImageMetadata; alt: string; h: string; nota?: string }[] = [
   { src: logoTemakinho, alt: 'Temakinho', h: 'h-10 sm:h-14' },
   { src: logoCacau, alt: 'Cacau Temakeria brasileira', h: 'h-14 sm:h-[4.5rem]' },
   { src: logoPoke, alt: 'Poké Samba', h: 'h-20 sm:h-24' },
-  { src: logoMarino, alt: 'Il Marino di Puntaldia', h: 'h-12 sm:h-16' },
+  { src: logoMarino, alt: 'Il Marino di Puntaldia', h: 'h-12 sm:h-16', nota: 'Il Marino di Puntaldia – Consultant chef, 2021–2022' },
 ];
 
 const strumenti = [
@@ -133,10 +132,6 @@ const jsonLd = [
         <div class="lg:sticky lg:top-28 lg:self-start" data-reveal>
           <p class="t-kicker text-lime-deep">La mia storia</p>
           <h2 data-reveal id="storia-t" class="t-h2 mt-4">Non sono nato consulente. <span class="em text-lime-deep">Ci sono arrivato lavorando.</span></h2>
-          <figure class="mt-10 max-lg:hidden">
-            <div class="overflow-hidden rounded-[1.5rem] shadow-[0_40px_70px_-40px_rgb(0_0_0/0.6)]"><Image src={fotoTemakinho} alt="Caio al banco di Temakinho Navigli, a Milano" widths={[480, 960]} sizes="26rem" class="aspect-[4/3] w-full object-cover" loading="lazy" /></div>
-            <figcaption class="mt-3 text-[0.9rem] text-paper-muted">Temakinho Navigli, Milano.</figcaption>
-          </figure>
         </div>
         <div style="--tl-bg: var(--color-paper)">
           <Timeline items={STORIA} />
@@ -150,8 +145,8 @@ const jsonLd = [
       <div class="wrap pb-20">
         <div class="border-t border-paper-ink/12 pt-10">
           <p class="t-kicker text-paper-muted">Dove ho lavorato</p>
-          <ul class="mt-8 flex flex-wrap items-center gap-x-12 gap-y-8 opacity-80">
-            {loghi.map((l) => <li><Image src={l.src} alt={l.alt} widths={[200, 400]} sizes="12rem" class={`w-auto ${l.h}`} loading="lazy" /></li>)}
+          <ul class="mt-8 flex flex-wrap items-center gap-x-12 gap-y-8">
+            {loghi.map((l) => <li class="flex flex-col items-start gap-2"><Image src={l.src} alt={l.alt} widths={[200, 400]} sizes="12rem" class={`w-auto opacity-80 ${l.h}`} loading="lazy" />{l.nota && <span class="text-[0.8rem] text-paper-muted">{l.nota}</span>}</li>)}
           </ul>
         </div>
       </div>

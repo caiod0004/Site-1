@@ -8,6 +8,7 @@ Sito completo di Caio Machado, fatto con **Astro** + **Tailwind CSS** (build sta
 | `/sito/` | Sito in 7 giorni – 197 € | scuro + oro (`sito`) |
 | `/diagnosi-food-cost/` | Diagnosi Food Cost – 197 € | avorio + lime (`diagnosi`) |
 | `/consulenza/` | Consulenza su misura + candidatura | blu notte (`consulenza`) |
+| `/sessione/` | Sessione strategica di avvio (250 €) + modulo dati | blu notte (`consulenza`) |
 | `/analisi/gestione/` · `/analisi/online/` · `/analisi/vendite/` | I tre moduli dell'Analisi | home |
 | `/analisi/grazie/` | Conferma dopo l'invio (non indicizzata) | home |
 | `/risorse/` | Libro, guida Food Cost, lista d'attesa | home |
@@ -41,7 +42,7 @@ Un articolo = un file Markdown in `src/content/blog/`. Campi: `title`, `descript
 ## Moduli (Google Apps Script)
 
 1. Segui le istruzioni in `docs/apps-script/Code.gs` (foglio Google + Apps Script + "App web").
-2. Incolla l'URL `/exec` in `src/config.ts`: `FORM_ENDPOINT_GESTIONE`, `FORM_ENDPOINT_ONLINE`, `FORM_ENDPOINT_VENDITE`, `FORM_ENDPOINT_CANDIDATURA`, `WAITLIST_ENDPOINT`, `GUIDA_ENDPOINT` (può essere lo stesso per tutti).
+2. Incolla l'URL `/exec` in `src/config.ts`: `FORM_ENDPOINT_GESTIONE`, `FORM_ENDPOINT_ONLINE`, `FORM_ENDPOINT_VENDITE`, `FORM_ENDPOINT_CANDIDATURA`, `FORM_ENDPOINT_SESSIONE`, `WAITLIST_ENDPOINT` (può essere lo stesso per tutti). La guida gratuita usa `WAITLIST_ENDPOINT`.
 3. Ogni invio finisce in una scheda del foglio (una per modulo) e arriva via email a `caio.d0004@gmail.com`.
 
 Finché un endpoint è vuoto il modulo lo dice chiaramente e propone di inviare le risposte via email (già compilate), senza perdere i dati. Anti-spam: campo trappola invisibile e blocco degli invii più veloci di 3 secondi. Ogni invio porta con sé porta d'ingresso, pagina, provenienza e utm.
@@ -59,6 +60,10 @@ Finché un endpoint è vuoto il modulo lo dice chiaramente e propone di inviare 
    - `tocstory.it` e `tocstory.com` → per ora **302** su `https://caiomachado.it/#strumenti`.
 5. Redirect interni: `public/_redirects` (oggi: `/link → /bio/`).
 
+## Fase successiva (non in questo sprint)
+
+- **Report web per il cliente**: pagina personale con analisi, proposta, tempi, garanzie, scadenza dell'offerta e link di pagamento, generata dal CRM.
+
 ## Privacy
 
 Niente tracciamento attivo. Iubenda e Google Analytics sono predisposti e spenti (`IUBENDA`, `GOOGLE_ANALYTICS` in `src/config.ts`): GA parte solo dopo il consenso. Font ospitati sul sito.
@@ -66,3 +71,7 @@ Niente tracciamento attivo. Iubenda e Google Analytics sono predisposti e spenti
 ## Materiale di partenza
 
 `docs/pacchetto-v2/` (prompt, brief, copy, ricerca), `docs/` (pacchetto della prima landing), `riferimento/`. Screenshot: `docs/screenshot/sito-completo/`.
+
+## Foto
+
+Solo foto in cui c'è solo Caio. Le foto con altre persone si aggiungono solo con il loro consenso scritto.

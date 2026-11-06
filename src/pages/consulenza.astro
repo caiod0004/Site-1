@@ -11,18 +11,17 @@ import StepForm from '../components/forms/StepForm.astro';
 import fotoControluce from '../assets/foto/chef_controluce.jpg';
 import { FORMS } from '../data/forms';
 import { SEO_CONSULENZA, RICONOSCI_C, AREE, PASSI_C, CAMBIA, FIT_SI_C, FIT_NO_C, FAQ_CONSULENZA } from '../data/consulenza';
-import { SITE_URL, SESSIONE_1A1_URL, PREZZO_SESSIONE_1A1, PREZZO_SESSIONE_STRATEGICA, DURATA_SESSIONE_STRATEGICA, NOTA_IVA_CONSULENZA } from '../config';
-const iva = NOTA_IVA_CONSULENZA.replace(/\[([^\]]+)\]/, '<span class="placeholder whitespace-normal">[$1]</span>');
+import { SITE_URL, PREZZO_ORA, PREZZO_SESSIONE_STRATEGICA, NOTA_IVA, NOTA_IVA_COMPLETA, PERCORSI_CONTEMPORANEA } from '../config';
 const porte = [
   { t: 'Il sito in 7 giorni – 197 €.', d: 'Una pagina chiara che ti fa trovare e contattare.', href: '/sito/' },
   { t: 'Diagnosi Food Cost – 197 €.', d: 'Per i locali: quanto ti costa davvero ogni piatto e quale ti fa guadagnare.', href: '/diagnosi-food-cost/' },
-  { t: `Sessione 1:1 – ${PREZZO_SESSIONE_1A1}.`, d: 'Un’ora sul problema che hai adesso, con un piano scritto.', href: SESSIONE_1A1_URL },
+  { t: `Sessione strategica di avvio – ${PREZZO_SESSIONE_STRATEGICA}.`, d: 'Due ore insieme sui tuoi numeri, clienti e presenza online, poi una proposta scritta.', href: '/sessione/' },
 ];
 const jsonLd = [
   {
     '@context': 'https://schema.org', '@type': 'Service', name: 'Consulenza su misura per ristoranti e PMI', serviceType: 'Consulenza aziendale e controllo di gestione',
     provider: { '@type': 'Person', name: 'Caio Machado', url: `${SITE_URL}/` }, areaServed: { '@type': 'Country', name: 'Italia' },
-    offers: { '@type': 'Offer', name: `Sessione strategica (${DURATA_SESSIONE_STRATEGICA})`, price: '250', priceCurrency: 'EUR' },
+    offers: { '@type': 'Offer', name: 'Sessione strategica di avvio', price: '250', priceCurrency: 'EUR', url: `${SITE_URL}/sessione/` },
   },
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ_CONSULENZA.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
 ];
@@ -134,19 +133,20 @@ const jsonLd = [
           <p class="t-kicker text-lime">Investimento</p>
           <h2 data-reveal id="inv-t" class="t-h2 mt-4">Un preventivo scritto, <span class="em text-lime">prima di iniziare.</span></h2>
           <p class="mt-6 max-w-[34rem] text-paper-muted">Ogni percorso ha un preventivo scritto, costruito sulla tua attività e deciso prima di iniziare.</p>
-          <p class="mt-4 max-w-[34rem] text-paper-muted"><span class="placeholder whitespace-normal">[DA DECIDERE: se il costo della sessione si scala dal percorso quando parti.]</span></p>
-          <p class="mt-4 max-w-[34rem] text-paper-muted"><strong class="text-paper-ink">Garanzia:</strong> <span class="placeholder whitespace-normal">[DA DECIDERE – proposta: se dopo la sessione strategica non hai trovato valore, ti restituisco il costo della sessione.]</span></p>
+          <p class="mt-4 max-w-[34rem] text-paper-muted">I 250 € si scalano dal primo percorso se lo confermi entro 30 giorni. <span class="placeholder">[DA CONFERMARE]</span></p>
+          <p class="mt-4 max-w-[34rem] text-paper-muted"><strong class="text-paper-ink">Garanzia:</strong> se alla fine delle due ore senti di non aver ricevuto valore, me lo dici e ti restituisco i 250 €. <span class="placeholder">[DA CONFERMARE]</span></p>
         </div>
         <div class="grid gap-4">
           <div class="rounded-[1.75rem] bg-lime p-7 text-[#0c2530] sm:p-9">
             <p class="t-kicker">Si parte da qui</p>
-            <p class="mt-3 flex flex-wrap items-end gap-x-3"><span class="font-display text-[clamp(3.4rem,2.6rem+3vw,4.8rem)] font-medium leading-none tracking-[-0.05em]">{PREZZO_SESSIONE_STRATEGICA}</span><span class="pb-1.5">sessione strategica · {DURATA_SESSIONE_STRATEGICA}</span></p>
-            <p class="mt-4">Una giornata di lavoro insieme: guardiamo la tua attività, raccolgo tutte le informazioni e preparo il piano di sviluppo.</p>
+            <p class="mt-3 flex flex-wrap items-end gap-x-3"><span class="font-display text-[clamp(3.4rem,2.6rem+3vw,4.8rem)] font-medium leading-none tracking-[-0.05em]">{PREZZO_SESSIONE_STRATEGICA}</span><span class="pb-1.5">sessione strategica di avvio</span></p>
+            <p class="mt-4">Due ore insieme, il lunedì pomeriggio, poi quattro ore di lavoro mio: alla fine ricevi una proposta scritta.</p>
+            <a href="/sessione/" class="btn btn-ink mt-6 !bg-[#0c2530] !text-[#f1f1db]">Scopri la sessione <Icon name="arrow-right" /></a>
           </div>
           <div class="rounded-[1.75rem] bg-paper-3 p-7 sm:p-9">
-            <p class="flex flex-wrap items-end gap-x-3"><span class="font-display text-[2.6rem] font-medium leading-none tracking-[-0.04em]">{PREZZO_SESSIONE_1A1}</span><span class="pb-1 text-paper-muted">l’ora</span></p>
-            <p class="mt-3 text-paper-muted">Dopo la sessione strategica il lavoro si fa a ore, oppure con un pacchetto su misura scritto nella proposta.</p>
-            <p class="mt-3 text-[0.9rem] text-paper-muted" set:html={iva} />
+            <p class="flex flex-wrap items-end gap-x-3"><span class="font-display text-[2.6rem] font-medium leading-none tracking-[-0.04em]">{PREZZO_ORA}</span><span class="pb-1 text-paper-muted">l’ora</span></p>
+            <p class="mt-3 text-paper-muted">Dopo la sessione, se continuiamo insieme, il lavoro si fa a ore, sempre con un preventivo scritto prima.</p>
+            <p class="mt-3 text-[0.9rem] text-paper-muted">{PREZZO_ORA}/ora · {NOTA_IVA}</p>
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@ const jsonLd = [
     <section class="bg-ink text-ivory" aria-labelledby="pochi-t">
       <div class="wrap py-20">
         <h2 data-reveal id="pochi-t" class="t-h3 !text-[clamp(1.6rem,1.3rem+1.2vw,2.3rem)]">Pochi percorsi alla volta</h2>
-        <p class="mt-4 max-w-[44rem] text-ivory/80">Seguo io ogni percorso, e la mia attività viene prima. Per questo ne apro pochi alla volta: <span class="placeholder">[NUMERO]</span> per volta. Se il posto non c’è, ti metto in lista e ti dico quando si libera.</p>
+        <p class="mt-4 max-w-[44rem] text-ivory/80">Seguo io ogni percorso, e la mia attività viene prima. Per questo ne apro pochi alla volta: {PERCORSI_CONTEMPORANEA} per volta <span class="placeholder">[DA CONFERMARE]</span>. Se il posto non c’è, ti metto in lista e ti dico quando si libera.</p>
       </div>
     </section>
 
@@ -169,7 +169,7 @@ const jsonLd = [
               <h3 class="t-h3">{p.t}</h3>
               <p class="mt-3 text-paper-muted">{p.d}</p>
               {p.href ? <a href={p.href} class="mt-auto inline-flex min-h-11 items-center gap-2 pt-6 font-display font-medium text-lime underline-offset-4 hover:underline">Scopri <Icon name="arrow-right" class="size-4" /></a>
-                : <p class="mt-auto pt-6"><span class="placeholder">[LINK DI PRENOTAZIONE SESSIONE 1:1]</span></p>}
+                : null}
             </li>
           ))}
         </ul>
@@ -203,6 +203,6 @@ const jsonLd = [
       </div>
     </section>
   </main>
-  <Footer />
+  <Footer extra={NOTA_IVA_COMPLETA} />
   <MobileBar href="#candidatura" label="Candidati per un percorso" hideAt="candidatura" />
 </Base>

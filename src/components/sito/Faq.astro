@@ -17,7 +17,7 @@ import { FAQ } from '../../data/content';
             </span>
           </summary>
           <div class="answer">
-            <p class="max-w-[40rem] pb-7 pr-12 text-paper-muted">{f.a.includes('[PREZZO DEL CANONE]') ? <Fragment set:html={f.a.replace('[PREZZO DEL CANONE]', '<span class="placeholder">[PREZZO DEL CANONE]</span>')} /> : f.a}</p>
+            <p class="max-w-[40rem] pb-7 pr-12 text-paper-muted">{f.a.includes('[PREZZO DEL CANONE DI MANUTENZIONE E GESTIONE]') ? <Fragment set:html={f.a.replace('[PREZZO DEL CANONE DI MANUTENZIONE E GESTIONE]', '<span class="placeholder">[PREZZO DEL CANONE DI MANUTENZIONE E GESTIONE]</span>')} /> : f.a}</p>
           </div>
         </details>
       ))}

@@ -12,17 +12,24 @@ export const SITE_URL = 'https://caiomachado.it';
 export const FOODCOST_PRENOTAZIONE_URL = 'https://calendar.app.google/A2JaK7UYtX5Naox18';
 /** Prima videochiamata del Sito: pagina di prenotazione separata, la crea Caio. */
 export const SITO_PRENOTAZIONE_URL = '';
-/** Questionario del Sito (Moduli Google). Tutti i bottoni "Richiedi il tuo sito" puntano qui. */
-export const QUESTIONARIO_URL = '#richiedi';
-/** Prenotazione della sessione 1:1. Vuoto = segnaposto. */
+/** Questionario del Sito (Moduli Google). Tutti i bottoni "Richiedi il tuo sito" puntano qui. Vuoto = '#richiedi' + segnaposto. */
+export const SITO_QUESTIONARIO_URL = '';
+export const QUESTIONARIO_URL = SITO_QUESTIONARIO_URL || '#richiedi';
+/** Prenotazione della Sessione strategica del lunedì (la pagina la crea Caio). Vuoto = segnaposto. Il pagamento Stripe si collega dopo. */
 export const SESSIONE_1A1_URL = '';
 
 // ── Prezzi della consulenza (decisi da Caio il 6/11/2026) ──
-export const PREZZO_SESSIONE_1A1 = '150 €';          // un'ora
-export const PREZZO_SESSIONE_STRATEGICA = '250 €';   // start: 6 ore di lavoro insieme
-export const DURATA_SESSIONE_STRATEGICA = '6 ore';
-/** Nota IVA: in regime forfettario non si applica. Da confermare con il commercialista. */
-export const NOTA_IVA_CONSULENZA = '[IVA: DA CONFERMARE – in regime forfettario non si applica]';
+export const PREZZO_ORA = '150 €';                   // lavoro a ore, dopo la sessione
+export const PREZZO_SESSIONE_1A1 = PREZZO_ORA;       // compatibilità
+export const PREZZO_SESSIONE_STRATEGICA = '250 €';   // sessione strategica di avvio
+export const DURATA_SESSIONE_STRATEGICA = '6 ore di lavoro: 2 insieme + 4 mie';
+/** Proverbi 123 è in regime forfettario: niente IVA. Non scrivere mai "+ IVA". */
+export const NOTA_IVA = 'Regime forfettario: IVA non applicata.';
+export const NOTA_IVA_COMPLETA = 'Operazione effettuata ai sensi dell’art. 1, commi 54–89, Legge 190/2014 (regime forfettario): IVA non applicata.';
+export const NOTA_IVA_CONSULENZA = NOTA_IVA;
+/** Tempi e capacità della consulenza (da confermare con Caio) */
+export const GIORNI_PROPOSTA = '5 giorni lavorativi';
+export const PERCORSI_CONTEMPORANEA = '1';
 
 // ── Link esterni ──
 export const LIBRO_AMAZON_URL = 'https://www.amazon.com.br/dp/B0DYYJLXW6';
@@ -46,7 +53,8 @@ export const FORM_ENDPOINT_ONLINE = '';
 export const FORM_ENDPOINT_VENDITE = '';
 export const FORM_ENDPOINT_CANDIDATURA = '';
 export const WAITLIST_ENDPOINT = '';   // lista d'attesa edizioni italiane
-export const GUIDA_ENDPOINT = '';      // richiesta della guida gratuita (Diagnosi)
+export const FORM_ENDPOINT_SESSIONE = ''; // modulo della Sessione strategica
+export const GUIDA_ENDPOINT = WAITLIST_ENDPOINT; // la guida gratuita usa lo stesso endpoint della lista d'attesa
 /** Email del piano B (mailto). Diventerà l'email istituzionale. */
 export const EMAIL = 'caio.d0004@gmail.com';
 
@@ -57,7 +65,7 @@ export const STATO_STRUMENTI = { gestionale: 'IN USO A CATERINHO', crm: 'IN SVIL
 export const TEMPO_RISPOSTA = '2 giorni lavorativi';
 
 // Vecchia landing del sito
-/** Prezzo del canone hosting + manutenzione, es. '15 € al mese'. Vuoto = segnaposto. */
+/** Prezzo del canone di manutenzione e gestione, es. '15 € al mese'. Vuoto = segnaposto. */
 export const PREZZO_CANONE = '';
 
 // Privacy: tutto spento finché non c'è il banner cookie (Iubenda).

@@ -52,7 +52,7 @@ const jsonLd = [
     mainEntity: FAQ.map((f) => ({
       '@type': 'Question',
       name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a.replace('[PREZZO DEL CANONE]', '').trim() },
+      acceptedAnswer: { '@type': 'Answer', text: f.a.replace('[PREZZO DEL CANONE DI MANUTENZIONE E GESTIONE]', '').trim() },
     })),
   },
 ];

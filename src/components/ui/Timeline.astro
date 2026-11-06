@@ -18,7 +18,7 @@ const { items, numbered = true, class: cls = '' } = Astro.props;
       <div class="pt-1.5">
         {it.label && <p class="t-kicker text-lime-deep">{it.label}</p>}
         <h3 class="t-h3 mt-1 !text-[clamp(1.3rem,1.1rem+0.9vw,1.8rem)]">{it.title}</h3>
-        <div class="tl-body mt-3 max-w-[38rem] space-y-3 opacity-85" set:html={it.body.replace(/\[([^\]]+)\]/g, '<span class="placeholder">[$1]</span>')} />
+        <div class="tl-body mt-3 max-w-[38rem] space-y-3 opacity-85" set:html={it.body.replace(/\[([^\]]+)\]/g, '<span class="placeholder whitespace-normal">[$1]</span>')} />
       </div>
     </li>
   ))}

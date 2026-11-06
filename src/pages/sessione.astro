@@ -1,0 +1,143 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Header from '../components/ui/Header.astro';
+import Footer from '../components/ui/Footer.astro';
+import MobileBar from '../components/ui/MobileBar.astro';
+import Icon from '../components/ui/Icon.astro';
+import Timeline from '../components/ui/Timeline.astro';
+import Faq from '../components/ui/Faq.astro';
+import StepForm from '../components/forms/StepForm.astro';
+import fotoControluce from '../assets/foto/chef_controluce.jpg';
+import { FORMS } from '../data/forms';
+import { SITE_URL, SESSIONE_1A1_URL, PREZZO_SESSIONE_STRATEGICA, PREZZO_ORA, NOTA_IVA, NOTA_IVA_COMPLETA } from '../config';
+
+const SEO = {
+  title: 'Sessione strategica 1:1 per ristoranti e PMI | Caio Machado',
+  description: 'Due ore insieme sui tuoi numeri, clienti e presenza online, poi una proposta scritta. 250 €, il lunedì pomeriggio.',
+};
+const prenota = SESSIONE_1A1_URL || '#prenota';
+const ext = SESSIONE_1A1_URL ? { target: '_blank', rel: 'noopener' } : {};
+const perChi = [
+  'Hai un ristorante o una piccola impresa già aperta.',
+  'Hai provato a sistemare le cose da solo, ma il problema torna.',
+  'Vuoi una persona che conosce la cucina e la tecnologia, non un venditore di software.',
+];
+const passi = [
+  { title: 'Prenoti e compili il modulo', body: '<p>Mi mandi i dati prima, così non perdiamo tempo.</p>' },
+  { title: 'Due ore insieme', body: '<p>Online, oppure da Caterinho a Bergamo su appuntamento, il lunedì pomeriggio: numeri, clienti, processi, presenza online.</p>' },
+  { title: 'Quattro ore di lavoro mio', body: '<p>Analizzo quello che è emerso e preparo una proposta scritta.</p>' },
+  { title: 'Ricevi la proposta', body: '<p>Entro [5 GIORNI LAVORATIVI – DA CONFERMARE]: cosa fare, in che ordine, quanto costa e in quanto tempo. Decidi tu se andare avanti, da solo o con me.</p>' },
+];
+const faq = [
+  { q: 'Posso farla online?', a: 'Sì. Se sei in provincia di Bergamo, anche da Caterinho.' },
+  { q: 'Cosa devo preparare?', a: 'Quello che chiede il modulo: numeri indicativi, canali di vendita, strumenti che usi. Se un dato non ce l’hai, va bene lo stesso.' },
+  { q: 'E se poi non voglio continuare?', a: 'Tieni la proposta scritta e la usi come vuoi.' },
+];
+const jsonLd = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service', name: 'Sessione strategica di avvio', serviceType: 'Consulenza strategica per ristoranti e PMI',
+    description: SEO.description, url: `${SITE_URL}/sessione/`,
+    provider: { '@type': 'Person', name: 'Caio Machado', url: `${SITE_URL}/` }, areaServed: { '@type': 'Country', name: 'Italia' },
+    offers: { '@type': 'Offer', price: '250', priceCurrency: 'EUR', availability: 'https://schema.org/LimitedAvailability' },
+  },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title={SEO.title} description={SEO.description} path="/sessione/" theme="consulenza" themeColor="#0C2530" jsonLd={jsonLd} og="/og-sessione.jpg">
+  <Header sub="Sessione strategica" cta={{ href: prenota, label: 'Prenota la tua sessione', short: 'Prenota', external: !!SESSIONE_1A1_URL }} />
+  <main id="contenuto">
+    <section id="top" class="grain on-paper relative isolate overflow-hidden bg-paper pt-[4.5rem] text-paper-ink">
+      <div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_80%_30%,rgb(143_208_232/0.18),transparent_60%)]" aria-hidden="true"></div>
+      <div class="wrap grid items-center gap-12 pb-20 pt-10 sm:pt-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-14 lg:pb-28 lg:pt-16">
+        <div>
+          <p class="t-kicker inline-flex items-center gap-2.5 rounded-full border border-lime/30 px-3.5 py-1.5 text-lime"><span class="size-1.5 rounded-full bg-lime" aria-hidden="true"></span>Sessione strategica di avvio · {PREZZO_SESSIONE_STRATEGICA}</p>
+          <h1 class="t-hero mt-7 max-w-[19ch] !text-[clamp(2.4rem,1.3rem+4.2vw,5.2rem)] !leading-[1.03]">Due ore per guardare la tua attività con occhi diversi. <span class="em text-lime">Poi una proposta scritta, nero su bianco.</span></h1>
+          <p class="t-lead mt-7 max-w-[40rem] text-paper-muted">Per chi ha già un’attività avviata e sa che qualcosa non torna, ma non sa da dove cominciare. Ci sediamo, guardiamo i tuoi dati e usciamo con un piano.</p>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href={prenota} {...ext} class="btn btn-lime text-[#0c2530]">Prenota la tua sessione <Icon name="arrow-right" /></a>
+            <a href="#come-funziona" class="btn btn-ghost">Cosa succede</a>
+          </div>
+          <p class="mt-6 max-w-[38rem] text-[0.95rem] text-paper-muted">Le sessioni si fanno solo il lunedì pomeriggio. Lavoro su pochi casi alla volta, perché la mia attività principale è Caterinho.</p>
+        </div>
+        <figure class="relative mx-auto w-full max-w-[24rem]">
+          <Image src={fotoControluce} alt="Caio Machado prepara gli assaggi in controluce, davanti a una tenda arancione" widths={[400, 640, 900]} sizes="(min-width: 1024px) 24rem, 85vw" class="aspect-[4/5] w-full rounded-[2rem] object-cover object-[60%_30%] shadow-[0_50px_90px_-40px_rgb(0_0_0/0.85)]" loading="eager" fetchpriority="high" />
+          <figcaption class="absolute -bottom-6 -left-4 rounded-2xl bg-[#f1f1db] px-5 py-4 text-[#0c2530] shadow-[0_30px_50px_-25px_rgb(0_0_0/0.7)] sm:-left-8">
+            <span class="block font-display text-[2rem] font-medium leading-none tracking-[-0.04em]">{PREZZO_SESSIONE_STRATEGICA}</span>
+            <span class="mt-1 block text-[0.9rem]">2 ore insieme + 4 ore mie</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="perchi-t">
+      <div class="wrap py-24 sm:py-28">
+        <h2 data-reveal id="perchi-t" class="t-h2">Per chi è, <span class="em text-lime">e per chi non è</span></h2>
+        <div class="mt-12 grid gap-5 md:grid-cols-2" data-stagger>
+          <div class="lift rounded-[1.75rem] bg-paper-3 p-7 shadow-[inset_0_0_0_1px_rgb(143_208_232/0.35)] sm:p-10">
+            <h3 class="t-h3 text-lime">È per te se</h3>
+            <ul class="mt-6 space-y-4">{perChi.map((t) => <li class="flex gap-3"><span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-lime text-[#0c2530]"><Icon name="check" class="size-4" stroke={2.25} /></span>{t}</li>)}</ul>
+          </div>
+          <div class="lift rounded-[1.75rem] p-7 shadow-[inset_0_0_0_1px_rgb(241_241_219/0.15)] sm:p-10">
+            <h3 class="t-h3">Non è per te se</h3>
+            <p class="mt-6 text-paper-muted">Cerchi una soluzione pronta in un’ora, o non hai ancora aperto: per te c’è la <a href="/diagnosi-food-cost/" class="text-lime underline underline-offset-4">Diagnosi Food Cost</a> o il <a href="/sito/" class="text-lime underline underline-offset-4">Sito in 7 giorni</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="come-funziona" class="on-paper bg-paper text-paper-ink" aria-labelledby="come-t" style="--tl-bg: var(--color-paper)">
+      <div class="wrap grid gap-14 py-24 sm:py-32 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+        <div class="lg:sticky lg:top-28 lg:self-start">
+          <p class="t-kicker text-lime">6 ore di lavoro in tutto</p>
+          <h2 data-reveal id="come-t" class="t-h2 mt-4">Cosa <span class="em text-lime">succede</span></h2>
+        </div>
+        <Timeline items={passi} />
+      </div>
+    </section>
+
+    <section id="prezzo" class="grain bg-ink text-ivory" aria-labelledby="prezzo-t">
+      <div class="wrap grid gap-12 py-24 sm:py-32 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div>
+          <p class="t-kicker text-lime">Prezzo</p>
+          <h2 data-reveal id="prezzo-t" class="t-h2 mt-4">Chiaro, <span class="em text-lime">scritto qui.</span></h2>
+        </div>
+        <div class="grid gap-4">
+          <div class="rounded-[1.75rem] bg-lime p-7 text-[#0c2530] shadow-[0_40px_70px_-40px_rgb(0_0_0/0.8)] sm:p-9">
+            <p class="t-kicker">Sessione strategica di avvio</p>
+            <p class="mt-3 font-display text-[clamp(3.6rem,2.8rem+3vw,5rem)] font-medium leading-none tracking-[-0.05em]">{PREZZO_SESSIONE_STRATEGICA}</p>
+            <p class="mt-3 text-[0.95rem]">{NOTA_IVA}</p>
+            <p class="mt-5 text-[0.95rem]">I 250 € si scalano dal primo percorso se lo confermi entro 30 giorni. <span class="placeholder">[DA CONFERMARE]</span></p>
+            <p class="mt-3 text-[0.95rem]"><strong>Garanzia:</strong> se alla fine delle due ore senti di non aver ricevuto valore, me lo dici e ti restituisco i 250 €. <span class="placeholder">[DA CONFERMARE]</span></p>
+          </div>
+          <div class="rounded-[1.75rem] bg-ink-2 p-7 sm:p-9">
+            <p class="text-ivory/80">Dopo, se continuiamo insieme:</p>
+            <p class="mt-2 flex flex-wrap items-end gap-x-3"><span class="font-display text-[2.6rem] font-medium leading-none tracking-[-0.04em]">{PREZZO_ORA}</span><span class="pb-1 text-ivory/75">all’ora, sempre con un preventivo scritto prima</span></p>
+            <p class="mt-3 text-[0.9rem] text-ivory/70">{PREZZO_ORA}/ora · {NOTA_IVA}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prenota" class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="prenota-t">
+      <div class="wrap grid gap-12 py-24 sm:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <div class="lg:sticky lg:top-28 lg:self-start">
+          <p class="t-kicker text-lime">Prenota</p>
+          <h2 data-reveal id="prenota-t" class="t-h2 mt-4">Prenota e <span class="em text-lime">mandami i dati.</span></h2>
+          <p class="mt-6 max-w-[30rem] text-paper-muted">Mi mandi i dati prima, così non perdiamo tempo.</p>
+          {SESSIONE_1A1_URL
+            ? <a href={SESSIONE_1A1_URL} target="_blank" rel="noopener" class="btn btn-lime mt-8 text-[#0c2530]">Prenota la tua sessione <Icon name="arrow-up-right" /></a>
+            : <p class="mt-8"><span class="btn btn-ghost pointer-events-none flex-wrap">Prenota la tua sessione <span class="placeholder whitespace-normal">[PAGINA DI PRENOTAZIONE DEL LUNEDÌ]</span></span></p>}
+          <p class="mt-4 text-[0.9rem] text-paper-muted"><span class="placeholder whitespace-normal">[PAGAMENTO STRIPE – DA COLLEGARE]</span></p>
+        </div>
+        <div class="rounded-[1.75rem] bg-paper-3 p-6 sm:p-10">
+          <StepForm def={FORMS.sessione} />
+        </div>
+      </div>
+    </section>
+
+    <Faq items={faq} />
+  </main>
+  <Footer extra={NOTA_IVA_COMPLETA} />
+  <MobileBar href={prenota} label="Prenota la tua sessione" price={PREZZO_SESSIONE_STRATEGICA} hideAt="prenota" external={!!SESSIONE_1A1_URL} />
+</Base>
