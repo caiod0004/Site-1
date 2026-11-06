@@ -1,9 +1,32 @@
 ---
-import { Image } from 'astro:assets';
-import tear from '../assets/tear_edge.png';
-interface Props { flip?: boolean; bg?: string; overlap?: boolean }
-const { flip = false, bg = 'bg-ink', overlap = false } = Astro.props;
+/**
+ * Bordo di carta strappata disegnato in SVG (nessuna immagine esterna, nessuna licenza).
+ * `from` = colore della sezione sopra, `to` = colore della sezione sotto.
+ */
+interface Props { from: string; to: string; rim?: string; seed?: number; height?: number }
+const { from, to, rim = 'rgb(255 255 255 / 0.55)', seed = 7, height = 64 } = Astro.props;
+
+let s = seed;
+const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+const W = 1440;
+const pts: [number, number][] = [];
+let x = 0;
+let y = height * 0.55;
+while (x <= W) {
+  // ampie onde + piccoli strappi irregolari
+  const wave = Math.sin((x / W) * Math.PI * 2.2 + seed) * height * 0.18;
+  y = Math.min(height - 6, Math.max(6, height * 0.5 + wave + (rnd() - 0.5) * height * 0.14));
+  pts.push([x, y]);
+  x += 14 + rnd() * 34;
+}
+pts.push([W, pts[pts.length - 1][1]]);
+const edge = pts.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' ');
+const body = `${edge} L${W} ${height} L0 ${height} Z`;
+const fiber = pts.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)} ${(py + 2.5 + rnd() * 2).toFixed(1)}`).join(' ');
 ---
-<div class={`pointer-events-none relative z-10 -mb-px leading-none ${bg} ${overlap ? '-mt-[clamp(2rem,7vw,7rem)] !bg-transparent' : ''}`} aria-hidden="true">
-  <Image src={tear} alt="" widths={[800, 1600, 2400]} sizes="100vw" format="webp" class={`block h-auto w-full ${flip ? '-scale-x-100' : ''}`} loading="lazy" />
+<div class="pointer-events-none relative z-10 -my-px leading-none" style={`background:${from}`} aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${height}`} preserveAspectRatio="none" class="block h-[clamp(28px,4.5vw,64px)] w-full">
+    <path d={body} fill={to} />
+    <path d={fiber} fill="none" stroke={rim} stroke-width="3" vector-effect="non-scaling-stroke" />
+  </svg>
 </div>

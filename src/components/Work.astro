@@ -11,12 +11,12 @@ const lavori = [
 ---
 <section id="lavori" class="on-paper bg-paper text-paper-ink" aria-labelledby="lavori-t">
   <div class="wrap pb-24 pt-14 sm:pb-32 lg:pt-16">
-    <p class="t-kicker text-gold-deep">Lavori già fatti</p>
+    <p class="t-kicker text-lime-deep">Lavori già fatti</p>
     <h2 id="lavori-t" class="t-h2 mt-4">Pochi, veri, <span class="em">recenti.</span></h2>
     <div class="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-10">
       {lavori.map((l) => (
         <article class="group">
-          <div class="browser overflow-hidden rounded-[1.1rem] bg-paper-ink shadow-[0_40px_80px_-40px_rgb(26_23_18/0.55),0_0_0_1px_rgb(26_23_18/0.9)] transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:-translate-y-1">
+          <div class="browser overflow-hidden rounded-[1.1rem] bg-paper-ink shadow-[0_40px_80px_-40px_rgb(33_29_26/0.55),0_0_0_1px_rgb(33_29_26/0.9)] transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:-translate-y-1">
             <div class="flex h-10 items-center gap-3 px-4" aria-hidden="true">
               <span class="flex gap-1.5"><i class="size-2.5 rounded-full bg-ivory/25"></i><i class="size-2.5 rounded-full bg-ivory/25"></i><i class="size-2.5 rounded-full bg-ivory/25"></i></span>
               <span class="mx-auto flex h-6 min-w-0 max-w-[70%] flex-1 items-center justify-center rounded-md bg-ivory/8 px-3 font-display text-[0.75rem] text-ivory/60">
@@ -39,7 +39,7 @@ const lavori = [
               </a>
             ) : (
               <span class="inline-flex min-h-11 items-center gap-2 rounded-full border border-dashed border-paper-ink/35 px-4 font-display text-[0.95rem] text-paper-muted">
-                <span class="size-2 rounded-full bg-gold-deep" aria-hidden="true"></span>{l.stato}
+                <span class="size-2 rounded-full bg-lime-deep" aria-hidden="true"></span>{l.stato}
               </span>
             )}
           </div>

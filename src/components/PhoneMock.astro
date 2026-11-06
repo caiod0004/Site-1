@@ -1,8 +1,8 @@
 ---
 import Icon from './Icon.astro';
 ---
-<figure class="phone-scene relative mx-auto w-[min(78vw,300px)] lg:w-[340px] select-none" aria-label="Esempio di struttura di un sito di una pagina, visto da telefono">
-  <figcaption class="absolute -top-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full border border-gold/50 bg-ink/85 px-3.5 py-1.5 font-display text-[0.8rem] text-gold-light backdrop-blur">
+<figure class="phone-scene relative mx-auto w-[min(78vw,300px)] md:w-[260px] lg:w-[340px] select-none" aria-label="Esempio di struttura di un sito di una pagina, visto da telefono">
+  <figcaption class="absolute -top-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full border border-paper-ink bg-paper-ink px-3.5 py-1.5 font-display text-[0.8rem] text-lime">
     Esempio di struttura
   </figcaption>
   <div class="phone" data-tilt>
@@ -34,7 +34,7 @@ import Icon from './Icon.astro';
         {[64, 48, 56].map((w) => (
           <div class="flex items-center justify-between border-t border-paper-ink/10 py-[5px]">
             <span class="h-1.5 rounded-full bg-paper-ink/25" style={`width:${w}%`}></span>
-            <span class="h-1.5 w-6 rounded-full bg-[#b8934a]/60"></span>
+            <span class="h-1.5 w-6 rounded-full bg-coral/70"></span>
           </div>
         ))}
       </div>
@@ -51,8 +51,8 @@ import Icon from './Icon.astro';
           <rect width="240" height="70" fill="#e4dccb" />
           <path d="M-5 50 C 60 40, 90 62, 150 36 S 230 20, 250 28" stroke="#fff" stroke-width="6" fill="none" />
           <path d="M70 -5 L 95 75 M 170 -5 L 150 75" stroke="#fff" stroke-width="3.5" fill="none" />
-          <path d="M120 22 c0 -7 -5 -11 -10 -11 s-10 4 -10 11 c0 7 10 16 10 16 s10 -9 10 -16z" fill="#1a1712" />
-          <circle cx="110" cy="21" r="3.2" fill="#f4efe6" />
+          <path d="M120 22 c0 -7 -5 -11 -10 -11 s-10 4 -10 11 c0 7 10 16 10 16 s10 -9 10 -16z" fill="#211d1a" />
+          <circle cx="110" cy="21" r="3.2" fill="#f0f1dc" />
         </svg>
         <p class="absolute bottom-1.5 left-2 rounded bg-paper/90 px-1.5 py-0.5 text-[0.52rem] font-semibold text-paper-ink">Mappa</p>
       </div>
@@ -72,11 +72,11 @@ import Icon from './Icon.astro';
     padding: 11px;
     background: linear-gradient(145deg, #2a2630, #0e0d12 45%, #1c1920);
     box-shadow:
-      0 0 0 1px rgb(214 178 106 / 0.35),
+      0 0 0 1px rgb(255 255 255 / 0.25),
       0 0 0 2px #050407,
       inset 0 0 0 1.5px rgb(255 255 255 / 0.06),
       0 50px 90px -30px rgb(0 0 0 / 0.9),
-      0 30px 80px -40px rgb(214 178 106 / 0.35);
+      0 30px 60px -30px rgb(33 29 26 / 0.45);
     transform: rotateX(var(--rx)) rotateY(var(--ry));
     transform-style: preserve-3d;
     will-change: transform;
@@ -86,7 +86,7 @@ import Icon from './Icon.astro';
     height: 100%;
     border-radius: 36px;
     overflow: hidden;
-    background: #f4efe6;
+    background: #fbfbf4;
     padding: 34px 12px 12px;
     display: flex; flex-direction: column; gap: 8px;
     font-family: var(--font-sans);
@@ -104,8 +104,8 @@ import Icon from './Icon.astro';
   .hero-b {
     padding: 14px 12px 12px; min-height: 104px; display: flex; flex-direction: column; justify-content: flex-end;
     background:
-      radial-gradient(120% 90% at 85% 10%, rgb(214 178 106 / 0.55), transparent 55%),
-      linear-gradient(160deg, #3b3226, #17141b);
+      radial-gradient(120% 90% at 85% 10%, rgb(139 198 224 / 0.85), transparent 60%),
+      linear-gradient(160deg, #3d6f86, #1f3a47);
   }
   .chip {
     display: inline-flex; align-items: center; justify-content: center; gap: 4px;
@@ -117,7 +117,7 @@ import Icon from './Icon.astro';
   /* Le sezioni si "costruiscono": prima la struttura tratteggiata, poi il contenuto */
   .b::after {
     content: ''; position: absolute; inset: -2px; border-radius: 11px;
-    border: 1.5px dashed #b8934a; opacity: 0; pointer-events: none;
+    border: 1.5px dashed #3d6f86; opacity: 0; pointer-events: none;
   }
   @media (prefers-reduced-motion: no-preference) {
     .b { animation: build-in 0.7s var(--ease-out-soft) both; animation-delay: calc(0.55s + var(--i) * 0.16s); }

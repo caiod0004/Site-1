@@ -1,18 +1,23 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-ink: #0b0a10;
-  --color-ink-2: #14121a;
-  --color-ink-3: #1d1a24;
-  --color-ivory: #f3eee4;
-  --color-mist: #a39c90;
-  --color-gold: #d6b26a;
-  --color-gold-light: #ecd7a6;
-  --color-gold-deep: #7a5b1e;
-  --color-paper: #f4efe6;
-  --color-paper-2: #ebe4d6;
-  --color-paper-ink: #1a1712;
-  --color-paper-muted: #5c564c;
+  /* Palette dal brand (Canva "Fede Sale e Pepe" / TocStory) */
+  --color-ink: #211d1a;        /* scuro caldo, dal taupe */
+  --color-ink-2: #2b2622;
+  --color-ink-3: #36302b;
+  --color-ivory: #f0f1dc;      /* crema del brand, testo su scuro */
+  --color-mist: #b4a89c;       /* testo secondario su scuro (7:1) */
+  --color-lime: #d9eb52;       /* accento principale */
+  --color-lime-light: #e8f39a;
+  --color-lime-deep: #566312;  /* lime scuro per testo su crema (5.7:1) */
+  --color-sky: #8bc6e0;
+  --color-coral: #f46e7b;
+  --color-taupe: #897a6e;
+  --color-paper: #f0f1dc;
+  --color-paper-2: #e5e7c8;
+  --color-paper-3: #f7f8ec;
+  --color-paper-ink: #211d1a;
+  --color-paper-muted: #5f5348;
 
   --font-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
   --font-serif: 'Instrument Serif', 'Times New Roman', serif;
@@ -39,13 +44,13 @@
     text-rendering: optimizeLegibility;
     overflow-x: clip;
   }
-  ::selection { background: var(--color-gold); color: var(--color-ink); }
+  ::selection { background: var(--color-lime); color: var(--color-ink); }
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--color-lime);
     outline-offset: 3px;
     border-radius: 6px;
   }
-  .on-paper :focus-visible { outline-color: var(--color-gold-deep); }
+  .on-paper :focus-visible { outline-color: var(--color-lime-deep); }
   h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
   p { text-wrap: pretty; }
 }
@@ -88,22 +93,18 @@
     letter-spacing: -0.01em;
     padding-right: 0.04em;
   }
-  /* Oro con riflesso che scorre (solo su fondo scuro) */
-  .gold-sheen {
-    color: var(--color-gold);
-    background: linear-gradient(100deg, #c9a253 0%, #d6b26a 35%, #fff1cc 48%, #d6b26a 60%, #b8934a 100%);
-    background-size: 250% 100%;
-    background-position: 100% 0;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    
+  /* Parola chiave in lime (su fondo scuro) */
+  .lime-sheen { color: var(--color-lime); }
+  /* Evidenziatore lime che si "disegna" sotto la parola (su fondo chiaro) */
+  .mark {
+    background: linear-gradient(var(--color-lime), var(--color-lime)) no-repeat 0 82% / 100% 0.38em;
+    padding-inline: 0.06em; margin-inline: -0.06em;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
   }
-  .ready .gold-sheen { animation: sheen 5.5s var(--ease-out-soft) infinite; }
-  @keyframes sheen {
-    0% { background-position: 100% 0; }
-    45%, 100% { background-position: 0% 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .mark { animation: mark-in 0.9s var(--ease-out-soft) 0.5s both; }
   }
+  @keyframes mark-in { from { background-size: 0% 0.38em; } to { background-size: 100% 0.38em; } }
 
   .wrap { width: 100%; max-width: 78rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 2.5rem); }
 
@@ -118,13 +119,15 @@
   .btn svg { width: 1.1em; height: 1.1em; transition: transform 0.35s var(--ease-out-soft); }
   .btn:hover svg { transform: translateX(3px); }
   .btn:active { transform: scale(0.98); }
-  .btn-gold {
-    background: var(--color-gold); color: var(--color-ink);
-    box-shadow: 0 0 0 1px rgb(255 241 204 / 0.35) inset, 0 10px 30px -12px rgb(214 178 106 / 0.6);
+  .btn-lime {
+    background: var(--color-lime); color: var(--color-ink);
+    box-shadow: 0 0 0 1px rgb(33 29 26 / 0.12) inset, 0 10px 30px -14px rgb(86 99 18 / 0.55);
   }
-  .btn-gold:hover { background: var(--color-gold-light); box-shadow: 0 0 0 1px rgb(255 241 204 / 0.5) inset, 0 14px 40px -12px rgb(214 178 106 / 0.75); }
-  .btn-ghost { color: var(--color-ivory); box-shadow: 0 0 0 1px rgb(243 238 228 / 0.28) inset; }
-  .btn-ghost:hover { box-shadow: 0 0 0 1px rgb(214 178 106 / 0.8) inset; color: var(--color-gold-light); }
+  .btn-lime:hover { background: var(--color-lime-light); box-shadow: 0 0 0 1px rgb(33 29 26 / 0.12) inset, 0 14px 40px -14px rgb(86 99 18 / 0.7); }
+  .btn-ghost { color: var(--color-ivory); box-shadow: 0 0 0 1px rgb(240 241 220 / 0.28) inset; }
+  .btn-ghost:hover { box-shadow: 0 0 0 1px rgb(217 235 82 / 0.8) inset; color: var(--color-lime-light); }
+  .btn-line { color: var(--color-paper-ink); box-shadow: 0 0 0 1.5px rgb(33 29 26 / 0.85) inset; }
+  .btn-line:hover { background: var(--color-paper-ink); color: var(--color-paper); }
   .btn-ink { background: var(--color-paper-ink); color: var(--color-paper); }
   .btn-ink:hover { background: #000; }
 
@@ -134,7 +137,7 @@
     border: 1px dashed currentColor; opacity: 0.85; white-space: nowrap;
   }
 
-  .hairline { height: 1px; background: linear-gradient(90deg, transparent, rgb(214 178 106 / 0.45), transparent); }
+  .hairline { height: 1px; background: linear-gradient(90deg, transparent, rgb(217 235 82 / 0.45), transparent); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -144,5 +147,4 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  .gold-sheen { animation: none; background-position: 50% 0; }
 }

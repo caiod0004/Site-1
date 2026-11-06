@@ -38,7 +38,9 @@ Quasi tutto è in **`src/config.ts`**:
 Altri punti:
 
 - **Testi** della pagina: un file per sezione in `src/components/`. FAQ e striscia dei vantaggi in `src/data/content.ts` (le FAQ alimentano anche i dati strutturati per Google).
-- **Foto di Caio**: sostituire il riquadro `[FOTO DI CAIO]` in `src/components/About.astro` con `<Image src={...} alt="Caio Machado" />` (metti la foto in `src/assets/`).
+- **Foto di Caio**: `src/assets/caio_pensieroso.jpg` e `src/assets/caio_sushi.jpg` (prese dal progetto Canva "Fede Sale e Pepe"). Per cambiarle sostituisci i file mantenendo il nome.
+- **Logo TocStory**: `src/assets/tocstory_logo.png` (dal progetto Canva "LOGO TOC STORY").
+- **Colori**: in `src/styles/global.css`, blocco `@theme` (lime, crema, scuro caldo, celeste, corallo, taupe dal brand).
 - **Privacy e cookie**: `src/pages/privacy.astro` e `src/pages/cookie.astro` (testo da Iubenda).
 - **Immagine per i social**: `public/og-image.jpg` (1200×630).
 
@@ -54,5 +56,5 @@ I font sono ospitati sul sito stesso (nessuna chiamata a Google Fonts).
 
 - Le immagini in `src/assets/` vengono convertite in AVIF/WebP durante la build.
 - Animazioni disattivate automaticamente con "riduci movimento" del sistema.
-- Licenza degli sfondi Envato (seta, onda dorata, strappo di carta): **da verificare per uso commerciale** prima di pubblicare.
+- Nessuna immagine Envato: gli sfondi a seta/onda dorata sono stati tolti e lo strappo di carta è disegnato in codice (`src/components/TearEdge.astro`), quindi non ci sono licenze di terzi da verificare.
 - Materiale di partenza (brief, copy, ricerca, bozza): `docs/` e `riferimento/`. Screenshot: `docs/screenshot/`.
