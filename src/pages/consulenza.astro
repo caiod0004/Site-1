@@ -8,7 +8,7 @@ import Icon from '../components/ui/Icon.astro';
 import Timeline from '../components/ui/Timeline.astro';
 import Faq from '../components/ui/Faq.astro';
 import StepForm from '../components/forms/StepForm.astro';
-import caio from '../assets/caio_pensieroso.jpg';
+import fotoControluce from '../assets/foto/chef_controluce.jpg';
 import { FORMS } from '../data/forms';
 import { SEO_CONSULENZA, RICONOSCI_C, AREE, PASSI_C, CAMBIA, FIT_SI_C, FIT_NO_C, FAQ_CONSULENZA } from '../data/consulenza';
 import { SITE_URL, SESSIONE_1A1_URL, PREZZO_SESSIONE_1A1, PREZZO_SESSIONE_STRATEGICA, DURATA_SESSIONE_STRATEGICA, NOTA_IVA_CONSULENZA } from '../config';
@@ -48,17 +48,17 @@ const jsonLd = [
 
     <section class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="ric-t">
       <div class="wrap grid gap-12 py-24 sm:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <h2 id="ric-t" class="t-h2 lg:sticky lg:top-28 lg:self-start">Ti <span class="em text-lime">riconosci?</span></h2>
+        <h2 data-reveal id="ric-t" class="t-h2 lg:sticky lg:top-28 lg:self-start">Ti <span class="em text-lime">riconosci?</span></h2>
         <ul class="border-b border-paper-ink/15">
           {RICONOSCI_C.map((r) => <li class="border-t border-paper-ink/15 py-6 font-display text-[1.2rem] leading-snug sm:text-[1.4rem]">{r}</li>)}
         </ul>
       </div>
     </section>
 
-    <section class="bg-ink text-ivory" aria-labelledby="prob-t">
+    <section class="grain bg-ink text-ivory" aria-labelledby="prob-t">
       <div class="wrap py-24 sm:py-32">
         <p class="t-kicker text-lime">Il vero problema</p>
-        <h2 id="prob-t" class="t-h2 mt-5 max-w-[18ch] !text-[clamp(2.2rem,1rem+4.4vw,5rem)]">Non ti manca un altro strumento. <span class="em text-lime">Ti manca un sistema.</span></h2>
+        <h2 data-reveal id="prob-t" class="t-h2 mt-5 max-w-[18ch] !text-[clamp(2.2rem,1rem+4.4vw,5rem)]">Non ti manca un altro strumento. <span class="em text-lime">Ti manca un sistema.</span></h2>
         <p class="t-lead mt-8 max-w-[40rem] text-ivory/80">Un sistema è quando i numeri, i clienti e gli strumenti sono collegati: sai ogni giorno cosa sta succedendo, sai cosa fare per primo, e una parte del lavoro gira anche quando non ci sei. Non si compra a scaffale: si costruisce sulla tua attività.</p>
       </div>
     </section>
@@ -66,10 +66,10 @@ const jsonLd = [
     <section id="aree" class="on-paper bg-paper text-paper-ink" aria-labelledby="aree-t">
       <div class="wrap py-24 sm:py-32">
         <p class="t-kicker text-lime">Su cosa lavoriamo</p>
-        <h2 id="aree-t" class="t-h2 mt-4">Tre aree, <span class="em text-lime">un solo sistema.</span></h2>
-        <ol class="mt-14 grid gap-4 lg:grid-cols-3">
+        <h2 data-reveal id="aree-t" class="t-h2 mt-4">Tre aree, <span class="em text-lime">un solo sistema.</span></h2>
+        <ol class="mt-14 grid gap-4 lg:grid-cols-3" data-stagger>
           {AREE.map((a, i) => (
-            <li class="rounded-[1.75rem] bg-paper-3 p-7 shadow-[inset_0_1px_0_rgb(255_255_255/0.06),0_30px_60px_-40px_rgb(0_0_0/0.8)] sm:p-9">
+            <li class="lift rounded-[1.75rem] bg-paper-3 p-7 shadow-[inset_0_1px_0_rgb(255_255_255/0.06),0_30px_60px_-40px_rgb(0_0_0/0.8)] sm:p-9">
               <div class="flex items-center justify-between"><span class="grid size-12 place-items-center rounded-full bg-lime text-[#0c2530]"><Icon name={a.icon} class="size-6" /></span><span class="font-display text-[2.4rem] font-medium leading-none text-paper-ink/20" aria-hidden="true">{i + 1}</span></div>
               <h3 class="t-h3 mt-8"><span class="sr-only">{i + 1}. </span>{a.t}</h3>
               <ul class="mt-5 space-y-3 text-paper-muted">{a.punti.map((p) => <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-lime" aria-hidden="true"></span>{p}</li>)}</ul>
@@ -82,15 +82,15 @@ const jsonLd = [
 
     <section id="come-funziona" class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="come-t" style="--tl-bg: var(--color-paper-2)">
       <div class="wrap grid gap-14 py-24 sm:py-32 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-        <h2 id="come-t" class="t-h2 lg:sticky lg:top-28 lg:self-start">Come <span class="em text-lime">funziona</span></h2>
+        <h2 data-reveal id="come-t" class="t-h2 lg:sticky lg:top-28 lg:self-start">Come <span class="em text-lime">funziona</span></h2>
         <Timeline items={PASSI_C} />
       </div>
     </section>
 
     <section class="bg-ink text-ivory" aria-labelledby="cambia-t">
       <div class="wrap py-24 sm:py-28">
-        <h2 id="cambia-t" class="t-h2">Cosa cambia <span class="em text-lime">alla fine del percorso</span></h2>
-        <ul class="mt-12 grid gap-4 sm:grid-cols-2">
+        <h2 data-reveal id="cambia-t" class="t-h2">Cosa cambia <span class="em text-lime">alla fine del percorso</span></h2>
+        <ul class="mt-12 grid gap-4 sm:grid-cols-2" data-stagger>
           {CAMBIA.map((c) => <li class="flex gap-4 rounded-[1.5rem] bg-ink-2 p-6"><Icon name="check" class="mt-0.5 size-6 shrink-0 text-lime" stroke={2} />{c}</li>)}
         </ul>
         <p class="mt-8 max-w-[44rem] font-serif text-[1.35rem] italic text-ivory/80">Non prometto numeri di fatturato: dipendono da troppe cose che non controllo. Prometto un sistema che funziona e che sai usare.</p>
@@ -99,10 +99,10 @@ const jsonLd = [
 
     <section class="on-paper bg-paper text-paper-ink" aria-labelledby="chi-t">
       <div class="wrap grid items-center gap-14 py-24 sm:py-32 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-        <Image src={caio} alt="Caio Machado" widths={[400, 640]} sizes="(min-width: 1024px) 22rem, 80vw" class="aspect-[4/5] w-full max-w-[22rem] rounded-[2rem] object-cover object-top" loading="lazy" />
+        <Image src={fotoControluce} alt="Caio Machado prepara gli assaggi in controluce, davanti a una tenda arancione" widths={[400, 640, 900]} sizes="(min-width: 1024px) 22rem, 80vw" class="aspect-[4/5] w-full max-w-[22rem] rounded-[2rem] object-cover object-[60%_30%] shadow-[0_50px_90px_-40px_rgb(0_0_0/0.8)]" loading="lazy" />
         <div>
           <p class="t-kicker text-lime">Chi sono</p>
-          <h2 id="chi-t" class="t-h2 mt-4">Due strade <span class="em text-lime">che si incontrano.</span></h2>
+          <h2 data-reveal id="chi-t" class="t-h2 mt-4">Due strade <span class="em text-lime">che si incontrano.</span></h2>
           <div class="mt-8 max-w-[40rem] space-y-5 text-paper-muted">
             <p><strong class="text-paper-ink">Mi chiamo Caio Machado.</strong> Lavoro nella ristorazione dal 2009, a tempo pieno dal 2013: in Temakinho, dal 2013 al 2018, sono passato da capo bar a executive chef, ho seguito le cucine di Milano e Roma e l’apertura di Londra Soho.</p>
             <p>Prima della cucina c’erano la programmazione, la grafica pubblicitaria (senza finire il percorso), l’Accademia di Brera con le nuove tecnologie per l’arte e uno stage di web design. Oggi le due strade si incontrano.</p>
@@ -114,7 +114,7 @@ const jsonLd = [
 
     <section class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="perchi-t">
       <div class="wrap py-24 sm:py-28">
-        <h2 id="perchi-t" class="t-h2">Per chi è, <span class="em text-lime">e per chi non è</span></h2>
+        <h2 data-reveal id="perchi-t" class="t-h2">Per chi è, <span class="em text-lime">e per chi non è</span></h2>
         <div class="mt-12 grid gap-5 md:grid-cols-2">
           <div class="rounded-[1.75rem] bg-paper-3 p-7 shadow-[inset_0_0_0_1px_rgb(143_208_232/0.35)] sm:p-10">
             <h3 class="t-h3 text-lime">È per te se</h3>
@@ -132,7 +132,7 @@ const jsonLd = [
       <div class="wrap grid gap-12 py-24 sm:py-32 lg:grid-cols-2 lg:gap-16">
         <div>
           <p class="t-kicker text-lime">Investimento</p>
-          <h2 id="inv-t" class="t-h2 mt-4">Un preventivo scritto, <span class="em text-lime">prima di iniziare.</span></h2>
+          <h2 data-reveal id="inv-t" class="t-h2 mt-4">Un preventivo scritto, <span class="em text-lime">prima di iniziare.</span></h2>
           <p class="mt-6 max-w-[34rem] text-paper-muted">Ogni percorso ha un preventivo scritto, costruito sulla tua attività e deciso prima di iniziare.</p>
           <p class="mt-4 max-w-[34rem] text-paper-muted"><span class="placeholder whitespace-normal">[DA DECIDERE: se il costo della sessione si scala dal percorso quando parti.]</span></p>
           <p class="mt-4 max-w-[34rem] text-paper-muted"><strong class="text-paper-ink">Garanzia:</strong> <span class="placeholder whitespace-normal">[DA DECIDERE – proposta: se dopo la sessione strategica non hai trovato valore, ti restituisco il costo della sessione.]</span></p>
@@ -154,16 +154,16 @@ const jsonLd = [
 
     <section class="bg-ink text-ivory" aria-labelledby="pochi-t">
       <div class="wrap py-20">
-        <h2 id="pochi-t" class="t-h3 !text-[clamp(1.6rem,1.3rem+1.2vw,2.3rem)]">Pochi percorsi alla volta</h2>
+        <h2 data-reveal id="pochi-t" class="t-h3 !text-[clamp(1.6rem,1.3rem+1.2vw,2.3rem)]">Pochi percorsi alla volta</h2>
         <p class="mt-4 max-w-[44rem] text-ivory/80">Seguo io ogni percorso, e la mia attività viene prima. Per questo ne apro pochi alla volta: <span class="placeholder">[NUMERO]</span> per volta. Se il posto non c’è, ti metto in lista e ti dico quando si libera.</p>
       </div>
     </section>
 
     <section id="tre-porte" class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="porte-t">
       <div class="wrap py-24 sm:py-28">
-        <h2 id="porte-t" class="t-h2">Non sei ancora pronto? <span class="em text-lime">Parti da una delle tre porte</span></h2>
+        <h2 data-reveal id="porte-t" class="t-h2">Non sei ancora pronto? <span class="em text-lime">Parti da una delle tre porte</span></h2>
         <p class="mt-5 max-w-[36rem] text-paper-muted">Non serve partire dal gradino più alto. Puoi cominciare da qui:</p>
-        <ul class="mt-12 grid gap-4 lg:grid-cols-3">
+        <ul class="mt-12 grid gap-4 lg:grid-cols-3" data-stagger>
           {porte.map((p) => (
             <li class="flex flex-col rounded-[1.5rem] bg-paper-3 p-7">
               <h3 class="t-h3">{p.t}</h3>
@@ -180,7 +180,7 @@ const jsonLd = [
 
     <section id="chiusura" class="relative isolate overflow-hidden bg-ink text-ivory" aria-labelledby="chiusura-t">
       <div class="wrap flex flex-col items-center py-24 text-center sm:py-32">
-        <h2 id="chiusura-t" class="t-hero max-w-[16ch] !text-[clamp(2.4rem,1.3rem+4.4vw,5rem)]">Il tuo sistema non esiste ancora. <span class="em text-lime">Costruiamolo.</span></h2>
+        <h2 data-reveal id="chiusura-t" class="t-hero max-w-[16ch] !text-[clamp(2.4rem,1.3rem+4.4vw,5rem)]">Il tuo sistema non esiste ancora. <span class="em text-lime">Costruiamolo.</span></h2>
         <p class="t-lead mt-7 max-w-[38rem] text-ivory/80">Raccontami la tua attività. Se ha senso lavorare insieme, ti preparo una proposta scritta. Se non ha senso, ti dico da dove partire.</p>
         <a href="#candidatura" class="btn btn-lime mt-9 !min-h-14 !px-8 text-[#0c2530]">Candidati per un percorso <Icon name="arrow-right" /></a>
       </div>
@@ -190,7 +190,7 @@ const jsonLd = [
       <div class="wrap grid gap-12 py-24 sm:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div class="lg:sticky lg:top-28 lg:self-start">
           <p class="t-kicker text-lime">Candidatura · 10 minuti</p>
-          <h2 id="cand-t" class="t-h2 mt-4">Raccontami <span class="em text-lime">la tua attività.</span></h2>
+          <h2 data-reveal id="cand-t" class="t-h2 mt-4">Raccontami <span class="em text-lime">la tua attività.</span></h2>
           <p class="mt-6 max-w-[30rem] text-paper-muted">Mi racconti la tua attività, i numeri che conosci e dove vuoi arrivare. Leggo ogni risposta io.</p>
         </div>
         <div class="rounded-[1.75rem] bg-paper-3 p-6 sm:p-10">

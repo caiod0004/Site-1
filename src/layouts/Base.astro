@@ -83,6 +83,19 @@ const gaOn = consentOn && GOOGLE_ANALYTICS.enabled && GOOGLE_ANALYTICS.measureme
     <a href="#contenuto" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-lime focus:px-5 focus:py-3 focus:text-ink">Vai al contenuto</a>
     <slot />
     <script is:inline>
+      // Rivelazioni allo scroll e parallasse leggero (solo se il movimento è consentito)
+      (function () {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+        var root = document.documentElement; root.classList.add('js-motion');
+        document.querySelectorAll('[data-stagger]').forEach(function (g) { Array.prototype.forEach.call(g.children, function (c, i) { c.style.setProperty('--i', i); }); });
+        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+        document.querySelectorAll('[data-reveal],[data-stagger]').forEach(function (el) { io.observe(el); });
+        var px = [].slice.call(document.querySelectorAll('[data-parallax]')); if (!px.length) return;
+        var tick = false;
+        function upd() { tick = false; var vh = innerHeight; px.forEach(function (el) { var r = el.parentElement.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; var k = parseFloat(el.dataset.parallax) || 0.12; var c = (r.top + r.height / 2 - vh / 2); el.style.transform = 'translate3d(0,' + (c * -k).toFixed(1) + 'px,0) scale(1.12)'; }); }
+        addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+        upd();
+      })();
       addEventListener('load', function () {
         setTimeout(function () { document.documentElement.classList.add('ready'); }, 1800);
       });

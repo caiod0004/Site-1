@@ -10,9 +10,14 @@ import Faq from '../components/ui/Faq.astro';
 import BrowserFrame from '../components/ui/BrowserFrame.astro';
 import StatusBadge from '../components/ui/StatusBadge.astro';
 import BookMockup from '../components/ui/BookMockup.astro';
-import caio from '../assets/caio_pensieroso.jpg';
-import piattiBuffet from '../assets/piatti_buffet.jpg';
-import piattiCocktail from '../assets/piatti_cocktail.jpg';
+import fotoControluce from '../assets/foto/chef_controluce.jpg';
+import fotoGiacca from '../assets/foto/chef_giacca.jpg';
+import fotoBar from '../assets/foto/bar_caterinho.jpg';
+import fotoSushi from '../assets/foto/sushi_occhiali.jpg';
+import fotoTemakinho from '../assets/foto/temakinho_navigli.jpg';
+import fotoTartare from '../assets/foto/tartare_sacapoche.jpg';
+import fotoSalsa from '../assets/foto/salsa_caterinho.jpg';
+import fotoGuarnizione from '../assets/foto/bar_guarnizione.jpg';
 import caterinhoShot from '../assets/portfolio_caterinho.jpg';
 import studioShot from '../assets/portfolio_studio_legale.jpg';
 import logoTemakinho from '../assets/loghi/temakinho.png';
@@ -86,42 +91,52 @@ const jsonLd = [
 ];
 ---
 <Base title={SEO_HOME.title} description={SEO_HOME.description} path="/" theme="home" themeColor="#F1F1DB" jsonLd={jsonLd} og="/og-home.jpg">
-  <Header
+  <Header overlay
     nav={[{ href: '#storia', label: 'Storia' }, { href: '#strumenti', label: 'Strumenti' }, { href: '#libro', label: 'Libro' }, { href: '/blog/', label: 'Blog' }]}
     cta={{ href: '#analisi', label: 'Fai l’analisi del tuo caso', short: 'Analisi' }} />
   <main id="contenuto">
     <!-- HERO -->
-    <section id="top" class="on-paper relative isolate overflow-hidden bg-paper pt-[4.5rem] text-paper-ink">
-      <div class="wrap grid items-center gap-14 pb-16 pt-10 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] md:gap-10 lg:pb-24 lg:pt-16">
+    <section id="top" class="hero grain relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink text-ivory">
+      <div class="slides absolute inset-0 -z-20" aria-hidden="true">
+        <Image src={fotoControluce} alt="" widths={[640, 960, 1400, 1600]} sizes="100vw" class="slide object-[68%_30%] lg:object-[72%_22%]" loading="eager" fetchpriority="high" />
+        <Image src={fotoGiacca} alt="" widths={[640, 960, 1400, 1600]} sizes="100vw" class="slide object-[62%_10%] lg:object-[65%_18%]" loading="eager" />
+        <Image src={fotoBar} alt="" widths={[640, 960, 1024]} sizes="100vw" class="slide object-[58%_12%] lg:object-[60%_20%]" loading="eager" />
+      </div>
+      <div class="shade absolute inset-0 -z-10" aria-hidden="true"></div>
+      <div class="wrap relative mt-auto grid gap-10 pb-10 pt-[56svh] md:pb-14 md:pt-[40svh] lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)] lg:items-center lg:pt-32">
         <div>
-          <p class="t-kicker flex items-center gap-3 text-lime-deep"><span class="h-px w-10 bg-current" aria-hidden="true"></span>Caio Machado · Ristorazione e tecnologia</p>
-          <h1 class="t-hero mt-6 max-w-[16ch] !text-[clamp(2.7rem,1.3rem+5.4vw,6rem)] !leading-[1.02]">Ho portato il computer in cucina. <span class="em text-lime-deep">Da allora metto in ordine numeri, clienti e presenza online.</span></h1>
-          <p class="t-lead mt-7 max-w-[40rem] text-paper-muted">Dal 2009 lavoro nella ristorazione: ho guidato cucine a Milano e a Roma, aperto un locale a Londra e avviato punti vendita da zero. Ho studiato programmazione e web design, e i sistemi che uso li costruisco io. Oggi aiuto ristoranti e piccole imprese a vedere chiaro nei numeri, a vendere meglio e a esistere online.</p>
-          <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a href="#analisi" class="btn btn-ink">Fai l’analisi del tuo caso <Icon name="arrow-right" /></a>
-            <a href="#storia" class="btn btn-line">Leggi la mia storia</a>
+          <p class="t-kicker flex items-center gap-3 text-lime-light"><span class="h-px w-10 bg-current" aria-hidden="true"></span>Caio Machado · Ristorazione e tecnologia</p>
+          <h1 class="t-hero mt-5 max-w-[17ch] !text-[clamp(2.5rem,1.4rem+3.6vw,4.7rem)] !leading-[1.02] drop-shadow-[0_2px_24px_rgb(0_0_0/0.35)]">Ho portato il computer in cucina. <span class="em text-lime-light">Da allora metto in ordine numeri, clienti e presenza online.</span></h1>
+          <p class="mt-6 max-w-[38rem] text-[1.05rem] leading-relaxed text-ivory/85 sm:text-[1.12rem]">Dal 2009 lavoro nella ristorazione: ho guidato cucine a Milano e a Roma, aperto un locale a Londra e avviato punti vendita da zero. Ho studiato programmazione e web design, e i sistemi che uso li costruisco io. Oggi aiuto ristoranti e piccole imprese a vedere chiaro nei numeri, a vendere meglio e a esistere online.</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href="#analisi" class="btn btn-lime text-[#17323d]">Fai l’analisi del tuo caso <Icon name="arrow-right" /></a>
+            <a href="#storia" class="btn btn-ghost backdrop-blur-sm">Leggi la mia storia</a>
           </div>
-          <p class="mt-5 text-[0.95rem] text-paper-muted">Gratuita, su candidatura. Ti rispondo io, di persona.</p>
+          <p class="mt-5 text-[0.95rem] text-ivory/75">Gratuita, su candidatura. Ti rispondo io, di persona.</p>
         </div>
-        <figure class="relative mx-auto w-full max-w-[24rem] md:mx-0 md:justify-self-end">
-          <span class="absolute -right-3 -top-3 bottom-3 left-3 rounded-t-full border border-lime-deep/50" aria-hidden="true"></span>
-          <Image src={caio} alt="Caio Machado, in camicia bianca, con la mano sotto il mento" widths={[400, 640, 830]} sizes="(min-width: 768px) 24rem, 90vw" class="relative aspect-[4/5] w-full rounded-t-full object-cover object-top" loading="eager" fetchpriority="high" />
-          <span class="absolute -bottom-4 -left-4 size-16 rounded-full bg-coral/90 mix-blend-multiply" aria-hidden="true"></span>
+        <figure class="polaroid hidden translate-y-10 self-end justify-self-end lg:block xl:translate-x-10" aria-hidden="true">
+          <Image src={fotoSushi} alt="" widths={[300, 500]} sizes="15rem" class="aspect-[3/4] w-[12.5rem] rounded-md object-cover object-[50%_35%]" loading="eager" />
         </figure>
       </div>
-      <div class="border-y border-paper-ink/12">
-        <ul class="wrap flex flex-wrap gap-x-7 gap-y-3 py-6 font-display text-[0.95rem] text-paper-ink/85" aria-label="In breve">
+    </section>
+    <div class="on-paper bg-paper text-paper-ink">
+      <div class="border-b border-paper-ink/12">
+        <ul class="wrap flex flex-wrap gap-x-7 gap-y-3 py-6 font-display text-[0.95rem] text-paper-ink/85" aria-label="In breve" data-stagger>
           {PROVE.map((p) => <li class="flex items-center gap-3"><span class="size-1.5 rotate-45 bg-coral" aria-hidden="true"></span>{p}</li>)}
         </ul>
       </div>
-    </section>
+    </div>
 
     <!-- STORIA -->
     <section id="storia" class="on-paper bg-paper text-paper-ink" aria-labelledby="storia-t">
       <div class="wrap grid gap-14 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div class="lg:sticky lg:top-28 lg:self-start" data-reveal>
           <p class="t-kicker text-lime-deep">La mia storia</p>
-          <h2 id="storia-t" class="t-h2 mt-4">Non sono nato consulente. <span class="em text-lime-deep">Ci sono arrivato lavorando.</span></h2>
+          <h2 data-reveal id="storia-t" class="t-h2 mt-4">Non sono nato consulente. <span class="em text-lime-deep">Ci sono arrivato lavorando.</span></h2>
+          <figure class="mt-10 max-lg:hidden">
+            <div class="overflow-hidden rounded-[1.5rem] shadow-[0_40px_70px_-40px_rgb(0_0_0/0.6)]"><Image src={fotoTemakinho} alt="Caio al banco di Temakinho Navigli, a Milano" widths={[480, 960]} sizes="26rem" class="aspect-[4/3] w-full object-cover" loading="lazy" /></div>
+            <figcaption class="mt-3 text-[0.9rem] text-paper-muted">Temakinho Navigli, Milano.</figcaption>
+          </figure>
         </div>
         <div style="--tl-bg: var(--color-paper)">
           <Timeline items={STORIA} />
@@ -142,16 +157,25 @@ const jsonLd = [
       </div>
     </section>
 
+    <!-- FASCIA FOTO -->
+    <section class="band relative isolate overflow-hidden bg-ink text-ivory" aria-label="Prima i clienti, poi le mura">
+      <div class="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true"><Image src={fotoTartare} alt="" widths={[800, 1400, 1600]} sizes="100vw" class="h-full w-full object-cover object-[50%_40%]" data-parallax="0.12" loading="lazy" /></div>
+      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(23_50_61/0.92),rgb(23_50_61/0.45)_60%,rgb(23_50_61/0.2))]" aria-hidden="true"></div>
+      <div class="wrap py-32 sm:py-44">
+        <p class="max-w-[14ch] font-serif text-[clamp(2.6rem,1.6rem+4.4vw,5.5rem)] leading-[1.02]" data-reveal>Prima i clienti, <span class="italic text-lime-light">poi le mura.</span></p>
+      </div>
+    </section>
+
     <!-- CATERINHO -->
-    <section class="relative isolate overflow-hidden bg-ink text-ivory" aria-labelledby="lab-t">
+    <section class="grain relative isolate overflow-hidden bg-ink text-ivory" aria-labelledby="lab-t">
       <div class="wrap grid items-center gap-14 py-24 sm:py-32 lg:grid-cols-2 lg:gap-20">
         <div class="relative grid grid-cols-[1.2fr_1fr] items-end gap-4">
-          <Image src={piattiBuffet} alt="Un buffet di Caterinho: tartare, sushi e fritture" widths={[400, 700, 930]} sizes="(min-width: 1024px) 22rem, 55vw" class="aspect-[3/4] w-full rounded-[1.5rem] object-cover" loading="lazy" />
-          <Image src={piattiCocktail} alt="Una tartare servita in una coppa da cocktail" widths={[300, 560]} sizes="(min-width: 1024px) 18rem, 45vw" class="mb-10 aspect-[3/4] w-full rounded-[1.5rem] object-cover" loading="lazy" />
+          <Image src={fotoSalsa} alt="Un assaggio di Caterinho rifinito con la salsa, davanti al grembiule con il logo" widths={[400, 700, 930]} sizes="(min-width: 1024px) 22rem, 55vw" class="lift aspect-[3/4] w-full rounded-[1.5rem] object-cover shadow-[0_40px_70px_-40px_rgb(0_0_0/0.8)]" loading="lazy" />
+          <Image src={fotoGuarnizione} alt="Caio guarnisce dei cocktail al bancone di Caterinho" widths={[300, 560]} sizes="(min-width: 1024px) 18rem, 45vw" class="lift mb-10 aspect-[3/4] w-full rounded-[1.5rem] object-cover shadow-[0_40px_70px_-40px_rgb(0_0_0/0.8)]" loading="lazy" />
         </div>
         <div data-reveal>
           <p class="t-kicker text-lime">Caterinho, il mio laboratorio</p>
-          <h2 id="lab-t" class="t-h2 mt-4">Non ti porto teorie. <span class="em text-lime-light">Ti porto quello che provo ogni giorno.</span></h2>
+          <h2 data-reveal id="lab-t" class="t-h2 mt-4">Non ti porto teorie. <span class="em text-lime-light">Ti porto quello che provo ogni giorno.</span></h2>
           <div class="mt-8 max-w-[38rem] space-y-5 text-ivory/80">
             <p>Caterinho è la mia attività principale: catering ed esperienze nippo-brasiliane a Bergamo. È anche il posto dove metto alla prova ogni sistema prima di proportelo. Lì ogni piatto ha il suo food cost calcolato. Lì ho costruito il sito, i preventivi, il controllo dei numeri e il sistema per i social.</p>
             <p>Non è una storia di successo già finita, e non te la racconto così. È un cantiere aperto: ci sono giorni buoni e decisioni difficili, come in ogni piccola impresa. Proprio per questo so di cosa parlo quando parliamo della tua.</p>
@@ -167,7 +191,7 @@ const jsonLd = [
         <BookMockup />
         <div data-reveal>
           <p class="t-kicker text-lime-deep">Il libro</p>
-          <h2 id="libro-t" class="t-h2 mt-4">Ho messo per iscritto gli errori. <span class="em text-lime-deep">Anche i miei.</span></h2>
+          <h2 data-reveal id="libro-t" class="t-h2 mt-4">Ho messo per iscritto gli errori. <span class="em text-lime-deep">Anche i miei.</span></h2>
           <div class="mt-8 max-w-[40rem] space-y-5 text-paper-muted">
             <p>Nel 2025 ho pubblicato su Amazon Brasile, in portoghese, <strong class="text-paper-ink">08 Erros que quebram restaurantes e como evitar antes de investir 1 real</strong> (collana Italian Method). È nato come un’iniziativa personale: restituire al mio paese quello che avevo imparato in Italia, e condividere esperienza con chi sogna di aprire un ristorante ma non sa da dove cominciare. Parla degli errori che fanno chiudere un ristorante prima ancora che apra, e di come evitarli: ricerca di mercato, analisi della concorrenza fisica e digitale, marketing digitale, gestione e sprechi, fidelizzazione, prezzo contro valore percepito, espansione troppo veloce. In più, un capitolo bonus sul business plan.</p>
             <p>Non è un manuale scritto da lontano. Dentro ci sono le cucine in cui ho lavorato, il locale in cui ho visto per primo l’occasione del delivery e quello che ho cambiato quando ho aperto Caterinho.</p>
@@ -186,13 +210,13 @@ const jsonLd = [
         <div class="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-16" data-reveal>
           <div>
             <p class="t-kicker text-lime-deep">Gli strumenti che costruisco</p>
-            <h2 id="strumenti-t" class="t-h2 mt-4">Tre strumenti, <span class="em text-lime-deep">nati in cucina, non in un ufficio.</span></h2>
+            <h2 data-reveal id="strumenti-t" class="t-h2 mt-4">Tre strumenti, <span class="em text-lime-deep">nati in cucina, non in un ufficio.</span></h2>
           </div>
           <p class="max-w-[34rem] text-paper-muted lg:pb-2">Non vendo software. Costruisco gli strumenti che servono a me e li adatto a chi lavora come me. Ti dico sempre a che punto sono.</p>
         </div>
-        <ul class="mt-14 grid gap-4 lg:grid-cols-3">
+        <ul class="mt-14 grid gap-4 lg:grid-cols-3" data-stagger>
           {strumenti.map((s) => (
-            <li class="flex flex-col rounded-[1.5rem] bg-paper-3 p-7 shadow-[inset_0_0_0_1px_rgb(42_42_38/0.08)] sm:p-8">
+            <li class="lift flex flex-col rounded-[1.5rem] bg-paper-3 p-7 shadow-[inset_0_0_0_1px_rgb(42_42_38/0.08)] sm:p-8">
               <span class="self-start"><StatusBadge stato={s.stato} /></span>
               <h3 class="t-h3 mt-8">{s.titolo}</h3>
               <p class="mt-3 text-paper-muted">{s.testo}</p>
@@ -205,16 +229,16 @@ const jsonLd = [
     </section>
 
     <!-- ANALISI -->
-    <section id="analisi" class="relative isolate overflow-hidden bg-ink text-ivory" aria-labelledby="analisi-t">
+    <section id="analisi" class="grain relative isolate overflow-hidden bg-ink text-ivory" aria-labelledby="analisi-t">
       <div class="wrap py-24 sm:py-32">
         <div class="max-w-[52rem]" data-reveal>
           <p class="t-kicker text-lime">Analisi del tuo caso</p>
-          <h2 id="analisi-t" class="t-h2 mt-4">Da dove cominciamo? <span class="em text-lime-light">Scegli il problema che ti toglie più sonno.</span></h2>
+          <h2 data-reveal id="analisi-t" class="t-h2 mt-4">Da dove cominciamo? <span class="em text-lime-light">Scegli il problema che ti toglie più sonno.</span></h2>
           <p class="t-lead mt-6 text-ivory/80">Ogni modulo richiede 4 minuti e contiene domande precise, così la prima chiamata parte dai tuoi dati e non da frasi generiche. Leggo io ogni risposta. Se non posso aiutarti, te lo dico.</p>
         </div>
-        <ul class="mt-14 grid gap-4 lg:grid-cols-3">
+        <ul class="mt-14 grid gap-4 lg:grid-cols-3" data-stagger>
           {PORTE.map((p) => (
-            <li class="door group relative flex flex-col rounded-[1.75rem] bg-paper p-7 text-paper-ink sm:p-9">
+            <li class="door group relative flex flex-col rounded-[1.75rem] bg-paper p-7 text-paper-ink shadow-[0_30px_60px_-40px_rgb(0_0_0/0.7)] sm:p-9">
               <span class="grid size-12 place-items-center rounded-full bg-lime text-paper-ink"><Icon name={p.icon} class="size-6" /></span>
               <h3 class="t-h3 mt-8">{p.titolo}</h3>
               <p class="mt-4 font-serif text-[clamp(1.5rem,1.2rem+1vw,2rem)] italic leading-[1.15]">“{p.frase}”</p>
@@ -231,7 +255,7 @@ const jsonLd = [
     <section id="lavori" class="on-paper bg-paper text-paper-ink" aria-labelledby="lavori-t">
       <div class="wrap py-24 sm:py-32">
         <p class="t-kicker text-lime-deep">Lavori pubblicati</p>
-        <h2 id="lavori-t" class="t-h2 mt-4">Lavori veri, <span class="em text-lime-deep">con il loro indirizzo.</span></h2>
+        <h2 data-reveal id="lavori-t" class="t-h2 mt-4">Lavori veri, <span class="em text-lime-deep">con il loro indirizzo.</span></h2>
         <div class="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-10">
           <article class="min-w-0">
             <BrowserFrame img={caterinhoShot} host="caterinho.it" alt="Schermata del sito di Caterinho: il team davanti al locale, con il logo e il motto “Celebra di più. Preoccupati di meno.”" />
@@ -257,13 +281,13 @@ const jsonLd = [
       <div class="wrap py-24 sm:py-28">
         <div class="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-16">
           <div>
-            <h2 id="blog-t" class="t-h2">Diario dal <span class="em text-lime-deep">laboratorio</span></h2>
+            <h2 data-reveal id="blog-t" class="t-h2">Diario dal <span class="em text-lime-deep">laboratorio</span></h2>
             <p class="mt-5 max-w-[34rem] text-paper-muted">Quello che imparo mentre costruisco Caterinho e i miei strumenti. Errori compresi.</p>
           </div>
           <a href="/blog/" class="inline-flex min-h-11 items-center gap-2 font-display font-medium text-lime-deep underline-offset-4 hover:underline lg:justify-self-end">Tutti gli articoli <Icon name="arrow-right" class="size-4" /></a>
         </div>
         {posts.length > 0 ? (
-          <ul class="mt-12 grid gap-4 lg:grid-cols-3">
+          <ul class="mt-12 grid gap-4 lg:grid-cols-3" data-stagger>
             {posts.map((p) => (
               <li class="rounded-[1.5rem] bg-paper-3 p-7">
                 <p class="t-kicker text-lime-deep">{CATEGORIE[p.data.categoria]}</p>
@@ -284,7 +308,7 @@ const jsonLd = [
     <!-- SEGUIMI -->
     <section class="on-paper bg-paper text-paper-ink" aria-labelledby="seguimi-t">
       <div class="wrap py-24 sm:py-28">
-        <h2 id="seguimi-t" class="t-h2">Il cantiere, <span class="em text-lime-deep">giorno per giorno.</span></h2>
+        <h2 data-reveal id="seguimi-t" class="t-h2">Il cantiere, <span class="em text-lime-deep">giorno per giorno.</span></h2>
         <ul class="mt-12 border-b border-paper-ink/15">
           <li class="border-t border-paper-ink/15"><a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="group flex min-h-11 flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-6"><span class="t-h3">Instagram · @chef.caiomachado</span><span class="text-paper-muted">dietro le quinte e stories <Icon name="arrow-up-right" class="inline size-4" /></span></a></li>
           <li class="border-t border-paper-ink/15">{LINKEDIN_URL
@@ -298,9 +322,9 @@ const jsonLd = [
     <Faq items={FAQ_HOME} />
 
     <!-- CHIUSURA -->
-    <section id="chiusura" class="relative isolate overflow-hidden bg-ink text-ivory" aria-labelledby="chiusura-t">
+    <section id="chiusura" class="grain relative isolate overflow-hidden bg-ink text-ivory" aria-labelledby="chiusura-t">
       <div class="wrap flex flex-col items-center py-28 text-center sm:py-36">
-        <h2 id="chiusura-t" class="t-hero max-w-[18ch] !text-[clamp(2.4rem,1.2rem+4.4vw,5rem)] !leading-[1.05]">Raccontami il tuo caso. <span class="em text-lime-light">Ti dico la verità, anche se la verità è “non ti serve ancora”.</span></h2>
+        <h2 data-reveal id="chiusura-t" class="t-hero max-w-[18ch] !text-[clamp(2.4rem,1.2rem+4.4vw,5rem)] !leading-[1.05]">Raccontami il tuo caso. <span class="em text-lime-light">Ti dico la verità, anche se la verità è “non ti serve ancora”.</span></h2>
         <a href="#analisi" class="btn btn-lime mt-10 !min-h-14 !px-8 text-[#2a2a26]">Fai l’analisi del tuo caso <Icon name="arrow-right" /></a>
       </div>
     </section>
@@ -309,18 +333,31 @@ const jsonLd = [
 </Base>
 
 <style>
+  .slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .shade {
+    background:
+      linear-gradient(180deg, rgb(23 50 61 / 0.55) 0%, rgb(23 50 61 / 0) 22%),
+      linear-gradient(0deg, rgb(15 33 41 / 0.98) 30%, rgb(15 33 41 / 0.6) 52%, rgb(15 33 41 / 0) 72%);
+  }
+  @media (min-width: 1024px) {
+    .shade { background: linear-gradient(180deg, rgb(23 50 61 / 0.5) 0%, transparent 25%), linear-gradient(90deg, rgb(15 33 41 / 0.94) 0%, rgb(15 33 41 / 0.7) 42%, rgb(15 33 41 / 0.1) 75%); }
+  }
+  .polaroid { background: #f8f8ec; padding: 0.7rem 0.7rem 2.2rem; border-radius: 0.6rem; transform: rotate(4deg); box-shadow: 0 40px 70px -30px rgb(0 0 0 / 0.7); transition: transform 0.6s var(--ease-out-soft); }
+  .polaroid:hover { transform: rotate(0deg) scale(1.03); }
+  @media (prefers-reduced-motion: no-preference) {
+    .slide { animation: slide-fade 21s infinite; opacity: 0; }
+    .slide:nth-child(1) { animation-delay: -1.1s; opacity: 1; }
+    .slide:nth-child(2) { animation-delay: 7s; }
+    .slide:nth-child(3) { animation-delay: 14s; }
+  }
+  @keyframes slide-fade {
+    0% { opacity: 0; transform: scale(1.06); }
+    5% { opacity: 1; }
+    33% { opacity: 1; }
+    40% { opacity: 0; transform: scale(1); }
+    100% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .slide:not(:first-child) { display: none; } }
   .door { transition: transform 0.6s var(--ease-out-soft), box-shadow 0.6s var(--ease-out-soft); }
   @media (hover: hover) { .door:hover { transform: translateY(-4px); box-shadow: 0 40px 60px -40px rgb(0 0 0 / 0.6); } }
-  @media (prefers-reduced-motion: no-preference) {
-    :global(.js-reveal) [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 0.9s var(--ease-out-soft), transform 0.9s var(--ease-out-soft); }
-    :global(.js-reveal) [data-reveal].in { opacity: 1; transform: none; }
-  }
 </style>
-<script>
-  // Rivelazione morbida dei titoli di sezione (solo se il movimento è consentito)
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-    document.documentElement.classList.add('js-reveal');
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
-  }
-</script>

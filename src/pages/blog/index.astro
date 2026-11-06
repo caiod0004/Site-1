@@ -27,7 +27,7 @@ const path = categoria ? `/blog/categoria/${categoria}/` : '/blog/';
         </ul>
       </nav>
       {posts.length ? (
-        <ul class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <ul class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3" data-stagger>
           {posts.map((p) => (
             <li class="flex flex-col rounded-[1.5rem] bg-paper-3 p-7">
               <p class="t-kicker text-lime-deep">{CATEGORIE[p.data.categoria]} · <time datetime={p.data.date.toISOString()}>{fmt.format(p.data.date)}</time></p>

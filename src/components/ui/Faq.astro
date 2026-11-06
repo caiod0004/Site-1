@@ -6,7 +6,7 @@ const { items, id = 'faq', titleHtml = 'Domande <span class="em">frequenti.</spa
 <section id={id} class="on-paper bg-paper text-paper-ink" aria-labelledby={`${id}-t`}>
   <div class="wrap grid gap-12 py-24 sm:py-32 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
     <div class="lg:sticky lg:top-28 lg:self-start">
-      <h2 id={`${id}-t`} class="t-h2" set:html={titleHtml} />
+      <h2 data-reveal id={`${id}-t`} class="t-h2" set:html={titleHtml} />
     </div>
     <div class="border-b border-paper-ink/15">
       {items.map((f) => (

@@ -30,7 +30,7 @@ export const INSTAGRAM_URL = 'https://instagram.com/chef.caiomachado';
 export const INSTAGRAM_CATERINHO_URL = 'https://instagram.com/caterinho.it';
 export const CATERINHO_URL = 'https://caterinho.it';
 /** Da confermare: probabile linkedin.com/in/caio-machado-275b82b3. Vuoto = segnaposto. */
-export const LINKEDIN_URL = '';
+export const LINKEDIN_URL = 'https://www.linkedin.com/in/caio-machado-275b82b3/';
 /** Link WhatsApp, es. 'https://wa.me/39XXXXXXXXXX'. Vuoto = segnaposto. */
 export const WHATSAPP_URL = '';
 /** Sito dello Studio Legale: vuoto finché non è pubblicato (niente link). */

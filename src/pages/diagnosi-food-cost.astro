@@ -9,8 +9,9 @@ import Marquee from '../components/ui/Marquee.astro';
 import Timeline from '../components/ui/Timeline.astro';
 import Faq from '../components/ui/Faq.astro';
 import StepForm from '../components/forms/StepForm.astro';
-import impiattamento from '../assets/impiattamento.jpg';
-import caio from '../assets/caio_pensieroso.jpg';
+import fotoTartare from '../assets/foto/tartare_sacapoche.jpg';
+import fotoGiacca from '../assets/foto/chef_giacca.jpg';
+import fotoSalsa from '../assets/foto/salsa_caterinho.jpg';
 import buffet from '../assets/piatti_buffet.jpg';
 import { FORMS } from '../data/forms';
 import { SEO_DIAGNOSI, SEGNALI, METODO, RICEVI, PASSI, PERCORSO, FIT_SI, FIT_NO, FAQ_DIAGNOSI } from '../data/diagnosi';
@@ -51,8 +52,8 @@ const jsonLd = [
             ))}
           </ul>
         </div>
-        <figure class="relative mx-auto w-full max-w-[26rem]">
-          <Image src={impiattamento} alt="Impiattamento in cucina: una corona di tartare su un piatto bianco" widths={[400, 640, 700]} sizes="(min-width: 1024px) 26rem, 85vw" class="aspect-[4/5] w-full rounded-[2rem] object-cover object-[50%_60%] shadow-[0_40px_80px_-40px_rgb(42_42_38/0.6)]" loading="eager" fetchpriority="high" />
+        <figure class="relative mx-auto w-full max-w-[26rem] lg:rotate-[1.5deg]">
+          <Image src={fotoTartare} alt="Caio, con la giacca da chef con il suo nome, dosa la tartare sugli assaggi" widths={[400, 640, 900]} sizes="(min-width: 1024px) 26rem, 85vw" class="aspect-[4/5] w-full rounded-[2rem] object-cover object-[50%_45%] shadow-[0_50px_90px_-40px_rgb(42_42_38/0.7)]" loading="eager" fetchpriority="high" />
           <figcaption class="absolute -bottom-5 left-6 rounded-2xl bg-paper-ink px-5 py-3 font-display text-paper"><span class="text-[0.8rem] text-lime">Il metodo</span><br /><span class="text-[1.25rem] font-medium">Costo → Prezzo → Menu</span></figcaption>
         </figure>
       </div>
@@ -65,22 +66,22 @@ const jsonLd = [
         <div class="grid gap-6 lg:grid-cols-2 lg:gap-16">
           <div>
             <p class="t-kicker text-lime-deep">Ti riconosci?</p>
-            <h2 id="segnali-t" class="t-h2 mt-4">I segnali che il food cost del tuo ristorante è <span class="em">fuori controllo</span></h2>
+            <h2 data-reveal id="segnali-t" class="t-h2 mt-4">I segnali che il food cost del tuo ristorante è <span class="em">fuori controllo</span></h2>
           </div>
           <p class="max-w-[36rem] text-paper-muted lg:pt-10">Non è colpa tua. Nessuno ti ha insegnato a leggere il tuo locale come un’azienda. Ti hanno insegnato a cucinare, a servire, a tenere duro. I numeri, di solito, si imparano sbagliando.</p>
         </div>
-        <ul class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {SEGNALI.map((s) => <li class="rounded-[1.5rem] bg-paper-3 p-7 font-serif text-[1.45rem] leading-[1.25] shadow-[inset_0_0_0_1px_rgb(42_42_38/0.08)]">“{s}”</li>)}
+        <ul class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3" data-stagger>
+          {SEGNALI.map((s) => <li class="lift rounded-[1.5rem] bg-paper-3 p-7 font-serif text-[1.45rem] leading-[1.25] shadow-[inset_0_0_0_1px_rgb(42_42_38/0.08)]">“{s}”</li>)}
         </ul>
       </div>
     </section>
 
     <!-- QUANTO TI COSTA -->
-    <section class="bg-ink text-ivory" aria-labelledby="costo-t">
+    <section class="grain bg-ink text-ivory" aria-labelledby="costo-t">
       <div class="wrap grid items-center gap-14 py-24 sm:py-32 lg:grid-cols-2 lg:gap-20">
         <div>
           <p class="t-kicker text-lime">Quanto ti costa non saperlo</p>
-          <h2 id="costo-t" class="t-h2 mt-4">Il problema non è quanto vendi. <span class="em text-lime">È quanto perdi senza vederlo.</span></h2>
+          <h2 data-reveal id="costo-t" class="t-h2 mt-4">Il problema non è quanto vendi. <span class="em text-lime">È quanto perdi senza vederlo.</span></h2>
           <p class="mt-6 max-w-[34rem] text-ivory/80">Quella cifra non la trovi in nessuno scontrino. La trovi solo quando metti in fila ricetta, grammi, prezzo del fornitore e prezzo in carta.</p>
         </div>
         <figure class="rounded-[1.75rem] bg-ink-2 p-7 shadow-[inset_0_0_0_1px_rgb(216_230_78/0.25)] sm:p-10">
@@ -100,8 +101,8 @@ const jsonLd = [
     <section id="metodo" class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="metodo-t">
       <div class="wrap py-24 sm:py-32">
         <p class="t-kicker text-lime-deep">Il metodo</p>
-        <h2 id="metodo-t" class="t-h2 mt-4 max-w-[22ch]">Controllo di gestione per ristoranti, in tre passi: <span class="em">Costo, Prezzo, Menu</span></h2>
-        <ol class="mt-14 grid gap-4 lg:grid-cols-3">
+        <h2 data-reveal id="metodo-t" class="t-h2 mt-4 max-w-[22ch]">Controllo di gestione per ristoranti, in tre passi: <span class="em">Costo, Prezzo, Menu</span></h2>
+        <ol class="mt-14 grid gap-4 lg:grid-cols-3" data-stagger>
           {METODO.map((m, i) => (
             <li class="relative overflow-hidden rounded-[1.75rem] bg-paper-3 p-7 sm:p-9">
               <span class="font-display text-[4.5rem] font-medium leading-none tracking-[-0.06em] text-lime-deep/30" aria-hidden="true">{i + 1}</span>
@@ -119,7 +120,7 @@ const jsonLd = [
       <div class="wrap grid gap-12 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div class="lg:sticky lg:top-28 lg:self-start">
           <p class="t-kicker text-lime-deep">Cosa ricevi</p>
-          <h2 id="ricevi-t" class="t-h2 mt-4">Cosa c’è dentro la <span class="em">Diagnosi Food Cost</span></h2>
+          <h2 data-reveal id="ricevi-t" class="t-h2 mt-4">Cosa c’è dentro la <span class="em">Diagnosi Food Cost</span></h2>
           <p class="mt-6 text-paper-muted">Non una chiacchierata generica. Numeri tuoi, scritti, con delle decisioni da prendere.</p>
           <Image src={buffet} alt="Piatti di un buffet preparato in cucina" widths={[400, 700]} sizes="(min-width: 1024px) 24rem, 0px" class="mt-10 aspect-[4/3] w-full rounded-[1.5rem] object-cover max-lg:hidden" loading="lazy" />
         </div>
@@ -137,7 +138,7 @@ const jsonLd = [
       <div class="wrap grid gap-14 py-24 sm:py-32 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
         <div class="lg:sticky lg:top-28 lg:self-start">
           <p class="t-kicker text-lime">Come funziona</p>
-          <h2 id="come-t" class="t-h2 mt-4">Come funziona la consulenza per ristoranti, <span class="em text-lime">passo per passo</span></h2>
+          <h2 data-reveal id="come-t" class="t-h2 mt-4">Come funziona la consulenza per ristoranti, <span class="em text-lime">passo per passo</span></h2>
         </div>
         <Timeline items={PASSI} />
       </div>
@@ -147,12 +148,12 @@ const jsonLd = [
     <section id="chi-sono" class="on-paper bg-paper text-paper-ink" aria-labelledby="chi-t">
       <div class="wrap grid gap-14 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <figure class="lg:sticky lg:top-28 lg:self-start">
-          <Image src={caio} alt="Caio Machado" widths={[400, 640, 830]} sizes="(min-width: 1024px) 26rem, 85vw" class="aspect-[4/5] w-full max-w-[26rem] rounded-[2rem] object-cover object-top" loading="lazy" />
+          <Image src={fotoGiacca} alt="Caio Machado, con la giacca da chef, prepara gli assaggi per un evento" widths={[400, 640, 900]} sizes="(min-width: 1024px) 26rem, 85vw" class="aspect-[4/5] w-full max-w-[26rem] rounded-[2rem] object-cover object-[50%_15%] shadow-[0_40px_70px_-40px_rgb(42_42_38/0.6)]" loading="lazy" />
           <figcaption class="mt-4 font-display text-paper-muted">Caio Machado</figcaption>
         </figure>
         <div>
           <p class="t-kicker text-lime-deep">Chi sono</p>
-          <h2 id="chi-t" class="t-h2 mt-4">Sono partito da zero. <span class="em">Per questo so dove si perdono i soldi.</span></h2>
+          <h2 data-reveal id="chi-t" class="t-h2 mt-4">Sono partito da zero. <span class="em">Per questo so dove si perdono i soldi.</span></h2>
           <div class="mt-8 max-w-[40rem] space-y-5 text-paper-muted">
             <p><strong class="text-paper-ink">Mi chiamo Caio Machado.</strong> Sono uno chef brasiliano, un imprenditore della ristorazione e oggi un consulente per ristoranti che parte dai numeri.</p>
             <p>Ho iniziato dietro un bancone: a Londra nel 2009, poi per qualche mese a San Paolo, dove ho imparato tutte le tecniche della caipirinha. Dopo ho studiato e lavorato nella programmazione. Nel 2013 sono entrato da Temakinho, sul Naviglio a Milano, come capo bar.</p>
@@ -161,8 +162,16 @@ const jsonLd = [
             <p>Poi sono passato dall’altra parte del tavolo: una piccola quota in Cacau Temakeria, dove ho seguito burocrazia e numeri, e l’avviamento da zero di Poke Samba, da 50 metri quadri a un laboratorio centrale e un secondo punto vendita in un anno.</p>
             <p>Con il Covid mi sono ritrovato senza lavoro e ho ricominciato dalla cucina di casa. Oggi è Caterinho, con un laboratorio su strada in Via Sant’Alessandro, nel centro di Bergamo. Lo sto costruendo un passo alla volta, con lo stesso metodo che propongo a te: ogni piatto ha il suo food cost calcolato.</p>
           </div>
-          <p class="mt-8 font-serif text-[clamp(1.7rem,1.2rem+1.8vw,2.6rem)] italic leading-[1.1]">Non serve lavorare di più. Serve sapere dove stai lavorando gratis.</p>
         </div>
+      </div>
+    </section>
+
+    <!-- FASCIA FOTO -->
+    <section class="relative isolate overflow-hidden bg-ink text-ivory" aria-label="Non serve lavorare di più">
+      <div class="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true"><Image src={fotoSalsa} alt="" widths={[800, 1400, 1600]} sizes="100vw" class="h-full w-full object-cover object-[50%_45%]" data-parallax="0.12" loading="lazy" /></div>
+      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(30_30_27/0.92),rgb(30_30_27/0.5)_60%,rgb(30_30_27/0.15))]" aria-hidden="true"></div>
+      <div class="wrap py-32 sm:py-44">
+        <p class="max-w-[18ch] font-serif text-[clamp(2.4rem,1.5rem+4vw,5rem)] leading-[1.04]" data-reveal>Non serve lavorare di più. <span class="italic hl">Serve sapere dove stai lavorando gratis.</span></p>
       </div>
     </section>
 
@@ -170,8 +179,8 @@ const jsonLd = [
     <section class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="percorso-t">
       <div class="wrap py-24 sm:py-28">
         <p class="t-kicker text-lime-deep">Il percorso</p>
-        <h2 id="percorso-t" class="t-h2 mt-4">Quello che ho costruito, <span class="em">non quello che prometto</span></h2>
-        <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <h2 data-reveal id="percorso-t" class="t-h2 mt-4">Quello che ho costruito, <span class="em">non quello che prometto</span></h2>
+        <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
           {PERCORSO.map((p) => <li class="rounded-[1.5rem] bg-paper-3 p-7"><p class="font-display text-[clamp(2rem,1.5rem+1.6vw,2.8rem)] font-medium leading-none tracking-[-0.04em]">{p.n}</p><p class="mt-4 text-paper-muted">{p.d}</p></li>)}
         </ul>
         <p class="mt-8 max-w-[44rem] text-paper-muted">Le testimonianze arriveranno dalle prime diagnosi concluse, con il consenso dei clienti. Nessuna recensione scritta da noi.</p>
@@ -181,7 +190,7 @@ const jsonLd = [
     <!-- PER CHI -->
     <section class="on-paper bg-paper text-paper-ink" aria-labelledby="perchi-t">
       <div class="wrap py-24 sm:py-28">
-        <h2 id="perchi-t" class="t-h2 max-w-[24ch]">Per chi è questa consulenza: <span class="em">ristoranti, trattorie, pizzerie, bar con cucina, delivery</span></h2>
+        <h2 data-reveal id="perchi-t" class="t-h2 max-w-[24ch]">Per chi è questa consulenza: <span class="em">ristoranti, trattorie, pizzerie, bar con cucina, delivery</span></h2>
         <div class="mt-12 grid gap-5 md:grid-cols-2">
           <div class="rounded-[1.75rem] bg-lime p-7 sm:p-10">
             <h3 class="t-h3">È per te se…</h3>
@@ -200,7 +209,7 @@ const jsonLd = [
       <div class="wrap grid gap-12 py-24 sm:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
         <div>
           <p class="t-kicker">Prezzo</p>
-          <h2 id="prezzo-t" class="t-h2 mt-4">Consulenza ristorazione: <span class="em">prezzi chiari, scritti qui</span></h2>
+          <h2 data-reveal id="prezzo-t" class="t-h2 mt-4">Consulenza ristorazione: <span class="em">prezzi chiari, scritti qui</span></h2>
           <p class="mt-6 max-w-[34rem]">Quanto costa un consulente per ristoranti? Quasi nessuno lo scrive: devi chiamare per scoprirlo. Io lo scrivo.</p>
           <p class="mt-4 max-w-[34rem] text-paper-ink/80">Nell’esempio di prima, 197 € sono meno di quanto un menu sbagliato può farti perdere in una settimana.</p>
         </div>
@@ -219,9 +228,9 @@ const jsonLd = [
     <Faq items={FAQ_DIAGNOSI} titleHtml='Food cost e consulenza ristorazione: <span class="em">le risposte</span>' />
 
     <!-- CHIUSURA -->
-    <section id="chiusura" class="bg-ink text-ivory" aria-labelledby="chiusura-t">
+    <section id="chiusura" class="grain bg-ink text-ivory" aria-labelledby="chiusura-t">
       <div class="wrap flex flex-col items-center py-24 text-center sm:py-32">
-        <h2 id="chiusura-t" class="t-hero max-w-[16ch] !text-[clamp(2.4rem,1.3rem+4.4vw,5rem)]">Il prossimo mese può essere uguale a questo. <span class="em text-lime">Oppure no.</span></h2>
+        <h2 data-reveal id="chiusura-t" class="t-hero max-w-[16ch] !text-[clamp(2.4rem,1.3rem+4.4vw,5rem)]">Il prossimo mese può essere uguale a questo. <span class="em text-lime">Oppure no.</span></h2>
         <p class="t-lead mt-7 max-w-[38rem] text-ivory/80">Puoi continuare a lavorare tanto e sperare che i conti tornino. Oppure puoi prenderti 20 minuti, guardare i tuoi numeri con qualcuno che c’è passato, e decidere.</p>
         <a href={PREN} {...ext} class="btn btn-lime mt-9 !min-h-14 !px-8">Prenota la chiamata gratuita di 20 minuti <Icon name="arrow-right" /></a>
         <p class="mt-5 max-w-[36rem] text-[0.95rem] text-ivory/70">Una sola chiamata a settimana: il martedì alle 16:30, su Google Meet. Se il posto di questa settimana è già preso, trovi il primo martedì libero. Se poi non puoi esserci, cancella: liberi il posto per un altro ristoratore.</p>
@@ -233,7 +242,7 @@ const jsonLd = [
     <section id="guida" class="on-paper bg-paper text-paper-ink" aria-labelledby="guida-t">
       <div class="wrap grid gap-10 py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
         <div>
-          <h2 id="guida-t" class="t-h2 !text-[clamp(1.8rem,1.3rem+2vw,2.8rem)]">Non sei ancora pronto per parlarne?</h2>
+          <h2 data-reveal id="guida-t" class="t-h2 !text-[clamp(1.8rem,1.3rem+2vw,2.8rem)]">Non sei ancora pronto per parlarne?</h2>
           <p class="mt-4 text-paper-muted">Scarica la guida gratuita: come calcolare il food cost dei tuoi piatti in un pomeriggio.</p>
           <p class="mt-3 text-[0.9rem] text-paper-muted">Niente spam. Una mail utile alla settimana, puoi cancellarti quando vuoi.</p>
         </div>
