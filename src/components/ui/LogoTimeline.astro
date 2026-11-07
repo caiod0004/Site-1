@@ -1,0 +1,50 @@
+---
+/** Elenco verticale di marchi che si "accendono" uno dopo l'altro allo scroll. */
+import { Image } from 'astro:assets';
+export interface LogoItem { logo: ImageMetadata; alt: string; nome: string; dove?: string; testo: string; h?: string }
+interface Props { items: LogoItem[] }
+const { items } = Astro.props;
+---
+<ol class="logo-tl relative" data-logotl>
+  <span class="lrail absolute bottom-10 left-[3.4rem] top-10 w-px bg-current opacity-15 sm:left-[4.9rem]" aria-hidden="true"></span>
+  <span class="lrail-fill absolute bottom-10 left-[3.4rem] top-10 w-px origin-top bg-lime-deep sm:left-[4.9rem]" aria-hidden="true"></span>
+  {items.map((it) => (
+    <li class="lstep relative grid grid-cols-[6.8rem_1fr] items-center gap-5 pb-10 last:pb-0 sm:grid-cols-[9.8rem_1fr] sm:gap-8" data-lstep>
+      <span class="tile relative z-10 grid aspect-[4/3] w-full place-items-center rounded-2xl bg-paper-3 p-3 shadow-[inset_0_0_0_1px_rgb(42_42_38/0.1)] sm:p-4">
+        <Image src={it.logo} alt={it.alt} widths={[200, 400]} sizes="10rem" class={`logo w-auto max-w-full object-contain ${it.h ?? 'max-h-14 sm:max-h-[4.5rem]'}`} loading="lazy" />
+      </span>
+      <div>
+        <h3 class="t-h3 !text-[clamp(1.15rem,1rem+0.6vw,1.45rem)]">{it.nome}</h3>
+        {it.dove && <p class="mt-1 font-display text-[0.9rem] text-lime-deep">{it.dove}</p>}
+        <p class="mt-2 max-w-[36rem] text-[0.98rem] text-paper-muted">{it.testo}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+<style>
+  .lrail-fill { transform: scaleY(var(--p, 0)); }
+  .tile { transition: background-color 0.6s var(--ease-out-soft), box-shadow 0.6s var(--ease-out-soft), transform 0.6s var(--ease-out-soft); }
+  .logo { opacity: 0.32; filter: grayscale(1); transition: opacity 0.6s var(--ease-out-soft), filter 0.6s var(--ease-out-soft); }
+  .lstep.on .tile { background: #fff; transform: scale(1.04); box-shadow: 0 0 0 2px var(--color-lime), 0 24px 40px -24px rgb(31 95 122 / 0.55); }
+  .lstep.on .logo { opacity: 1; filter: none; }
+  @media (prefers-reduced-motion: reduce) { .lrail-fill { transform: scaleY(1); } .logo { opacity: 1; filter: none; } }
+</style>
+<script>
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLElement>('[data-logotl]').forEach((tl) => {
+    const fill = tl.querySelector<HTMLElement>('.lrail-fill')!;
+    const steps = [...tl.querySelectorAll<HTMLElement>('[data-lstep]')];
+    if (calm) { steps.forEach((s) => s.classList.add('on')); return; }
+    let ticking = false, visible = false;
+    const update = () => {
+      ticking = false;
+      const r = fill.getBoundingClientRect(); const line = innerHeight * 0.6;
+      fill.style.setProperty('--p', Math.min(1, Math.max(0, (line - r.top) / r.height)).toFixed(4));
+      steps.forEach((s) => { const t = s.querySelector<HTMLElement>('.tile')!.getBoundingClientRect(); s.classList.toggle('on', t.top + t.height / 2 < line); });
+    };
+    const onScroll = () => { if (visible && !ticking) { ticking = true; requestAnimationFrame(update); } };
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) onScroll(); }).observe(tl);
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+  });
+</script>

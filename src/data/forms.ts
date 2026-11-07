@@ -166,6 +166,14 @@ export const FORMS: Record<string, FormDef> = {
       { name: 'prodotto', label: 'Per quale edizione italiana?', type: 'radio', options: ['Il libro (08 Erros)', 'La guida Food Cost', 'Entrambi'], required: true },
     ] }],
   },
+  waitlistLibro: {
+    id: 'lista-attesa-libro', porta: 'libro', endpoint: WAITLIST_ENDPOINT, submit: 'Entra in lista d’attesa',
+    successMessage: 'Fatto. Riceverai una sola email quando l’edizione italiana sarà pronta.',
+    steps: [{ title: 'Lista d’attesa', fields: [
+      { name: 'nome', label: 'Nome', type: 'text', required: true, autocomplete: 'given-name' },
+      { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
+    ] }],
+  },
   guida: {
     id: 'guida-food-cost', porta: 'diagnosi', endpoint: GUIDA_ENDPOINT, submit: 'Mandami la guida',
     successMessage: 'Ricevuto. Ti scrivo all’indirizzo che mi hai lasciato.',

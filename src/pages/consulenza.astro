@@ -13,8 +13,8 @@ import { FORMS } from '../data/forms';
 import { SEO_CONSULENZA, RICONOSCI_C, AREE, PASSI_C, CAMBIA, FIT_SI_C, FIT_NO_C, FAQ_CONSULENZA } from '../data/consulenza';
 import { SITE_URL, PREZZO_ORA, PREZZO_SESSIONE_STRATEGICA, NOTA_IVA, NOTA_IVA_COMPLETA, PERCORSI_CONTEMPORANEA } from '../config';
 const porte = [
-  { t: 'Il sito in 7 giorni – 197 €.', d: 'Una pagina chiara che ti fa trovare e contattare.', href: '/sito/' },
-  { t: 'Diagnosi Food Cost – 197 €.', d: 'Per i locali: quanto ti costa davvero ogni piatto e quale ti fa guadagnare.', href: '/diagnosi-food-cost/' },
+  { t: 'Il sito in 7 giorni – 197 €.', d: 'Una pagina chiara che ti fa trovare e contattare.', href: '' },
+  { t: 'Diagnosi Food Cost – 197 €.', d: 'Per i locali: quanto ti costa davvero ogni piatto e quale ti fa guadagnare.', href: '' },
   { t: `Sessione strategica di avvio – ${PREZZO_SESSIONE_STRATEGICA}.`, d: 'Due ore insieme sui tuoi numeri, clienti e presenza online, poi una proposta scritta.', href: '/sessione/' },
 ];
 const jsonLd = [
@@ -197,7 +197,7 @@ const jsonLd = [
           <StepForm def={FORMS.candidatura} />
           <div id="tre-porte-form" class="mt-8 rounded-2xl border border-lime/40 p-6" hidden>
             <p class="font-display font-medium">Non serve partire dal gradino più alto.</p>
-            <ul class="mt-4 space-y-2">{porte.map((p) => <li>{p.href ? <a href={p.href} class="inline-flex min-h-11 items-center gap-2 text-lime underline underline-offset-4">{p.t}</a> : <span>{p.t} <span class="placeholder">[LINK]</span></span>}</li>)}</ul>
+            <ul class="mt-4 space-y-2">{porte.map((p) => <li>{p.href ? <a href={p.href} class="inline-flex min-h-11 items-center gap-2 text-lime underline underline-offset-4">{p.t}</a> : <span>{p.t}</span>}</li>)}</ul>
           </div>
         </div>
       </div>

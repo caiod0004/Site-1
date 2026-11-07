@@ -4,10 +4,10 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Header from '../components/ui/Header.astro';
 import Footer from '../components/ui/Footer.astro';
+import MobileBar from '../components/ui/MobileBar.astro';
 import Icon from '../components/ui/Icon.astro';
 import Timeline from '../components/ui/Timeline.astro';
 import Faq from '../components/ui/Faq.astro';
-import BrowserFrame from '../components/ui/BrowserFrame.astro';
 import StatusBadge from '../components/ui/StatusBadge.astro';
 import BookMockup from '../components/ui/BookMockup.astro';
 import fotoControluce from '../assets/foto/chef_controluce.jpg';
@@ -17,34 +17,40 @@ import fotoSushi from '../assets/foto/sushi_occhiali.jpg';
 import fotoTartare from '../assets/foto/tartare_sacapoche.jpg';
 import fotoSalsa from '../assets/foto/salsa_caterinho.jpg';
 import fotoGuarnizione from '../assets/foto/bar_guarnizione.jpg';
-import caterinhoShot from '../assets/portfolio_caterinho.jpg';
-import studioShot from '../assets/portfolio_studio_legale.jpg';
 import logoTemakinho from '../assets/loghi/temakinho.png';
 import logoCacau from '../assets/loghi/cacau.png';
 import logoPoke from '../assets/loghi/pokesamba.png';
 import logoMarino from '../assets/loghi/marino.png';
+import logoCaterinho from '../assets/loghi/caterinho.png';
+import LogoTimeline from '../components/ui/LogoTimeline.astro';
+import StepForm from '../components/forms/StepForm.astro';
+import { FORMS } from '../data/forms';
 import { SEO_HOME, PROVE, STORIA, FAQ_HOME, PORTE } from '../data/home';
 import { CATEGORIE } from '../content.config';
 import {
-  SITE_URL, STATO_STRUMENTI, LIBRO_AMAZON_URL, INSTAGRAM_URL, INSTAGRAM_CATERINHO_URL,
-  LINKEDIN_URL, CATERINHO_URL, STUDIO_LEGALE_URL,
+  SITE_URL, STATO_STRUMENTI, LIBRO_AMAZON_URL, EBOOK_DIRETTO_URL, PREZZO_EBOOK, INSTAGRAM_URL, INSTAGRAM_CATERINHO_URL,
+  LINKEDIN_URL, CATERINHO_URL,
 } from '../config';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-const loghi: { src: ImageMetadata; alt: string; h: string; nota?: string }[] = [
-  { src: logoTemakinho, alt: 'Temakinho', h: 'h-10 sm:h-14' },
-  { src: logoCacau, alt: 'Cacau Temakeria brasileira', h: 'h-14 sm:h-[4.5rem]' },
-  { src: logoPoke, alt: 'Poké Samba', h: 'h-20 sm:h-24' },
-  { src: logoMarino, alt: 'Il Marino di Puntaldia', h: 'h-12 sm:h-16', nota: 'Il Marino di Puntaldia – Consultant chef, 2021–2022' },
+const loghi = [
+  { logo: logoTemakinho, alt: 'Temakinho', nome: 'Temakinho', dove: 'Milano, Roma, Londra · 2013–2018', testo: 'Da capo bar a executive chef in un anno e mezzo. Le cucine di Milano (Naviglio, Brera) e di Roma (Monti, Borgo), il catering eventi, il punto di Magenta e l’apertura di Londra Soho.', h: 'max-h-9 sm:max-h-12' },
+  { logo: logoCacau, alt: 'Cacau Temakeria brasileira', nome: 'Cacau Temakeria', dove: 'Milano', testo: 'Project manager dell’avviamento: burocrazia, food cost, numeri.' },
+  { logo: logoPoke, alt: 'Poké Samba', nome: 'Poke Samba', dove: 'Milano', testo: 'Avviamento da zero: in un anno da circa 50 m² a un laboratorio centrale e a un secondo punto vendita.', h: 'max-h-[4.6rem] sm:max-h-[5.6rem]' },
+  { logo: logoMarino, alt: 'Il Marino di Puntaldia', nome: 'Il Marino di Puntaldia', testo: 'Consultant chef, 2021–2022.' },
 ];
 
+const prodotti = [
+  { href: '/diagnosi-food-cost/', kicker: 'Per ristoranti · 197 €', t: 'Diagnosi Food Cost', d: 'Quanto ti costa davvero ogni piatto e quale ti fa guadagnare.', cls: 'bg-lime text-[#17323d]' },
+  { href: '/sito/', kicker: 'Per ogni piccola attività · 197 €', t: 'La tua pagina online in 7 giorni', d: 'Una pagina chiara che ti fa trovare e contattare.', cls: 'bg-ink text-ivory' },
+];
 const strumenti = [
   { titolo: 'Gestionale e controllo dei numeri', stato: STATO_STRUMENTI.gestionale, testo: 'Food cost di ogni piatto partendo dalle fatture reali, prezzi per canale (sala, asporto, delivery, eventi), incassi e margini. Per sapere cosa ti fa guadagnare e cosa ti costa.', href: '/diagnosi-food-cost/', link: 'Diagnosi Food Cost' },
   { titolo: 'CRM su misura', stato: STATO_STRUMENTI.crm, testo: 'Contatti, richieste dal sito, preventivi ed eventi in un solo posto, collegati alla cassa. Per non perdere clienti in una chat di WhatsApp.', href: '/analisi/vendite/', link: 'Analizza le tue vendite' },
-  { titolo: 'TocStory', stato: STATO_STRUMENTI.tocstory, testo: 'Il sistema per organizzare e pubblicare i contenuti sui social, pensato per chi ha un’attività e poco tempo.', href: '/sito/', link: 'Prima serve un sito' },
+  { titolo: 'TocStory', stato: STATO_STRUMENTI.tocstory, testo: 'Il sistema per organizzare e pubblicare i contenuti sui social, pensato per chi ha un’attività e poco tempo. A breve lo condividerò anche con te.', href: '/sito/', link: 'Prima serve un sito' },
 ];
 
 const jsonLd = [
@@ -107,7 +113,7 @@ const jsonLd = [
           <p class="t-kicker flex items-center gap-3 text-lime-light"><span class="h-px w-10 bg-current" aria-hidden="true"></span>Caio Machado · Ristorazione e tecnologia</p>
           <h1 class="t-hero mt-5 max-w-[17ch] !text-[clamp(2.5rem,1.4rem+3.6vw,4.7rem)] !leading-[1.02] drop-shadow-[0_2px_24px_rgb(0_0_0/0.35)]">Ho portato il computer in cucina. <span class="em text-lime-light">Da allora metto in ordine numeri, clienti e presenza online.</span></h1>
           <p class="mt-6 max-w-[38rem] text-[1.05rem] leading-relaxed text-ivory/85 sm:text-[1.12rem]">Dal 2009 lavoro nella ristorazione: ho guidato cucine a Milano e a Roma, aperto un locale a Londra e avviato punti vendita da zero. Ho studiato programmazione e web design, e i sistemi che uso li costruisco io. Oggi aiuto ristoranti e piccole imprese a vedere chiaro nei numeri, a vendere meglio e a esistere online.</p>
-          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div id="hero-cta" class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a href="#analisi" class="btn btn-lime text-[#17323d]">Fai l’analisi del tuo caso <Icon name="arrow-right" /></a>
             <a href="#storia" class="btn btn-ghost backdrop-blur-sm">Leggi la mia storia</a>
           </div>
@@ -142,12 +148,13 @@ const jsonLd = [
           <a href="#analisi" class="btn btn-ink mt-10">Fai l’analisi del tuo caso <Icon name="arrow-right" /></a>
         </div>
       </div>
-      <div class="wrap pb-20">
-        <div class="border-t border-paper-ink/12 pt-10">
-          <p class="t-kicker text-paper-muted">Dove ho lavorato</p>
-          <ul class="mt-8 flex flex-wrap items-center gap-x-12 gap-y-8">
-            {loghi.map((l) => <li class="flex flex-col items-start gap-2"><Image src={l.src} alt={l.alt} widths={[200, 400]} sizes="12rem" class={`w-auto opacity-80 ${l.h}`} loading="lazy" />{l.nota && <span class="text-[0.8rem] text-paper-muted">{l.nota}</span>}</li>)}
-          </ul>
+      <div class="wrap pb-24">
+        <div class="grid gap-10 border-t border-paper-ink/12 pt-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div class="lg:sticky lg:top-28 lg:self-start">
+            <p class="t-kicker text-lime-deep">Dove ho lavorato</p>
+            <h3 data-reveal class="t-h2 mt-4 !text-[clamp(1.9rem,1.3rem+2.2vw,3.2rem)]">Le cucine <span class="em text-lime-deep">che mi hanno formato.</span></h3>
+          </div>
+          <LogoTimeline items={loghi} />
         </div>
       </div>
     </section>
@@ -169,32 +176,14 @@ const jsonLd = [
           <Image src={fotoGuarnizione} alt="Caio guarnisce dei cocktail al bancone di Caterinho" widths={[300, 560]} sizes="(min-width: 1024px) 18rem, 45vw" class="lift mb-10 aspect-[3/4] w-full rounded-[1.5rem] object-cover shadow-[0_40px_70px_-40px_rgb(0_0_0/0.8)]" loading="lazy" />
         </div>
         <div data-reveal>
-          <p class="t-kicker text-lime">Caterinho, il mio laboratorio</p>
+          <div class="inline-flex rounded-[1.5rem] bg-[#f1f1db] px-6 py-5 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.7)]"><Image src={logoCaterinho} alt="Caterinho" widths={[300, 600]} sizes="18rem" class="h-auto w-[min(62vw,17rem)]" loading="lazy" /></div>
+          <p class="t-kicker mt-8 text-lime">Caterinho, il mio laboratorio</p>
           <h2 data-reveal id="lab-t" class="t-h2 mt-4">Non ti porto teorie. <span class="em text-lime-light">Ti porto quello che provo ogni giorno.</span></h2>
           <div class="mt-8 max-w-[38rem] space-y-5 text-ivory/80">
             <p>Caterinho è la mia attività principale: catering ed esperienze nippo-brasiliane a Bergamo. È anche il posto dove metto alla prova ogni sistema prima di proportelo. Lì ogni piatto ha il suo food cost calcolato. Lì ho costruito il sito, i preventivi, il controllo dei numeri e il sistema per i social.</p>
             <p>Non è una storia di successo già finita, e non te la racconto così. È un cantiere aperto: ci sono giorni buoni e decisioni difficili, come in ogni piccola impresa. Proprio per questo so di cosa parlo quando parliamo della tua.</p>
           </div>
           <a href={CATERINHO_URL} target="_blank" rel="noopener" class="btn btn-ghost mt-9">Scopri Caterinho <Icon name="arrow-up-right" /><span class="sr-only">(si apre in una nuova scheda)</span></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- LIBRO -->
-    <section id="libro" class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="libro-t">
-      <div class="wrap grid items-center gap-16 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <BookMockup />
-        <div data-reveal>
-          <p class="t-kicker text-lime-deep">Il libro</p>
-          <h2 data-reveal id="libro-t" class="t-h2 mt-4">Ho messo per iscritto gli errori. <span class="em text-lime-deep">Anche i miei.</span></h2>
-          <div class="mt-8 max-w-[40rem] space-y-5 text-paper-muted">
-            <p>Nel 2025 ho pubblicato su Amazon Brasile, in portoghese, <strong class="text-paper-ink">08 Erros que quebram restaurantes e como evitar antes de investir 1 real</strong> (collana Italian Method). È nato come un’iniziativa personale: restituire al mio paese quello che avevo imparato in Italia, e condividere esperienza con chi sogna di aprire un ristorante ma non sa da dove cominciare. Parla degli errori che fanno chiudere un ristorante prima ancora che apra, e di come evitarli: ricerca di mercato, analisi della concorrenza fisica e digitale, marketing digitale, gestione e sprechi, fidelizzazione, prezzo contro valore percepito, espansione troppo veloce. In più, un capitolo bonus sul business plan.</p>
-            <p>Non è un manuale scritto da lontano. Dentro ci sono le cucine in cui ho lavorato, il locale in cui ho visto per primo l’occasione del delivery e quello che ho cambiato quando ho aperto Caterinho.</p>
-          </div>
-          <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a href={LIBRO_AMAZON_URL} target="_blank" rel="noopener" class="btn btn-ink">Acquista la copia in portoghese <Icon name="arrow-up-right" /><span class="sr-only">(Amazon, si apre in una nuova scheda)</span></a>
-            <a href="/risorse/#lista-attesa" class="btn btn-line">Entra in lista d’attesa per l’edizione italiana</a>
-          </div>
         </div>
       </div>
     </section>
@@ -215,11 +204,53 @@ const jsonLd = [
               <span class="self-start"><StatusBadge stato={s.stato} /></span>
               <h3 class="t-h3 mt-8">{s.titolo}</h3>
               <p class="mt-3 text-paper-muted">{s.testo}</p>
-              <a href={s.href} class="mt-auto inline-flex min-h-11 items-center gap-2 pt-6 font-display font-medium text-lime-deep underline-offset-4 hover:underline">{s.link} <Icon name="arrow-right" class="size-4" /></a>
             </li>
           ))}
         </ul>
         <p class="mt-12 max-w-[46rem] font-serif text-[clamp(1.5rem,1.2rem+1vw,2rem)] leading-[1.2]">Il primo passo è quasi sempre lo stesso: un sito che funzioni. Senza un sito, CRM e social non hanno dove portare i clienti.</p>
+        <ul class="mt-12 grid gap-4 md:grid-cols-2" data-stagger>
+          {prodotti.map((p) => (
+            <li><a href={p.href} class={`lift group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] p-7 sm:p-9 ${p.cls}`}>
+              <span class="t-kicker opacity-80">{p.kicker}</span>
+              <span class="t-h3 mt-4 !text-[clamp(1.6rem,1.2rem+1.4vw,2.3rem)] !leading-[1.05]">{p.t}</span>
+              <span class="mt-3 max-w-[30rem] opacity-80">{p.d}</span>
+              <span class="mt-8 inline-flex items-center gap-2 font-display font-medium">Scopri <Icon name="arrow-right" class="size-4 transition-transform group-hover:translate-x-1" /></span>
+              <span class="pointer-events-none absolute -bottom-10 -right-6 font-display text-[7rem] font-medium leading-none tracking-[-0.06em] opacity-15" aria-hidden="true">197 €</span>
+            </a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- LIBRO -->
+    <section id="libro" class="on-paper bg-paper-2 text-paper-ink" aria-labelledby="libro-t">
+      <div class="wrap grid items-center gap-16 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <BookMockup />
+        <div>
+          <p class="t-kicker text-lime-deep">Il libro</p>
+          <h2 data-reveal id="libro-t" class="t-h2 mt-4">Ho messo per iscritto gli errori. <span class="em text-lime-deep">Anche i miei.</span></h2>
+          <figure class="mt-8 border-l-2 border-coral pl-5">
+            <blockquote class="font-serif text-[clamp(1.4rem,1.1rem+1vw,1.9rem)] italic leading-[1.2]">«Gli uomini, mentre insegnano, imparano.»</blockquote>
+            <figcaption class="mt-2 text-[0.9rem] text-paper-muted">Seneca, <cite>Lettere a Lucilio</cite> (“Homines dum docent discunt”)</figcaption>
+          </figure>
+          <div class="mt-8 max-w-[40rem] space-y-5 text-paper-muted">
+            <p>Questo libro nasce dalla voglia di imparare ancora di più: sono convinto che insegnando si impari due volte. Raccoglie anni di appunti e di studi. L’ho scritto in portoghese, la mia lingua madre, perché è la lingua in cui ho più confidenza. E sto già lavorando alla traduzione in italiano.</p>
+            <p><strong class="text-paper-ink">08 Erros que quebram restaurantes e como evitar antes de investir 1 real</strong> (collana Italian Method, 2025) parla degli errori che fanno chiudere un ristorante prima ancora che apra, e di come evitarli: ricerca di mercato, analisi della concorrenza fisica e digitale, marketing digitale, gestione e sprechi, fidelizzazione, prezzo contro valore percepito, espansione troppo veloce. In più, un capitolo bonus sul business plan.</p>
+          </div>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href={LIBRO_AMAZON_URL} target="_blank" rel="noopener" class="btn btn-ink">Acquista su Amazon (portoghese) <Icon name="arrow-up-right" /><span class="sr-only">(si apre in una nuova scheda)</span></a>
+            {EBOOK_DIRETTO_URL
+              ? <a href={EBOOK_DIRETTO_URL} target="_blank" rel="noopener" class="btn btn-line">Acquista l’ebook Kindle{PREZZO_EBOOK && ` · ${PREZZO_EBOOK}`} <Icon name="arrow-up-right" /></a>
+              : <span class="btn btn-line pointer-events-none flex-wrap">Acquista l’ebook Kindle <span class="placeholder whitespace-normal">[LINK E PREZZO EBOOK]</span></span>}
+            <button type="button" class="btn btn-line" aria-expanded="false" aria-controls="lista-attesa" data-wait-btn>Entra in lista d’attesa per l’edizione italiana</button>
+          </div>
+          <p class="mt-4 text-[0.9rem] text-paper-muted">Ebook e copia Amazon per ora solo in portoghese.</p>
+          <div id="lista-attesa" class="mt-8 rounded-[1.5rem] bg-paper-3 p-6 sm:p-8" hidden>
+            <p class="font-display font-medium">Lista d’attesa per l’edizione italiana</p>
+            <p class="mt-1 text-[0.95rem] text-paper-muted">Ricevi una sola email quando è pronta.</p>
+            <div class="mt-6"><StepForm def={FORMS.waitlistLibro} /></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -243,31 +274,6 @@ const jsonLd = [
           ))}
         </ul>
         <p class="mt-10 max-w-[44rem] text-ivory/75">Lavoro su pochi casi alla volta, perché la mia attività principale resta Caterinho. Se il calendario è pieno, te lo scrivo con una data.</p>
-      </div>
-    </section>
-
-    <!-- LAVORI -->
-    <section id="lavori" class="on-paper bg-paper text-paper-ink" aria-labelledby="lavori-t">
-      <div class="wrap py-24 sm:py-32">
-        <p class="t-kicker text-lime-deep">Lavori pubblicati</p>
-        <h2 data-reveal id="lavori-t" class="t-h2 mt-4">Lavori veri, <span class="em text-lime-deep">con il loro indirizzo.</span></h2>
-        <div class="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-10">
-          <article class="min-w-0">
-            <BrowserFrame img={caterinhoShot} host="caterinho.it" alt="Schermata del sito di Caterinho: il team davanti al locale, con il logo e il motto “Celebra di più. Preoccupati di meno.”" />
-            <h3 class="t-h3 mt-6">Caterinho</h3>
-            <p class="mt-1.5 text-paper-muted">Sito, preventivi e sistemi della mia attività.</p>
-            <a href={CATERINHO_URL} target="_blank" rel="noopener" class="mt-3 inline-flex min-h-11 items-center gap-2 font-display font-medium text-lime-deep underline-offset-4 hover:underline">caterinho.it <Icon name="arrow-up-right" class="size-4" /><span class="sr-only">(si apre in una nuova scheda)</span></a>
-          </article>
-          <article class="min-w-0">
-            <BrowserFrame img={studioShot} host={STUDIO_LEGALE_URL ? STUDIO_LEGALE_URL.replace(/^https?:\/\//, '') : 'studiolegaledemouramachado.it'} alt="Schermata del sito dello Studio Legale De Moura Machado: pagina in portoghese sul riconoscimento del diploma brasiliano in Italia." />
-            <h3 class="t-h3 mt-6">Studio Legale De Moura Machado</h3>
-            <p class="mt-1.5 text-paper-muted">Lo studio di famiglia: sito istituzionale con percorso di qualificazione delle richieste.</p>
-            {STUDIO_LEGALE_URL
-              ? <a href={STUDIO_LEGALE_URL} target="_blank" rel="noopener" class="mt-3 inline-flex min-h-11 items-center gap-2 font-display font-medium text-lime-deep">{STUDIO_LEGALE_URL.replace(/^https?:\/\//, '')} <Icon name="arrow-up-right" class="size-4" /></a>
-              : <p class="mt-3 flex min-h-11 flex-wrap items-center gap-2 font-display text-paper-muted"><span class="break-all">studiolegaledemouramachado.it</span> <span class="placeholder">[DA PUBBLICARE]</span></p>}
-          </article>
-        </div>
-        <p class="mt-12 max-w-[40rem] text-paper-muted">Le testimonianze dei clienti arriveranno quando ci saranno clienti da far parlare. Non ne metto di finte.</p>
       </div>
     </section>
 
@@ -325,8 +331,14 @@ const jsonLd = [
     </section>
   </main>
   <Footer />
+  <MobileBar href="#analisi" label="Fai l’analisi del tuo caso" showAfter="hero-cta" hideAt="analisi,chiusura" />
 </Base>
 
+<script>
+  const wb = document.querySelector<HTMLButtonElement>('[data-wait-btn]');
+  const wl = document.getElementById('lista-attesa');
+  wb?.addEventListener('click', () => { const open = wb.getAttribute('aria-expanded') !== 'true'; wb.setAttribute('aria-expanded', String(open)); wl!.hidden = !open; if (open) wl!.querySelector<HTMLElement>('input:not([type=hidden])')?.focus(); });
+</script>
 <style>
   .slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .shade {

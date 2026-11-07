@@ -11,50 +11,16 @@ interface Props {
 }
 const { cta, sub = 'Ristorazione e tecnologia', overlay = false } = Astro.props;
 const ext = cta?.external ? { target: '_blank', rel: 'noopener' } : {};
-const here = Astro.url.pathname;
-const servizi = [
-  { href: '/diagnosi-food-cost/', t: 'Diagnosi Food Cost', d: 'Per ristoranti · 197 €', icon: 'calculator' },
-  { href: '/sito/', t: 'Sito in 7 giorni', d: 'Per ogni piccola attività · 197 €', icon: 'smartphone' },
-  { href: '/consulenza/', t: 'Consulenza su misura', d: 'Per attività già avviate', icon: 'layers' },
-  { href: '/sessione/', t: 'Sessione strategica', d: 'Due ore insieme · 250 €', icon: 'calendar-check' },
-  { href: '/#analisi', t: 'Analisi del tuo caso', d: 'Gratuita, su candidatura', icon: 'search' },
-];
-const voci = [
-  { href: '/#storia', t: 'Chi sono' },
-  { href: '/risorse/', t: 'Libro e risorse' },
-  { href: '/blog/', t: 'Blog' },
-];
-const cur = (h: string) => (here === h ? 'page' : undefined);
 ---
 <header id="site-header" class="on-paper fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500" data-scrolled="false" data-overlay={String(overlay)} data-open="false">
   <div class="wrap flex h-[4.5rem] items-center justify-between gap-3">
-    <a href="/" class="flex min-h-11 items-center gap-3">
+    <div class="flex min-h-11 items-center gap-3">
       <Monogram />
       <span class="whitespace-nowrap font-display text-[0.98rem] leading-tight tracking-[-0.01em]">
         <span class="font-medium text-paper-ink">Caio Machado</span>
         <span class="hidden text-paper-muted xl:inline"> · {sub}</span>
-        <span class="sr-only">, vai alla home</span>
       </span>
-    </a>
-
-    <nav aria-label="Menu principale" class="hidden lg:block">
-      <ul class="flex items-center gap-1">
-        <li class="relative" data-dd>
-          <button type="button" class="nav-link gap-1.5" aria-expanded="false" aria-controls="dd-servizi" data-dd-btn>Servizi <Icon name="chevron-down" class="chev size-4" /></button>
-          <div id="dd-servizi" class="dd absolute left-1/2 top-full mt-3 w-[22rem] -translate-x-1/2 rounded-2xl bg-paper-3 p-2 text-paper-ink shadow-[0_30px_60px_-20px_rgb(0_0_0/0.35),0_0_0_1px_rgb(0_0_0/0.06)]" hidden>
-            <ul>
-              {servizi.map((s) => (
-                <li><a href={s.href} aria-current={cur(s.href)} class="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-paper-2">
-                  <span class="grid size-10 shrink-0 place-items-center rounded-full bg-lime text-[#2a2a26]"><Icon name={s.icon} class="size-5" /></span>
-                  <span><span class="block font-display font-medium">{s.t}</span><span class="block text-[0.88rem] text-paper-muted">{s.d}</span></span>
-                </a></li>
-              ))}
-            </ul>
-          </div>
-        </li>
-        {voci.map((v) => <li><a href={v.href} aria-current={cur(v.href)} class="nav-link">{v.t}</a></li>)}
-      </ul>
-    </nav>
+    </div>
 
     <div class="flex items-center gap-2">
       {cta && (
@@ -63,29 +29,9 @@ const cur = (h: string) => (here === h ? 'page' : undefined);
           <Icon name="arrow-right" />
         </a>
       )}
-      <button type="button" class="grid size-11 place-items-center rounded-full border border-paper-ink/20 text-paper-ink lg:hidden" aria-expanded="false" aria-controls="menu-mobile" data-menu-btn>
-        <span class="sr-only">Apri il menu</span>
-        <span class="burger" aria-hidden="true"><i></i><i></i></span>
-      </button>
     </div>
   </div>
 
-  <div id="menu-mobile" class="mobile-panel lg:hidden" hidden>
-    <div class="wrap pb-8 pt-2">
-      <p class="t-kicker text-paper-muted">Servizi</p>
-      <ul class="mt-3 grid gap-2">
-        {servizi.map((s) => (
-          <li><a href={s.href} class="flex items-center gap-3 rounded-2xl bg-paper-3 p-3">
-            <span class="grid size-10 shrink-0 place-items-center rounded-full bg-lime text-[#2a2a26]"><Icon name={s.icon} class="size-5" /></span>
-            <span><span class="block font-display font-medium text-paper-ink">{s.t}</span><span class="block text-[0.88rem] text-paper-muted">{s.d}</span></span>
-          </a></li>
-        ))}
-      </ul>
-      <ul class="mt-5 border-t border-paper-ink/12">
-        {voci.map((v) => <li class="border-b border-paper-ink/12"><a href={v.href} class="flex min-h-12 items-center justify-between font-display text-[1.15rem] text-paper-ink">{v.t}<Icon name="arrow-right" class="size-4" /></a></li>)}
-      </ul>
-    </div>
-  </div>
 </header>
 <style>
   .nav-link { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.9rem; border-radius: 999px; font-family: var(--font-display); font-size: 0.95rem; color: color-mix(in srgb, var(--color-paper-ink) 82%, transparent); transition: color 0.2s, background-color 0.2s; }
@@ -124,23 +70,4 @@ const cur = (h: string) => (here === h ? 'page' : undefined);
   const set = () => { const s = window.scrollY > 24; if (s !== on) { on = s; h.dataset.scrolled = String(s); } };
   set();
   addEventListener('scroll', set, { passive: true });
-
-  // menu a tendina "Servizi" (desktop)
-  const ddBtn = h.querySelector<HTMLButtonElement>('[data-dd-btn]');
-  const dd = document.getElementById('dd-servizi');
-  const closeDd = () => { if (ddBtn && dd) { ddBtn.setAttribute('aria-expanded', 'false'); dd.hidden = true; } };
-  ddBtn?.addEventListener('click', () => { const open = ddBtn.getAttribute('aria-expanded') !== 'true'; ddBtn.setAttribute('aria-expanded', String(open)); dd!.hidden = !open; });
-  document.addEventListener('click', (e) => { if (!h.querySelector('[data-dd]')?.contains(e.target as Node)) closeDd(); });
-
-  // pannello menu (telefono)
-  const mBtn = h.querySelector<HTMLButtonElement>('[data-menu-btn]')!;
-  const panel = document.getElementById('menu-mobile')!;
-  const setMenu = (open: boolean) => {
-    mBtn.setAttribute('aria-expanded', String(open)); panel.hidden = !open; h.dataset.open = String(open);
-    mBtn.querySelector('.sr-only')!.textContent = open ? 'Chiudi il menu' : 'Apri il menu';
-    document.documentElement.style.overflow = open ? 'hidden' : '';
-  };
-  mBtn.addEventListener('click', () => setMenu(mBtn.getAttribute('aria-expanded') !== 'true'));
-  panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
-  addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeDd(); if (mBtn.getAttribute('aria-expanded') === 'true') { setMenu(false); mBtn.focus(); } } });
 </script>

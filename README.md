@@ -11,10 +11,11 @@ Sito completo di Caio Machado, fatto con **Astro** + **Tailwind CSS** (build sta
 | `/sessione/` | Sessione strategica di avvio (250 €) + modulo dati | blu notte (`consulenza`) |
 | `/analisi/gestione/` · `/analisi/online/` · `/analisi/vendite/` | I tre moduli dell'Analisi | home |
 | `/analisi/grazie/` | Conferma dopo l'invio (non indicizzata) | home |
-| `/risorse/` | Libro, guida Food Cost, lista d'attesa | home |
-| `/bio/` | Link hub di Instagram (link con `utm_source=instagram&utm_medium=bio`) | home |
+| `/bio/` | Link hub di Instagram: home, Diagnosi, Sito, Caterinho (link con `utm_source=instagram&utm_medium=bio`) | proprio |
 | `/blog/` · `/blog/<articolo>/` · `/blog/categoria/<cat>/` · `/blog/rss.xml` | Diario dal laboratorio | home |
 | `/privacy/` · `/cookie/` | Testo da Iubenda (segnaposto) | – |
+
+**Regola di navigazione:** nessun menu. Le pagine sono indipendenti: l'unico ponte tra le landing è la home (sezione strumenti → Diagnosi e Sito) e la /bio. Ogni landing porta solo al suo link di vendita o prenotazione. Il libro (Amazon, ebook diretto, lista d'attesa) è una sola sezione della home; `/risorse` reindirizza a `/#libro`.
 
 ## Avviare e pubblicare
 

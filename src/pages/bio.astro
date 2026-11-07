@@ -2,34 +2,71 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/ui/Icon.astro';
-import caio from '../assets/caio_pensieroso.jpg';
-import { withUtm, LIBRO_AMAZON_URL, CATERINHO_URL, WHATSAPP_URL } from '../config';
-const grandi = [
-  { label: 'Consulenza per ristoranti', href: withUtm('/diagnosi-food-cost/') },
-  { label: 'La tua presenza online', href: withUtm('/sito/') },
-  { label: 'Consulenza 1:1 / su misura', href: withUtm('/#analisi') },
-];
-const piccoli = [
-  { label: 'Diario dal laboratorio', href: withUtm('/blog/') },
-  { label: 'Il libro', href: LIBRO_AMAZON_URL, ext: true },
-  { label: 'Caterinho', href: CATERINHO_URL, ext: true },
+import fotoSushi from '../assets/foto/sushi_occhiali.jpg';
+import logoCaterinho from '../assets/loghi/caterinho.png';
+import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, WHATSAPP_URL } from '../config';
+const link = [
+  { t: 'Caio Machado', d: 'Chi sono e l’analisi del tuo caso', href: withUtm('/'), icon: 'user', ext: false },
+  { t: 'Diagnosi Food Cost', d: 'Per ristoranti · 197 €', href: withUtm('/diagnosi-food-cost/'), icon: 'calculator', ext: false },
+  { t: 'Il tuo sito in 7 giorni', d: 'Per ogni piccola attività · 197 €', href: withUtm('/sito/'), icon: 'smartphone', ext: false },
+  { t: 'Caterinho', d: 'Catering ed esperienze a Bergamo', href: CATERINHO_URL, icon: 'store', ext: true },
 ];
 ---
-<Base title="Caio Machado – Link" description="Ristorazione e tecnologia. Dal 2009 in cucina, oggi da Caterinho (Bergamo)." path="/bio/" theme="home" themeColor="#F1F1DB">
-  <main id="contenuto" class="on-paper min-h-svh bg-paper px-5 pb-12 pt-12 text-paper-ink">
-    <div class="mx-auto flex max-w-[26rem] flex-col items-center text-center">
-      <Image src={caio} alt="Caio Machado" widths={[192, 288]} sizes="96px" class="size-24 rounded-full object-cover object-[50%_20%] ring-2 ring-lime ring-offset-4 ring-offset-paper" loading="eager" fetchpriority="high" />
-      <h1 class="t-h2 mt-6 !text-[2.4rem]">Caio Machado</h1>
-      <p class="mt-3 text-paper-muted">Ristorazione e tecnologia. Dal 2009 in cucina, oggi da Caterinho (Bergamo).</p>
+<Base title="Caio Machado – Link" description="Ristorazione e tecnologia. Dal 2009 in cucina, oggi da Caterinho (Bergamo)." path="/bio/" theme="consulenza" themeColor="#0C2530">
+  <main id="contenuto" class="bio grain relative isolate min-h-svh overflow-hidden px-5 pb-10 pt-14 text-ivory">
+    <div class="blob b1" aria-hidden="true"></div><div class="blob b2" aria-hidden="true"></div><div class="blob b3" aria-hidden="true"></div>
+    <div class="mx-auto flex max-w-[27rem] flex-col items-center text-center">
+      <div class="ring in" style="--d:0">
+        <Image src={fotoSushi} alt="Caio Machado con occhiali da sole rossi e un pezzo di sushi davanti all’occhio" widths={[240, 360]} sizes="7.5rem" class="relative size-[7.5rem] rounded-full object-cover object-[50%_35%]" loading="eager" fetchpriority="high" />
+      </div>
+      <h1 class="in mt-6 font-serif text-[2.6rem] leading-none" style="--d:1">Caio Machado</h1>
+      <p class="in mt-3 max-w-[22rem] text-ivory/80" style="--d:2">Ristorazione e tecnologia. Dal 2009 in cucina, oggi da Caterinho (Bergamo).</p>
       <ul class="mt-9 grid w-full gap-3">
-        {grandi.map((g, i) => (
-          <li><a href={g.href} class={`btn w-full !min-h-16 justify-between !px-6 !text-[1.08rem] ${i === 0 ? 'btn-ink' : 'btn-line'}`}>{g.label}<Icon name="arrow-right" /></a></li>
+        {link.map((l, i) => (
+          <li class="in" style={`--d:${i + 3}`}>
+            <a href={l.href} {...(l.ext ? { target: '_blank', rel: 'noopener' } : {})} class="card group relative flex min-h-[4.5rem] items-center gap-4 overflow-hidden rounded-2xl px-4 py-3 text-left">
+              <span class={`grid size-11 shrink-0 place-items-center rounded-full ${i === 0 ? 'bg-lime text-[#0c2530]' : 'bg-ivory/12 text-lime'}`}><Icon name={l.icon} class="size-5" /></span>
+              <span class="min-w-0 flex-1">
+                <span class="block font-display text-[1.08rem] font-medium">{l.t}</span>
+                <span class="block text-[0.88rem] text-ivory/70">{l.d}</span>
+              </span>
+              {l.ext ? <Icon name="arrow-up-right" class="size-5 shrink-0 opacity-70" /> : <Icon name="arrow-right" class="size-5 shrink-0 opacity-70 transition-transform group-hover:translate-x-1" />}
+              {l.ext && <span class="sr-only">(si apre in una nuova scheda)</span>}
+            </a>
+          </li>
         ))}
       </ul>
-      <ul class="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-1 text-[0.95rem]">
-        {piccoli.map((p) => <li><a href={p.href} {...(p.ext ? { target: '_blank', rel: 'noopener' } : {})} class="inline-flex min-h-11 items-center underline underline-offset-4">{p.label}</a></li>)}
-        <li>{WHATSAPP_URL ? <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline underline-offset-4">WhatsApp</a> : <span class="inline-flex min-h-11 items-center text-paper-muted">WhatsApp <span class="placeholder ml-2">[WHATSAPP]</span></span>}</li>
+      <Image src={logoCaterinho} alt="" widths={[200, 400]} sizes="9rem" class="in mt-9 h-auto w-36 opacity-90" style="--d:7" loading="lazy" />
+      <ul class="in mt-6 flex flex-wrap justify-center gap-x-5 text-[0.92rem] text-ivory/75" style="--d:8">
+        <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline-offset-4 hover:underline">Instagram</a></li>
+        {LINKEDIN_URL && <li><a href={LINKEDIN_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline-offset-4 hover:underline">LinkedIn</a></li>}
+        <li>{WHATSAPP_URL ? <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline-offset-4 hover:underline">WhatsApp</a> : <span class="inline-flex min-h-11 items-center">WhatsApp <span class="placeholder ml-2">[WHATSAPP]</span></span>}</li>
       </ul>
+      <p class="mt-6 text-[0.75rem] text-ivory/55">Proverbi 123 di Freitas de Moura Machado Caio · P.IVA 04668830161 · <a href="/privacy/" class="underline">Privacy</a></p>
     </div>
   </main>
 </Base>
+<style>
+  .bio { background: radial-gradient(120% 80% at 50% 0%, #1b4251 0%, #0c2530 55%, #081a22 100%); }
+  .blob { position: absolute; z-index: -1; border-radius: 50%; filter: blur(60px); opacity: 0.55; }
+  .b1 { width: 22rem; height: 22rem; background: #5fb1d1; top: -6rem; left: -8rem; }
+  .b2 { width: 18rem; height: 18rem; background: #d8e64e; bottom: 10%; right: -8rem; opacity: 0.35; }
+  .b3 { width: 14rem; height: 14rem; background: #e4606c; top: 40%; left: -6rem; opacity: 0.3; }
+  .ring { position: relative; padding: 4px; border-radius: 999px; }
+  .ring::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: conic-gradient(from 0deg, #d8e64e, #5fb1d1, #e4606c, #d8e64e); }
+  .ring > :global(img) { border: 3px solid #0c2530; }
+  .card { background: rgb(241 241 219 / 0.08); box-shadow: inset 0 0 0 1px rgb(241 241 219 / 0.16), 0 20px 40px -30px rgb(0 0 0 / 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: transform 0.5s var(--ease-out-soft), background-color 0.4s, box-shadow 0.4s; }
+  .card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.14) 50%, transparent 70%); transform: translateX(-120%); transition: transform 0.9s var(--ease-out-soft); }
+  .card:hover { transform: translateY(-3px); background: rgb(241 241 219 / 0.13); box-shadow: inset 0 0 0 1px rgb(143 208 232 / 0.5), 0 30px 50px -30px rgb(0 0 0 / 0.9); }
+  .card:hover::after { transform: translateX(120%); }
+  @media (prefers-reduced-motion: no-preference) {
+    .ring::before { animation: spin 8s linear infinite; }
+    .b1 { animation: drift 18s ease-in-out infinite alternate; }
+    .b2 { animation: drift 22s ease-in-out -6s infinite alternate-reverse; }
+    .b3 { animation: drift 26s ease-in-out -3s infinite alternate; }
+    .in { animation: rise 0.8s var(--ease-out-soft) both; animation-delay: calc(var(--d) * 80ms + 100ms); }
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(3rem, 2rem) scale(1.15); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+</style>

@@ -33,6 +33,10 @@ export const PERCORSI_CONTEMPORANEA = '1';
 
 // ── Link esterni ──
 export const LIBRO_AMAZON_URL = 'https://www.amazon.com.br/dp/B0DYYJLXW6';
+/** Ebook Kindle in portoghese venduto direttamente da Caio (es. link Stripe). Vuoto = segnaposto. */
+export const EBOOK_DIRETTO_URL = '';
+/** Prezzo dell'ebook venduto direttamente, es. '9,90 €'. Vuoto = segnaposto. */
+export const PREZZO_EBOOK = '';
 export const INSTAGRAM_URL = 'https://instagram.com/chef.caiomachado';
 export const INSTAGRAM_CATERINHO_URL = 'https://instagram.com/caterinho.it';
 export const CATERINHO_URL = 'https://caterinho.it';
@@ -59,7 +63,7 @@ export const GUIDA_ENDPOINT = WAITLIST_ENDPOINT; // la guida gratuita usa lo ste
 export const EMAIL = 'caio.d0004@gmail.com';
 
 // ── Stato degli strumenti (badge in home) ──
-export const STATO_STRUMENTI = { gestionale: 'IN USO A CATERINHO', crm: 'IN SVILUPPO', tocstory: 'IN TEST' };
+export const STATO_STRUMENTI = { gestionale: 'IN USO A CATERINHO', crm: 'IN USO A CATERINHO', tocstory: 'IN SVILUPPO' };
 
 /** Tempo di risposta ai moduli. */
 export const TEMPO_RISPOSTA = '2 giorni lavorativi';

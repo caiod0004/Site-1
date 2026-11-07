@@ -1,3 +1,6 @@
 # Cloudflare Pages – redirect interni
 # Il vecchio link hub di Instagram
-/link    /bio/   301
+/link      /bio/   301
+# Il libro ora è una sezione della home
+/risorse   /#libro 301
+/risorse/  /#libro 301
