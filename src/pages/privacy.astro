@@ -1,13 +1,68 @@
 ---
-import Base from '../layouts/Base.astro';
-import Monogram from '../components/ui/Monogram.astro';
-import { LEGALE } from '../config';
+import LegalPage from '../components/ui/LegalPage.astro';
+import { EMAIL } from '../config';
+// NOTA PER CAIO: testo redatto come bozza conforme agli artt. 13–14 del Regolamento UE 2016/679 (GDPR).
+// Va riletto da un professionista prima della pubblicazione definitiva. I [SEGNAPOSTO] vanno completati.
 ---
-<Base title="Informativa privacy | Caio Machado" description="Informativa privacy del sito di Caio Machado, siti per piccole attività." path="/privacy/">
-  <main id="contenuto" class="wrap min-h-[80vh] py-16">
-    <a href="/" class="inline-flex min-h-11 items-center gap-3 font-display"><Monogram /> Torna alla pagina principale</a>
-    <h1 class="t-h2 mt-14">Informativa privacy</h1>
-    <p class="mt-8 max-w-[40rem] text-ivory/80"><span class="placeholder">[INFORMATIVA DA INSERIRE – Iubenda]</span></p>
-    <p class="mt-16 text-[0.85rem] text-mist">{LEGALE}</p>
-  </main>
-</Base>
+<LegalPage title="Informativa privacy" description="Come vengono trattati i dati personali raccolti su caiomachado.it." path="/privacy/" updated="7 novembre 2026">
+  <p>Questa informativa spiega quali dati personali raccolgo attraverso il sito caiomachado.it, perché li raccolgo, per quanto tempo li conservo e quali diritti hai. È scritta ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679 (“GDPR”).</p>
+
+  <h2>1. Chi tratta i tuoi dati</h2>
+  <p>Titolare del trattamento: <strong>Proverbi 123 di Freitas de Moura Machado Caio</strong>, ditta individuale, P.IVA 04668830161, con sede in <span class="placeholder">[INDIRIZZO DELLA SEDE DELLA DITTA]</span>.</p>
+  <p>Per qualsiasi richiesta sulla privacy scrivi a <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. <span class="placeholder">[PEC, se disponibile]</span></p>
+
+  <h2>2. Quali dati raccolgo</h2>
+  <ul>
+    <li><strong>Dati che mi scrivi nei moduli</strong> (Analisi del tuo caso, candidatura alla consulenza, Sessione strategica, richiesta del sito, lista d’attesa, guida gratuita): nome e cognome, nome e città dell’attività, email, numero di WhatsApp o di telefono e le risposte che scegli di darmi sulla tua attività (per esempio canali di vendita, strumenti usati, numeri indicativi, fascia di fatturato).</li>
+    <li><strong>Dati che mi mandi per prenotare o per lavorare insieme</strong>: data della chiamata, materiali per il sito (testi, foto, logo), ricette, fatture dei fornitori e prezzi per la Diagnosi Food Cost.</li>
+    <li><strong>Dati di pagamento</strong>: li gestisce Stripe. Io ricevo solo la conferma del pagamento, il nome e l’email, mai i dati completi della carta.</li>
+    <li><strong>Dati tecnici di navigazione</strong>: indirizzo IP e informazioni sul browser, trattati dal fornitore di hosting per far funzionare il sito e proteggerlo. Se attive, le statistiche di visita sono aggregate e non usano cookie (vedi la <a href="/cookie/">cookie policy</a>).</li>
+  </ul>
+  <p>Ti chiedo di non inserire nei moduli dati particolari (salute, religione, opinioni politiche e simili) né dati di altre persone senza il loro permesso.</p>
+
+  <h2>3. Perché li uso e su quale base giuridica</h2>
+  <table>
+    <thead><tr><th>Finalità</th><th>Base giuridica</th></tr></thead>
+    <tbody>
+      <tr><td>Leggere la tua richiesta, risponderti e proporti il passo adatto (chiamata, diagnosi, sito, sessione, preventivo)</td><td>Misure precontrattuali richieste da te (art. 6.1.b GDPR)</td></tr>
+      <tr><td>Erogare il servizio acquistato e gestire il rapporto</td><td>Esecuzione del contratto (art. 6.1.b)</td></tr>
+      <tr><td>Fatturazione e obblighi fiscali e contabili</td><td>Obbligo di legge (art. 6.1.c)</td></tr>
+      <tr><td>Inviarti la guida gratuita e avvisarti quando esce l’edizione italiana o un contenuto nuovo</td><td>Il tuo consenso (art. 6.1.a), che puoi revocare in ogni momento</td></tr>
+      <tr><td>Sicurezza del sito, prevenzione di abusi e spam, difesa dei miei diritti</td><td>Legittimo interesse (art. 6.1.f)</td></tr>
+    </tbody>
+  </table>
+  <p>Non vendo i tuoi dati, non li uso per pubblicità mirata e non prendo decisioni basate solo su trattamenti automatizzati.</p>
+
+  <h2>4. Per quanto tempo li conservo</h2>
+  <ul>
+    <li>Richieste che non diventano un lavoro: fino a 12 mesi dall’ultimo contatto.</li>
+    <li>Dati dei clienti e documenti fiscali: per il tempo previsto dalla legge (di norma 10 anni).</li>
+    <li>Lista d’attesa e invii della guida: fino a quando revochi il consenso o ti cancelli, e comunque non oltre 24 mesi senza invii.</li>
+    <li>Bozze dei moduli salvate nel tuo browser: restano solo sul tuo dispositivo finché non invii il modulo o cancelli i dati del sito.</li>
+  </ul>
+
+  <h2>5. Chi può vedere i dati</h2>
+  <p>I dati sono trattati da me. Per far funzionare il sito e i servizi mi appoggio a fornitori che agiscono come responsabili del trattamento:</p>
+  <ul>
+    <li><strong>Cloudflare, Inc.</strong>: hosting del sito, sicurezza e statistiche aggregate senza cookie.</li>
+    <li><strong>Google</strong> (Google Workspace / Google Fogli / Apps Script / Calendar): raccolta delle risposte ai moduli e prenotazione delle chiamate.</li>
+    <li><strong>Stripe</strong>: pagamenti online.</li>
+    <li><span class="placeholder">[SERVIZIO DI INVIO EMAIL, es. Brevo o MailerLite]</span>: invio della guida e degli avvisi.</li>
+    <li><strong>Meta / WhatsApp</strong>: solo se scegli di scrivermi su WhatsApp o Instagram.</li>
+    <li>Il mio commercialista, per gli obblighi fiscali.</li>
+  </ul>
+  <p>Alcuni di questi fornitori possono trattare dati fuori dall’Unione europea (in particolare negli Stati Uniti). In questi casi il trasferimento avviene sulla base del Data Privacy Framework UE-USA o delle clausole contrattuali standard approvate dalla Commissione europea.</p>
+
+  <h2>6. Sei obbligato a darmeli?</h2>
+  <p>No. Ma senza nome e un contatto (email o WhatsApp) non posso risponderti. Le altre domande dei moduli sono facoltative, quando indicato.</p>
+
+  <h2>7. I tuoi diritti</h2>
+  <p>Puoi chiedermi in ogni momento di accedere ai tuoi dati, correggerli, cancellarli, limitarne l’uso, opporti al trattamento basato sul legittimo interesse, ricevere i dati in un formato portabile e revocare il consenso (artt. 15–22 GDPR). Basta un’email a <a href={`mailto:${EMAIL}`}>{EMAIL}</a>: rispondo entro 30 giorni.</p>
+  <p>Se ritieni che i tuoi dati siano trattati in modo non corretto, puoi presentare reclamo al Garante per la protezione dei dati personali (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>).</p>
+
+  <h2>8. Minori</h2>
+  <p>I servizi del sito sono rivolti ad attività e professionisti. Non raccolgo consapevolmente dati di minori di 18 anni.</p>
+
+  <h2>9. Modifiche</h2>
+  <p>Se cambio il modo in cui tratto i dati aggiorno questa pagina e la data in alto.</p>
+</LegalPage>

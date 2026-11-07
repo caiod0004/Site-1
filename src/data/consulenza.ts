@@ -19,7 +19,7 @@ export const AREE = [
 export const PASSI_C = [
   { title: 'Ti candidi (10 minuti).', body: '<p>Mi racconti la tua attività, i numeri che conosci e dove vuoi arrivare. Leggo ogni risposta io.</p>' },
   { title: `Sessione strategica 1:1 (${PREZZO_SESSIONE_STRATEGICA}).`, body: '<p>Guardiamo insieme la tua attività e decidiamo se ha senso lavorare insieme. Se non ha senso, te lo dico e ti indico la strada più adatta. Due ore insieme, il lunedì pomeriggio, e quattro ore di lavoro mio. <a href="/sessione/" class="underline underline-offset-4">Come funziona la sessione</a>.</p>' },
-  { title: 'Proposta su misura, scritta.', body: `<p>Entro ${GIORNI_PROPOSTA} [DA CONFERMARE] ricevi cosa faremo, in che ordine, in quanto tempo e a quale prezzo. Nessuna sorpresa dopo.</p>` },
+  { title: 'Proposta su misura, scritta.', body: `<p>Entro ${GIORNI_PROPOSTA} ricevi cosa faremo, in che ordine, in quanto tempo e a quale prezzo. Nessuna sorpresa dopo.</p>` },
   { title: 'Implementazione.', body: '<p>Costruiamo il sistema, un’area alla volta, con te dentro: alla fine sai usarlo da solo.</p>' },
   { title: 'Accompagnamento mensile (se vuoi).', body: '<p>Controllo, aggiustamenti e supporto, con un canone e condizioni scritte.</p>' },
 ];

@@ -1,13 +1,29 @@
 ---
-import Base from '../layouts/Base.astro';
-import Monogram from '../components/ui/Monogram.astro';
-import { LEGALE } from '../config';
+import LegalPage from '../components/ui/LegalPage.astro';
+import { EMAIL } from '../config';
+// NOTA: se in futuro si attivano Google Analytics o pixel pubblicitari, servono banner di consenso
+// (Iubenda, vedi IUBENDA in config.ts) e questa pagina va aggiornata.
 ---
-<Base title="Cookie policy | Caio Machado" description="Cookie policy del sito di Caio Machado, siti per piccole attività." path="/cookie/">
-  <main id="contenuto" class="wrap min-h-[80vh] py-16">
-    <a href="/" class="inline-flex min-h-11 items-center gap-3 font-display"><Monogram /> Torna alla pagina principale</a>
-    <h1 class="t-h2 mt-14">Cookie policy</h1>
-    <p class="mt-8 max-w-[40rem] text-ivory/80"><span class="placeholder">[INFORMATIVA DA INSERIRE – Iubenda]</span></p>
-    <p class="mt-16 text-[0.85rem] text-mist">{LEGALE}</p>
-  </main>
-</Base>
+<LegalPage title="Cookie policy" description="Quali cookie e tecnologie simili usa caiomachado.it." path="/cookie/" updated="7 novembre 2026">
+  <p>In breve: <strong>questo sito non usa cookie di profilazione né cookie pubblicitari</strong>, e non usa cookie di statistica di terze parti. Per questo non ti chiedo il consenso con un banner.</p>
+
+  <h2>Cosa usa il sito</h2>
+  <table>
+    <thead><tr><th>Nome</th><th>Tipo</th><th>A cosa serve</th><th>Durata</th></tr></thead>
+    <tbody>
+      <tr><td>Bozza dei moduli (memoria locale del browser)</td><td>Tecnico, prima parte</td><td>Salva le risposte che stai scrivendo, così non le perdi se chiudi la pagina. Resta solo sul tuo dispositivo.</td><td>Fino all’invio del modulo o finché non cancelli i dati del sito</td></tr>
+      <tr><td>cm-utm (memoria di sessione)</td><td>Tecnico, prima parte</td><td>Ricorda da quale link sei arrivato (per esempio dalla bio di Instagram), per capire quali canali funzionano.</td><td>Fino alla chiusura della scheda</td></tr>
+      <tr><td>Statistiche Cloudflare Web Analytics <span class="placeholder">[SE ATTIVE]</span></td><td>Statistiche aggregate, senza cookie</td><td>Conta le visite alle pagine in forma anonima. Non usa cookie e non traccia il singolo utente.</td><td>–</td></tr>
+    </tbody>
+  </table>
+  <p>Il fornitore di hosting (Cloudflare) può impostare cookie strettamente tecnici di sicurezza per proteggere il sito da traffico automatico e attacchi.</p>
+
+  <h2>Link verso altri siti</h2>
+  <p>Il sito contiene link ad Amazon, Instagram, LinkedIn, WhatsApp, Google Calendar, Stripe e caterinho.it. Quando li apri, quei siti usano i loro cookie secondo le loro informative. Non incorporo i loro contenuti in queste pagine.</p>
+
+  <h2>Come gestire i cookie</h2>
+  <p>Puoi cancellare i dati salvati dal sito in qualsiasi momento dalle impostazioni del tuo browser (voce “Cookie e dati dei siti”).</p>
+
+  <h2>Contatti</h2>
+  <p>Per domande scrivi a <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. Trovi tutti i dettagli sul trattamento dei dati nell’<a href="/privacy/">informativa privacy</a>.</p>
+</LegalPage>

@@ -37,10 +37,11 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .slice(0, 3);
 
 const loghi = [
-  { logo: logoTemakinho, alt: 'Temakinho', nome: 'Temakinho', dove: 'Milano, Roma, Londra · 2013–2018', testo: 'Da capo bar a executive chef in un anno e mezzo. Le cucine di Milano (Naviglio, Brera) e di Roma (Monti, Borgo), il catering eventi, il punto di Magenta e l’apertura di Londra Soho.', h: 'max-h-9 sm:max-h-12' },
-  { logo: logoCacau, alt: 'Cacau Temakeria brasileira', nome: 'Cacau Temakeria', dove: 'Milano', testo: 'Project manager dell’avviamento: burocrazia, food cost, numeri.' },
-  { logo: logoPoke, alt: 'Poké Samba', nome: 'Poke Samba', dove: 'Milano', testo: 'Avviamento da zero: in un anno da circa 50 m² a un laboratorio centrale e a un secondo punto vendita.', h: 'max-h-[4.6rem] sm:max-h-[5.6rem]' },
-  { logo: logoMarino, alt: 'Il Marino di Puntaldia', nome: 'Il Marino di Puntaldia', testo: 'Consultant chef, 2021–2022.' },
+  { logo: logoTemakinho, alt: 'Temakinho', nome: 'Temakinho', ruolo: 'Executive chef', dove: 'Milano, Roma, Londra · 2013–2018', testo: 'Da capo bar a executive chef in un anno e mezzo. Le cucine di Milano (Naviglio, Brera) e di Roma (Monti, Borgo), il catering eventi, il punto di Magenta e l’apertura di Londra Soho.', h: 'max-h-10 sm:max-h-14' },
+  { logo: logoCacau, alt: 'Cacau Temakeria brasileira', nome: 'Cacau Temakeria', ruolo: 'Project manager', dove: 'Milano', testo: 'Project manager dell’avviamento: burocrazia, food cost, numeri.' },
+  { logo: logoPoke, alt: 'Poké Samba', nome: 'Poke Samba', ruolo: 'Avviamento', dove: 'Milano', testo: 'Avviamento da zero: in un anno da circa 50 m² a un laboratorio centrale e a un secondo punto vendita.', h: 'max-h-[5rem] sm:max-h-[6.4rem]' },
+  { logo: logoMarino, alt: 'Il Marino di Puntaldia', nome: 'Il Marino di Puntaldia', ruolo: 'Consultant chef', dove: '2021–2022', testo: 'Consulenza come chef.' },
+  { logo: logoCaterinho, alt: 'Caterinho', nome: 'Caterinho', ruolo: 'Oggi', dove: 'Bergamo', testo: 'Il mio laboratorio: catering ed esperienze nippo-brasiliane, nato da zero dalla cucina di casa dopo il Covid.', oggi: true },
 ];
 
 const prodotti = [
@@ -176,7 +177,7 @@ const jsonLd = [
           <Image src={fotoGuarnizione} alt="Caio guarnisce dei cocktail al bancone di Caterinho" widths={[300, 560]} sizes="(min-width: 1024px) 18rem, 45vw" class="lift mb-10 aspect-[3/4] w-full rounded-[1.5rem] object-cover shadow-[0_40px_70px_-40px_rgb(0_0_0/0.8)]" loading="lazy" />
         </div>
         <div data-reveal>
-          <div class="inline-flex rounded-[1.5rem] bg-[#f1f1db] px-6 py-5 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.7)]"><Image src={logoCaterinho} alt="Caterinho" widths={[300, 600]} sizes="18rem" class="h-auto w-[min(62vw,17rem)]" loading="lazy" /></div>
+          <Image src={logoCaterinho} alt="Caterinho" widths={[400, 800]} sizes="20rem" class="h-auto w-[min(70vw,20rem)] drop-shadow-[0_18px_40px_rgb(0_0_0/0.45)]" loading="lazy" />
           <p class="t-kicker mt-8 text-lime">Caterinho, il mio laboratorio</p>
           <h2 data-reveal id="lab-t" class="t-h2 mt-4">Non ti porto teorie. <span class="em text-lime-light">Ti porto quello che provo ogni giorno.</span></h2>
           <div class="mt-8 max-w-[38rem] space-y-5 text-ivory/80">
@@ -240,11 +241,11 @@ const jsonLd = [
           <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a href={LIBRO_AMAZON_URL} target="_blank" rel="noopener" class="btn btn-ink">Acquista su Amazon (portoghese) <Icon name="arrow-up-right" /><span class="sr-only">(si apre in una nuova scheda)</span></a>
             {EBOOK_DIRETTO_URL
-              ? <a href={EBOOK_DIRETTO_URL} target="_blank" rel="noopener" class="btn btn-line">Acquista l’ebook Kindle{PREZZO_EBOOK && ` · ${PREZZO_EBOOK}`} <Icon name="arrow-up-right" /></a>
-              : <span class="btn btn-line pointer-events-none flex-wrap">Acquista l’ebook Kindle <span class="placeholder whitespace-normal">[LINK E PREZZO EBOOK]</span></span>}
+              ? <a href={EBOOK_DIRETTO_URL} target="_blank" rel="noopener" class="btn btn-line">Acquista il manuale digitale{PREZZO_EBOOK && ` · ${PREZZO_EBOOK}`} <span class="opacity-70">· PDF, anche su Kindle</span> <Icon name="arrow-up-right" /></a>
+              : <span class="btn btn-line pointer-events-none flex-wrap">Acquista il manuale digitale · PDF <span class="placeholder whitespace-normal">[LINK E PREZZO DEL MANUALE]</span></span>}
             <button type="button" class="btn btn-line" aria-expanded="false" aria-controls="lista-attesa" data-wait-btn>Entra in lista d’attesa per l’edizione italiana</button>
           </div>
-          <p class="mt-4 text-[0.9rem] text-paper-muted">Ebook e copia Amazon per ora solo in portoghese.</p>
+          <p class="mt-4 text-[0.9rem] text-paper-muted">Manuale digitale (PDF, leggibile anche su Kindle) e copia Amazon: per ora solo in portoghese.</p>
           <div id="lista-attesa" class="mt-8 rounded-[1.5rem] bg-paper-3 p-6 sm:p-8" hidden>
             <p class="font-display font-medium">Lista d’attesa per l’edizione italiana</p>
             <p class="mt-1 text-[0.95rem] text-paper-muted">Ricevi una sola email quando è pronta.</p>
