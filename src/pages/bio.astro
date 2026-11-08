@@ -16,7 +16,6 @@ import fotoCovid from '../assets/foto/sushi_cake_covid.jpg';
 import fotoMarino from '../assets/foto/caterinho_marino.jpg';
 import fotoVetrina from '../assets/foto/vetrina_caterinho.jpg';
 import fotoBancone from '../assets/foto/impiattamento_bancone.jpg';
-import fotoPensieroso from '../assets/caio_pensieroso.jpg';
 import logoCaterinho from '../assets/loghi/caterinho.png';
 import logoItalianMethod from '../assets/loghi/italian_method.png';
 import logoTocstory from '../assets/loghi/tocstory.png';
@@ -51,8 +50,7 @@ const storia: Tappa[] = [
     foto: fotoMarino, alt: 'Caio di spalle al banco del Marino di Puntaldia mentre un fotografo lo riprende', pos: '50% 40%' },
   { quando: '2022 · Bergamo', titolo: 'Il bivio', ruolo: 'Caterinho · fondatore', logo: logoCaterinho, logoH: 'max-h-6',
     testo: 'Portare tutto nel digitale o investire in una vetrina vera? Abbiamo scelto un piccolo locale su strada, gestito da noi: il laboratorio delle nostre ricette, la base per gli eventi e il primo assaggio per chi passa davanti. Un concept brasiliano, fatto come a casa.',
-    foto: fotoVetrina, alt: 'Caio con la moglie Raffaella e il fratello davanti all’ingresso di Caterinho, Sushi Poke & Caipirinha', pos: '50% 50%',
-    foto2: fotoBancone, alt2: 'Caio impiatta al bancone di Caterinho', oggi: true },
+    foto: fotoVetrina, alt: 'Caio con la moglie Raffaella e il fratello davanti all’ingresso di Caterinho, Sushi Poke & Caipirinha', pos: '50% 50%', oggi: true },
   { quando: 'In corso', titolo: 'Amazon', ruolo: 'Settore logistico',
     testo: 'Lavoro dentro la logistica di Amazon: approvvigionamenti, grandi volumi e tecnologia che regge tutto su larga scala. Lezioni che porto nella ristorazione. E un promemoria: Amazon è nata in un garage, Caterinho in una cucina di casa.' },
 ];
@@ -139,7 +137,7 @@ const offerte = [
           ))}
           <li data-reveal>
             <a href={withUtm('/consulenza/')} class="consulto group relative block overflow-hidden rounded-3xl">
-              <Image src={fotoPensieroso} alt="Caio Machado pensieroso, con la mano sotto il mento" widths={[480, 800]} sizes="(min-width: 32rem) 30rem, 90vw" class="aspect-[4/3] w-full object-cover object-[50%_25%] transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+              <Image src={fotoBancone} alt="Caio impiatta al bancone di Caterinho" widths={[480, 800]} sizes="(min-width: 32rem) 30rem, 90vw" class="aspect-[4/3] w-full object-cover object-[50%_30%] transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
               <span class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-gradient-to-t from-[#0c2530] via-[#0c2530]/80 to-transparent p-5 pt-16">
                 <span>
                   <span class="block font-display text-[0.75rem] tracking-[0.14em] text-lime">08</span>
