@@ -1,13 +1,19 @@
 ---
 /**
  * /bio — la pagina del link in bio di Instagram.
- * Chi è Caio, il caso Caterinho, i prossimi passi, il percorso e le offerte.
+ * Chi è Caio, la sua storia in ordine cronologico fino a Caterinho, i prossimi passi e le offerte.
  * Le foto mancanti sono segnaposto [FOTO …]: sostituirle con quelle di Caio.
  */
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/ui/Icon.astro';
 import fotoSushi from '../assets/foto/sushi_occhiali_hd.jpg';
+import fotoTemakinho from '../assets/foto/temakinho_rocinha.jpg';
+import fotoCacau from '../assets/foto/cacau_pass.jpg';
+import fotoPoke from '../assets/foto/pokesamba_taglio.jpg';
+import fotoMatrimonio from '../assets/foto/matrimonio.jpg';
+import fotoCovid from '../assets/foto/sushi_cake_covid.jpg';
+import fotoMarino from '../assets/foto/caterinho_marino.jpg';
 import fotoVetrina from '../assets/foto/vetrina_caterinho.jpg';
 import fotoBancone from '../assets/foto/impiattamento_bancone.jpg';
 import fotoPensieroso from '../assets/caio_pensieroso.jpg';
@@ -20,33 +26,35 @@ import logoPoke from '../assets/loghi/pokesamba.png';
 import logoMarino from '../assets/loghi/marino.png';
 import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, EMAIL } from '../config';
 
-// Il caso Caterinho: dalla cucina di casa alla vetrina su strada.
-const caso = [
-  {
-    quando: 'Novembre 2020', titolo: 'La cucina di casa',
-    testo: 'Le prime prove del menu, mettendo insieme quello che avevamo imparato in anni di cucine. Il primo servizio: box consegnate a domicilio.',
-    foto: null, segnaposto: 'Noi nella cucina di casa, le prime prove del menu',
-  },
-  {
-    quando: '2020–2022', titolo: 'Pochi follower, clienti veri',
-    testo: 'Una vetrina online semplice e un gruppo di persone che conoscono il marchio e chi c’è dietro, e che con i loro ordini hanno costruito il progetto insieme a noi. All’inizio facevo tutto io: acquisti, clienti, consegne. Poi ho automatizzato un processo alla volta e altre persone hanno iniziato a crederci, compreso mio fratello.',
-    foto: null, segnaposto: 'Le prime box e le consegne',
-  },
-  {
-    quando: '2022', titolo: 'Il bivio',
-    testo: 'Portare tutto nel digitale o investire in una vetrina vera? Abbiamo scelto un piccolo locale su strada a Bergamo, gestito da noi: il laboratorio delle nostre ricette, la base per gli eventi e il primo assaggio per chi passa davanti. Un concept brasiliano, fatto come a casa.',
-    foto: fotoVetrina, alt: 'Caio e due collaboratori davanti all’ingresso di Caterinho, Sushi Poke & Caipirinha', foto2: fotoBancone, alt2: 'Caio impiatta al bancone di Caterinho',
-  },
-];
-
-// Percorso: le cucine e le aziende in cui ho lavorato.
-const percorso = [
-  { logo: logoTemakinho, alt: 'Temakinho', nome: 'Temakinho', ruolo: 'Executive chef', dove: 'Milano, Roma, Londra · 2013–2018', h: 'max-h-8' },
-  { logo: logoCacau, alt: 'Cacau Temakeria brasileira', nome: 'Cacau Temakeria', ruolo: 'Project manager', dove: 'Milano', h: 'max-h-12' },
-  { logo: logoPoke, alt: 'Poké Samba', nome: 'Poke Samba', ruolo: 'Avviamento', dove: 'Milano', h: 'max-h-14' },
-  { logo: logoMarino, alt: 'Il Marino di Puntaldia', nome: 'Il Marino di Puntaldia', ruolo: 'Consultant chef', dove: '2021–2022', h: 'max-h-12' },
-  { logo: null, alt: '', nome: 'Amazon', ruolo: 'Settore logistico', dove: 'In corso', nota: 'Vedo da dentro come si muovono flussi e approvvigionamenti su grandi volumi.' },
-  { logo: logoCaterinho, alt: 'Caterinho', nome: 'Caterinho', ruolo: 'Fondatore', dove: 'Bergamo · in corso', h: 'max-h-10', oggi: true },
+// La storia in ordine cronologico: dalle cucine dei ristoranti a Caterinho.
+type Tappa = { quando: string; titolo: string; ruolo?: string; logo?: ImageMetadata; logoH?: string; testo: string; foto?: ImageMetadata; alt?: string; pos?: string; foto2?: ImageMetadata; alt2?: string; oggi?: boolean };
+const storia: Tappa[] = [
+  { quando: '2013–2018 · Milano, Roma, Londra', titolo: 'Temakinho', ruolo: 'Executive chef', logo: logoTemakinho, logoH: 'max-h-6',
+    testo: 'Da capo bar a executive chef: le cucine di Milano e Roma, il catering eventi e l’apertura di Londra Soho. In quel periodo anche una lezione di sushi nella favela della Rocinha, a Rio.',
+    foto: fotoTemakinho, alt: 'Caio con la giacca Temakinho durante una lezione di sushi nella Rocinha', pos: '50% 20%' },
+  { quando: 'Milano', titolo: 'Cacau Temakeria', ruolo: 'Project manager', logo: logoCacau, logoH: 'max-h-8',
+    testo: 'L’avviamento di un locale: burocrazia, food cost e numeri, oltre alla cucina.',
+    foto: fotoCacau, alt: 'Caio con la giacca verde di Cacau Temakeria mentre porge un piatto dal pass', pos: '50% 30%' },
+  { quando: 'Milano', titolo: 'Poke Samba', ruolo: 'Avviamento', logo: logoPoke, logoH: 'max-h-9',
+    testo: 'Un avviamento da zero: in un anno da circa 50 m² a un laboratorio centrale e a un secondo punto vendita.',
+    foto: fotoPoke, alt: 'Caio con la divisa Poké Samba mentre taglia le verdure', pos: '50% 35%' },
+  { quando: 'Il matrimonio', titolo: 'Dove nasce Caterinho',
+    testo: 'Per il nostro matrimonio, mio e di Raffaella, il catering l’ho cucinato io. Da lì l’idea: fare per gli altri quello che avevamo fatto per noi, un evento alla volta.',
+    foto: fotoMatrimonio, alt: 'Caio e la moglie Raffaella sorridono a tavola', pos: '40% 40%' },
+  { quando: 'Novembre 2020 · in pieno Covid', titolo: 'Il primo servizio, dalla cucina di casa',
+    testo: 'Ristoranti chiusi e mascherina in cucina. Siamo partiti da casa con box consegnate a domicilio e le prime torte di sushi.',
+    foto: fotoCovid, alt: 'Caio con la mascherina mentre completa una torta di sushi nella cucina di casa', pos: '50% 45%' },
+  { quando: '2020–2022', titolo: 'Pochi follower, clienti veri',
+    testo: 'Una vetrina online semplice e un gruppo di persone che conoscono il marchio e chi c’è dietro, e che con i loro ordini hanno costruito il progetto insieme a noi. All’inizio facevo tutto io: acquisti, clienti, consegne. Poi ho automatizzato un processo alla volta e altre persone hanno iniziato a crederci, compreso mio fratello, oggi mio socio.' },
+  { quando: '2021–2022 · Sardegna', titolo: 'Il Marino di Puntaldia', ruolo: 'Consultant chef', logo: logoMarino, logoH: 'max-h-8',
+    testo: 'Consulenza come chef in un ristorante sul mare: Caterinho esce dalla cucina di casa e lavora dentro un’altra realtà.',
+    foto: fotoMarino, alt: 'Caio di spalle al banco del Marino di Puntaldia mentre un fotografo lo riprende', pos: '50% 40%' },
+  { quando: '2022 · Bergamo', titolo: 'Il bivio', ruolo: 'Caterinho · fondatore', logo: logoCaterinho, logoH: 'max-h-6',
+    testo: 'Portare tutto nel digitale o investire in una vetrina vera? Abbiamo scelto un piccolo locale su strada, gestito da noi: il laboratorio delle nostre ricette, la base per gli eventi e il primo assaggio per chi passa davanti. Un concept brasiliano, fatto come a casa.',
+    foto: fotoVetrina, alt: 'Caio con la moglie Raffaella e il fratello davanti all’ingresso di Caterinho, Sushi Poke & Caipirinha', pos: '50% 50%',
+    foto2: fotoBancone, alt2: 'Caio impiatta al bancone di Caterinho', oggi: true },
+  { quando: 'In corso', titolo: 'Amazon', ruolo: 'Settore logistico',
+    testo: 'Vedo da dentro come si muovono flussi e approvvigionamenti su grandi volumi. Lezioni che porto anche nella ristorazione.' },
 ];
 
 // Le offerte, ognuna con il suo marchio.
@@ -76,22 +84,26 @@ const offerte = [
         </a>
       </header>
 
-      <!-- 02 · IL CASO CATERINHO -->
-      <section class="mt-16" aria-labelledby="caso-t">
-        <p data-reveal class="kicker">02 · Il caso</p>
-        <h2 data-reveal id="caso-t" class="mt-2 font-serif text-[2rem] leading-tight">Caterinho: dalla cucina di casa alla vetrina su strada</h2>
+      <!-- 02 · LA STORIA -->
+      <section class="mt-16" aria-labelledby="storia-t">
+        <p data-reveal class="kicker">02 · Esperienze e progetti</p>
+        <h2 data-reveal id="storia-t" class="mt-2 font-serif text-[2rem] leading-tight">Dalle cucine dei ristoranti a Caterinho</h2>
         <ol class="tl relative mt-8" data-tl>
           <span class="rail" aria-hidden="true"></span><span class="rail-fill" aria-hidden="true"></span>
-          {caso.map((s, i) => (
-            <li data-reveal class="step relative pb-10 pl-10 last:pb-0" data-step>
+          {storia.map((s) => (
+            <li data-reveal class:list={['step relative pb-12 pl-10 last:pb-0', { 'is-oggi': s.oggi }]} data-step>
               <span class="dot" aria-hidden="true"></span>
               <p class="font-display text-[0.8rem] uppercase tracking-[0.14em] text-lime">{s.quando}</p>
-              <h3 class="mt-1 font-display text-[1.25rem] font-medium">{s.titolo}</h3>
-              <p class="mt-2 text-[0.97rem] leading-relaxed text-ivory/80">{s.testo}</p>
-              {s.foto
-                ? <Image src={s.foto} alt={s.alt} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class="photo mt-4 aspect-[3/2] w-full rounded-2xl object-cover" loading="lazy" />
-                : import.meta.env.DEV && <div class="photo ph mt-4 grid aspect-[4/3] w-full place-items-center rounded-2xl p-6 text-center text-[0.85rem] text-ivory/60"><span class="placeholder">[FOTO: {s.segnaposto}]</span></div>}
-              {s.foto2 && <Image src={s.foto2} alt={s.alt2} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class="photo mt-3 aspect-[3/2] w-full rounded-2xl object-cover object-[50%_35%]" loading="lazy" />}
+              <div class="mt-2 flex items-center gap-3">
+                {s.logo && <span class="tile grid h-11 w-16 shrink-0 place-items-center rounded-lg p-1.5"><Image src={s.logo} alt="" widths={[120, 240]} sizes="4rem" class={`w-auto max-w-full object-contain ${s.logoH}`} loading="lazy" /></span>}
+                <div>
+                  <h3 class="font-display text-[1.25rem] font-medium leading-tight">{s.titolo}</h3>
+                  {s.ruolo && <p class="text-[0.85rem] text-ivory/65">{s.ruolo}</p>}
+                </div>
+              </div>
+              <p class="mt-3 text-[0.97rem] leading-relaxed text-ivory/80">{s.testo}</p>
+              {s.foto && <Image src={s.foto} alt={s.alt!} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class="photo mt-4 aspect-[4/5] w-full rounded-2xl object-cover" style={`object-position:${s.pos}`} loading="lazy" />}
+              {s.foto2 && <Image src={s.foto2} alt={s.alt2!} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class="photo mt-3 aspect-[3/2] w-full rounded-2xl object-cover" loading="lazy" />}
             </li>
           ))}
         </ol>
@@ -104,28 +116,6 @@ const offerte = [
         <ul class="mt-4 grid gap-3 text-[0.97rem] leading-relaxed text-ivory/85">
           <li class="flex gap-3"><Icon name="sparkles" class="mt-1 size-4 shrink-0 text-lime" /><span><strong class="font-medium text-ivory">Un CRM su misura per la ristorazione.</strong> Contatti, richieste, preventivi ed eventi in un solo posto. Un progetto ambizioso, che presto potrò condividere.</span></li>
           <li class="flex gap-3"><Icon name="sparkles" class="mt-1 size-4 shrink-0 text-lime" /><span><strong class="font-medium text-ivory">Un sistema per i social aziendali.</strong> Organizzare e pubblicare i contenuti con costanza, automatizzando il lavoro ripetitivo.</span></li>
-        </ul>
-      </section>
-
-      <!-- 04 · PERCORSO -->
-      <section class="mt-14" aria-labelledby="perc-t">
-        <p data-reveal class="kicker">04 · Esperienze e progetti</p>
-        <h2 data-reveal id="perc-t" class="mt-2 font-serif text-[2rem] leading-tight">Le cucine da cui vengo</h2>
-        <ul class="mt-6 grid gap-3">
-          {percorso.map((p) => (
-            <li data-reveal class:list={['exp flex items-center gap-4 rounded-2xl p-3', { 'is-oggi': p.oggi }]}>
-              <span class="tile grid h-16 w-24 shrink-0 place-items-center rounded-xl p-2">
-                {p.logo
-                  ? <Image src={p.logo} alt={p.alt} widths={[200, 400]} sizes="6rem" class={`w-auto max-w-full object-contain ${p.h}`} loading="lazy" />
-                  : <span class="font-display text-[1.05rem] font-semibold text-[#232f3e]">{p.nome}</span>}
-              </span>
-              <span class="min-w-0">
-                <span class="block font-display text-[1.02rem] font-medium">{p.nome}</span>
-                <span class="block text-[0.86rem] text-ivory/70">{p.ruolo} · {p.dove}</span>
-                {p.nota && <span class="mt-1 block text-[0.84rem] text-ivory/60">{p.nota}</span>}
-              </span>
-            </li>
-          ))}
         </ul>
       </section>
 
@@ -205,6 +195,7 @@ const offerte = [
   .rail { background: rgb(241 241 219 / 0.15); }
   .rail-fill { background: linear-gradient(#d8e64e, #5fb1d1); transform-origin: top; transform: scaleY(var(--p, 1)); }
   .dot { position: absolute; left: 0; top: 0.2rem; width: 1rem; height: 1rem; border-radius: 999px; background: #0c2530; box-shadow: inset 0 0 0 2px rgb(241 241 219 / 0.35); transition: box-shadow 0.5s, background 0.5s; }
+  .step.is-oggi .dot { box-shadow: inset 0 0 0 2px #e4606c; }
   .step.on .dot { background: #d8e64e; box-shadow: 0 0 0 4px rgb(216 230 78 / 0.2); }
 
   @media (prefers-reduced-motion: no-preference) {
