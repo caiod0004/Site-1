@@ -51,6 +51,10 @@ export const STUDIO_LEGALE_URL = '';
 /** Prevendita dell'edizione italiana in PDF (decisa da Caio l'8/11/2026). Link di pagamento: vuoto = il bottone porta alla lista d'attesa. */
 export const PREVENDITA_IT_URL = '';
 export const PREZZO_PREVENDITA_IT = '45 €';
+/** Cosa include la prevendita (solo PDF, niente cartaceo per ora). */
+export const DETTAGLI_PREVENDITA_IT = 'Solo PDF, oltre 200 pagine. Bonus: il manuale del Food Cost in italiano.';
+/** Data di consegna dell'edizione italiana: vuoto = segnaposto. Obbligatoria prima di attivare il pagamento. */
+export const CONSEGNA_PREVENDITA_IT = '';
 /** Guida Food Cost in portoghese (risorse). Vuoto = segnaposto. */
 export const GUIDA_FOODCOST_URL = '';
 
