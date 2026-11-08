@@ -46,6 +46,9 @@ export const LINKEDIN_URL = 'https://www.linkedin.com/in/caio-machado-275b82b3/'
 export const WHATSAPP_URL = '';
 /** Sito dello Studio Legale: vuoto finché non è pubblicato (niente link). */
 export const STUDIO_LEGALE_URL = '';
+/** Prevendita dell'edizione italiana in PDF (decisa da Caio l'8/11/2026). Link di pagamento: vuoto = il bottone porta alla lista d'attesa. */
+export const PREVENDITA_IT_URL = '';
+export const PREZZO_PREVENDITA_IT = '45 €';
 /** Guida Food Cost in portoghese (risorse). Vuoto = segnaposto. */
 export const GUIDA_FOODCOST_URL = '';
 

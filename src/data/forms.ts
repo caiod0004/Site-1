@@ -163,7 +163,7 @@ export const FORMS: Record<string, FormDef> = {
     steps: [{ title: 'Lista d’attesa', fields: [
       { name: 'nome', label: 'Nome', type: 'text', required: true, autocomplete: 'given-name' },
       { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
-      { name: 'prodotto', label: 'Per quale edizione italiana?', type: 'radio', options: ['Il libro (08 Erros)', 'La guida Food Cost', 'Entrambi'], required: true },
+      { name: 'prodotto', label: 'Per quale edizione italiana?', type: 'radio', options: ['Il libro (Sal, Pimenta & Planilha)', 'La guida Food Cost', 'Entrambi'], required: true },
     ] }],
   },
   waitlistLibro: {

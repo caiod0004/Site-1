@@ -23,7 +23,8 @@ import logoTemakinho from '../assets/loghi/temakinho.png';
 import logoCacau from '../assets/loghi/cacau.png';
 import logoPoke from '../assets/loghi/pokesamba.png';
 import logoMarino from '../assets/loghi/marino.png';
-import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, EMAIL, EBOOK_DIRETTO_URL, LIBRO_AMAZON_URL } from '../config';
+import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, EMAIL, EBOOK_DIRETTO_URL, LIBRO_AMAZON_URL, PREVENDITA_IT_URL, PREZZO_PREVENDITA_IT } from '../config';
+import fotoLibro from '../assets/libro-copertina.png';
 
 // La storia in ordine cronologico: dalle cucine dei ristoranti a Caterinho.
 type Tappa = { quando: string; titolo: string; ruolo?: string; logo?: ImageMetadata; logoH?: string; testo: string; foto?: ImageMetadata; alt?: string; pos?: string; ar?: string; libro?: boolean; foto2?: ImageMetadata; alt2?: string; oggi?: boolean };
@@ -49,7 +50,7 @@ const storia: Tappa[] = [
     testo: 'Consulenza come chef in un ristorante sul mare, con un servizio di altissimo livello. Lì ho capito cosa volevo davvero per Caterinho: è il livello a cui puntiamo ancora oggi.',
     foto: fotoMarino, alt: 'Caio di spalle al banco del Marino di Puntaldia mentre un fotografo lo riprende', pos: '50% 40%' },
   { quando: '2021–2022', titolo: 'Il libro', ruolo: 'Collana Italian Method', logo: logoItalianMethod, logoH: 'max-h-9', libro: true,
-    testo: 'Mentre inauguravamo Caterinho mi sono concentrato a scrivere un libro, in portoghese, sugli errori che fanno chiudere i ristoranti e su come evitarli. Un progetto che forse un giorno mi riporterà in Brasile: chissà, la porta resta aperta.' },
+    testo: 'Mentre inauguravamo Caterinho mi sono concentrato a scrivere «Sal, Pimenta & Planilha», in portoghese: i 7 errori da evitare prima di aprire un ristorante. Un progetto che forse un giorno mi riporterà in Brasile: chissà, la porta resta aperta.' },
   { quando: '2022 · Bergamo', titolo: 'Il bivio', ruolo: 'Caterinho · fondatore', logo: logoCaterinho, logoH: 'max-h-6',
     testo: 'Portare tutto nel digitale o investire in una vetrina vera? Abbiamo scelto un piccolo locale su strada, gestito da noi: il laboratorio delle nostre ricette, la base per gli eventi e il primo assaggio per chi passa davanti. Un concept brasiliano, fatto come a casa.',
     foto: fotoVetrina, alt: 'Caio con la moglie Raffaella e il fratello davanti all’ingresso di Caterinho, Sushi Poke & Caipirinha', pos: '50% 50%', oggi: true },
@@ -105,11 +106,12 @@ const offerte = [
               {s.foto && <Image src={s.foto} alt={s.alt!} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class={`photo mt-4 ${s.ar ?? 'aspect-[4/5]'} w-full rounded-2xl object-cover`} style={`object-position:${s.pos}`} loading="lazy" />}
               {s.libro && (
                 <div class="mt-4 grid gap-2">
+                  <Image src={fotoLibro} alt="Copertina del libro Sal, Pimenta & Planilha: 07 erros que você deve evitar antes de abrir um restaurante, di Chef Caio Machado" widths={[300, 520]} sizes="12rem" class="mb-2 w-48 rounded-md shadow-[0_24px_40px_-20px_rgb(0_0_0/0.8)]" loading="lazy" />
                   <a href={EBOOK_DIRETTO_URL || LIBRO_AMAZON_URL} target="_blank" rel="noopener" class="card group relative flex min-h-12 items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-2.5 text-[0.95rem]">
                     <span>{EBOOK_DIRETTO_URL ? 'Il manuale in PDF (portoghese)' : 'Il libro in portoghese su Amazon'}</span><Icon name="arrow-up-right" class="size-4 shrink-0 opacity-70" /><span class="sr-only">(si apre in una nuova scheda)</span>
                   </a>
-                  <a href={withUtm('/#libro')} class="card group relative flex min-h-12 items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-2.5 text-[0.95rem]">
-                    <span>Lista d’attesa per l’edizione italiana</span><Icon name="arrow-right" class="size-4 shrink-0 opacity-70" />
+                  <a href={PREVENDITA_IT_URL || withUtm('/#libro')} {...(PREVENDITA_IT_URL ? { target: '_blank', rel: 'noopener' } : {})} class="card group relative flex min-h-12 items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-2.5 text-[0.95rem]">
+                    <span>Edizione italiana in PDF · prevendita {PREZZO_PREVENDITA_IT}</span><Icon name="arrow-right" class="size-4 shrink-0 opacity-70" />
                   </a>
                 </div>
               )}

@@ -29,7 +29,7 @@ import { SEO_HOME, PROVE, STORIA, FAQ_HOME, PORTE } from '../data/home';
 import { CATEGORIE } from '../content.config';
 import {
   SITE_URL, STATO_STRUMENTI, LIBRO_AMAZON_URL, EBOOK_DIRETTO_URL, PREZZO_EBOOK, INSTAGRAM_URL, INSTAGRAM_CATERINHO_URL,
-  LINKEDIN_URL, CATERINHO_URL,
+  LINKEDIN_URL, CATERINHO_URL, PREVENDITA_IT_URL, PREZZO_PREVENDITA_IT,
 } from '../config';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -81,7 +81,7 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Book',
-    name: '08 Erros que quebram restaurantes e como evitar antes de investir 1 real',
+    name: 'Sal, Pimenta & Planilha: 07 erros que você deve evitar antes de abrir um restaurante',
     author: { '@id': `${SITE_URL}/#caio` },
     inLanguage: 'pt-BR',
     datePublished: '2025',
@@ -236,13 +236,14 @@ const jsonLd = [
           </figure>
           <div class="mt-8 max-w-[40rem] space-y-5 text-paper-muted">
             <p>Questo libro nasce dalla voglia di imparare ancora di più: sono convinto che insegnando si impari due volte. Raccoglie anni di appunti e di studi. L’ho scritto in portoghese, la mia lingua madre, perché è la lingua in cui ho più confidenza. E sto già lavorando alla traduzione in italiano.</p>
-            <p><strong class="text-paper-ink">08 Erros que quebram restaurantes e como evitar antes de investir 1 real</strong> (collana Italian Method, 2025) parla degli errori che fanno chiudere un ristorante prima ancora che apra, e di come evitarli: ricerca di mercato, analisi della concorrenza fisica e digitale, marketing digitale, gestione e sprechi, fidelizzazione, prezzo contro valore percepito, espansione troppo veloce. In più, un capitolo bonus sul business plan.</p>
+            <p><strong class="text-paper-ink">Sal, Pimenta &amp; Planilha: 07 erros que você deve evitar antes de abrir um restaurante</strong> (collana Italian Method, 2025) parla degli errori che fanno chiudere un ristorante prima ancora che apra, e di come evitarli: ricerca di mercato, analisi della concorrenza fisica e digitale, marketing digitale, gestione e sprechi, fidelizzazione, prezzo contro valore percepito, espansione troppo veloce. In più, un capitolo bonus sul business plan.</p>
           </div>
           <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a href={LIBRO_AMAZON_URL} target="_blank" rel="noopener" class="btn btn-ink">Acquista su Amazon (portoghese) <Icon name="arrow-up-right" /><span class="sr-only">(si apre in una nuova scheda)</span></a>
             {EBOOK_DIRETTO_URL
               ? <a href={EBOOK_DIRETTO_URL} target="_blank" rel="noopener" class="btn btn-line">Acquista il manuale digitale{PREZZO_EBOOK && ` · ${PREZZO_EBOOK}`} <span class="opacity-70">· PDF, anche su Kindle</span> <Icon name="arrow-up-right" /></a>
               : <span class="btn btn-line pointer-events-none flex-wrap">Acquista il manuale digitale · PDF <span class="placeholder whitespace-normal">[LINK E PREZZO DEL MANUALE]</span></span>}
+            {PREVENDITA_IT_URL && <a href={PREVENDITA_IT_URL} target="_blank" rel="noopener" class="btn btn-line">Edizione italiana in PDF · prevendita {PREZZO_PREVENDITA_IT} <Icon name="arrow-up-right" /></a>}
             <button type="button" class="btn btn-line" aria-expanded="false" aria-controls="lista-attesa" data-wait-btn>Entra in lista d’attesa per l’edizione italiana</button>
           </div>
           <p class="mt-4 text-[0.9rem] text-paper-muted">Manuale digitale (PDF, leggibile anche su Kindle) e copia Amazon: per ora solo in portoghese.</p>
