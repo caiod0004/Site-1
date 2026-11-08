@@ -1,72 +1,241 @@
 ---
+/**
+ * /bio — la pagina del link in bio di Instagram.
+ * Chi è Caio, il caso Caterinho, i prossimi passi, il percorso e le offerte.
+ * Le foto mancanti sono segnaposto [FOTO …]: sostituirle con quelle di Caio.
+ */
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/ui/Icon.astro';
 import fotoSushi from '../assets/foto/sushi_occhiali.jpg';
+import fotoBar from '../assets/foto/bar_caterinho.jpg';
+import fotoPensieroso from '../assets/caio_pensieroso.jpg';
 import logoCaterinho from '../assets/loghi/caterinho.png';
-import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, WHATSAPP_URL } from '../config';
-const link = [
-  { t: 'Caio Machado', d: 'Chi sono e l’analisi del tuo caso', href: withUtm('/'), icon: 'user', ext: false },
-  { t: 'Diagnosi Food Cost', d: 'Per ristoranti · 197 €', href: withUtm('/diagnosi-food-cost/'), icon: 'calculator', ext: false },
-  { t: 'Il tuo sito in 7 giorni', d: 'Per ogni piccola attività · 197 €', href: withUtm('/sito/'), icon: 'smartphone', ext: false },
-  { t: 'Caterinho', d: 'Catering ed esperienze a Bergamo', href: CATERINHO_URL, icon: 'store', ext: true },
+import logoItalianMethod from '../assets/loghi/italian_method.png';
+import logoTocstory from '../assets/loghi/tocstory.png';
+import logoTemakinho from '../assets/loghi/temakinho.png';
+import logoCacau from '../assets/loghi/cacau.png';
+import logoPoke from '../assets/loghi/pokesamba.png';
+import logoMarino from '../assets/loghi/marino.png';
+import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, EMAIL } from '../config';
+
+// Il caso Caterinho: dalla cucina di casa alla vetrina su strada.
+const caso = [
+  {
+    quando: 'Novembre 2020', titolo: 'La cucina di casa',
+    testo: 'Le prime prove del menu, mettendo insieme quello che avevamo imparato in anni di cucine. Il primo servizio: box consegnate a domicilio.',
+    foto: null, segnaposto: 'Noi nella cucina di casa, le prime prove del menu',
+  },
+  {
+    quando: '2020–2022', titolo: 'Pochi follower, clienti veri',
+    testo: 'Una vetrina online semplice e un gruppo di persone che conoscono il marchio e chi c’è dietro, e che con i loro ordini hanno costruito il progetto insieme a noi. All’inizio facevo tutto io: acquisti, clienti, consegne. Poi ho automatizzato un processo alla volta e altre persone hanno iniziato a crederci, compreso mio fratello.',
+    foto: null, segnaposto: 'Le prime box e le consegne',
+  },
+  {
+    quando: '2022', titolo: 'Il bivio',
+    testo: 'Portare tutto nel digitale o investire in una vetrina vera? Abbiamo scelto un piccolo locale su strada a Bergamo, gestito da noi: il laboratorio delle nostre ricette, la base per gli eventi e il primo assaggio per chi passa davanti. Un concept brasiliano, fatto come a casa.',
+    foto: fotoBar, alt: 'Caio dietro il bancone di Caterinho mentre prepara dei cocktail',
+  },
+];
+
+// Percorso: le cucine e le aziende in cui ho lavorato.
+const percorso = [
+  { logo: logoTemakinho, alt: 'Temakinho', nome: 'Temakinho', ruolo: 'Executive chef', dove: 'Milano, Roma, Londra · 2013–2018', h: 'max-h-8' },
+  { logo: logoCacau, alt: 'Cacau Temakeria brasileira', nome: 'Cacau Temakeria', ruolo: 'Project manager', dove: 'Milano', h: 'max-h-12' },
+  { logo: logoPoke, alt: 'Poké Samba', nome: 'Poke Samba', ruolo: 'Avviamento', dove: 'Milano', h: 'max-h-14' },
+  { logo: logoMarino, alt: 'Il Marino di Puntaldia', nome: 'Il Marino di Puntaldia', ruolo: 'Consultant chef', dove: '2021–2022', h: 'max-h-12' },
+  { logo: null, alt: '', nome: 'Amazon', ruolo: 'Settore logistico', dove: 'In corso', nota: 'Vedo da dentro come si muovono flussi e approvvigionamenti su grandi volumi.' },
+  { logo: logoCaterinho, alt: 'Caterinho', nome: 'Caterinho', ruolo: 'Fondatore', dove: 'Bergamo · in corso', h: 'max-h-10', oggi: true },
+];
+
+// Le offerte, ognuna con il suo marchio.
+const offerte = [
+  { n: '05', t: 'Diagnosi Food Cost', d: 'Per ristoranti · 197 €', href: withUtm('/diagnosi-food-cost/'), logo: logoItalianMethod, alt: 'Italian Method', h: 'h-16', ext: false },
+  { n: '06', t: 'Il tuo sito in 7 giorni', d: 'Una pagina come questa · 197 €', href: withUtm('/sito/'), logo: logoTocstory, alt: 'TocStory', h: 'h-16', ext: false },
+  { n: '07', t: 'Conosci Caterinho', d: 'Catering ed esperienze a Bergamo', href: CATERINHO_URL, logo: logoCaterinho, alt: 'Caterinho', h: 'h-9', ext: true },
 ];
 ---
-<Base title="Caio Machado – Link" description="Ristorazione e tecnologia. Dal 2009 in cucina, oggi da Caterinho (Bergamo)." path="/bio/" theme="consulenza" themeColor="#0C2530">
+<Base title="Caio Machado – Ristorazione e tecnologia" description="Hospitality tech: porto nella ristorazione gli strumenti digitali che uso ogni giorno a Caterinho (Bergamo)." path="/bio/" theme="consulenza" themeColor="#0C2530">
   <main id="contenuto" class="bio grain relative isolate min-h-svh overflow-hidden px-5 pb-10 pt-14 text-ivory">
     <div class="blob b1" aria-hidden="true"></div><div class="blob b2" aria-hidden="true"></div><div class="blob b3" aria-hidden="true"></div>
-    <div class="mx-auto flex max-w-[27rem] flex-col items-center text-center">
-      <div class="ring in" style="--d:0">
-        <Image src={fotoSushi} alt="Caio Machado con occhiali da sole rossi e un pezzo di sushi davanti all’occhio" widths={[240, 360]} sizes="7.5rem" class="relative size-[7.5rem] rounded-full object-cover object-[50%_35%]" loading="eager" fetchpriority="high" />
-      </div>
-      <h1 class="in mt-6 font-serif text-[2.6rem] leading-none" style="--d:1">Caio Machado</h1>
-      <p class="in mt-3 max-w-[22rem] text-ivory/80" style="--d:2">Ristorazione e tecnologia. Dal 2009 in cucina, oggi da Caterinho (Bergamo).</p>
-      <ul class="mt-9 grid w-full gap-3">
-        {link.map((l, i) => (
-          <li class="in" style={`--d:${i + 3}`}>
-            <a href={l.href} {...(l.ext ? { target: '_blank', rel: 'noopener' } : {})} class="card group relative flex min-h-[4.5rem] items-center gap-4 overflow-hidden rounded-2xl px-4 py-3 text-left">
-              <span class={`grid size-11 shrink-0 place-items-center rounded-full ${i === 0 ? 'bg-lime text-[#0c2530]' : 'bg-ivory/12 text-lime'}`}><Icon name={l.icon} class="size-5" /></span>
-              <span class="min-w-0 flex-1">
-                <span class="block font-display text-[1.08rem] font-medium">{l.t}</span>
-                <span class="block text-[0.88rem] text-ivory/70">{l.d}</span>
+    <div class="mx-auto flex max-w-[30rem] flex-col">
+
+      <!-- 01 · CHI SONO -->
+      <header class="flex flex-col items-center text-center">
+        <div class="ring hin" style="--d:0">
+          <Image src={fotoSushi} alt="Caio Machado con occhiali da sole rossi e un pezzo di sushi davanti all’occhio" widths={[240, 360]} sizes="7.5rem" class="relative size-[7.5rem] rounded-full object-cover object-[50%_35%]" loading="eager" fetchpriority="high" />
+        </div>
+        <h1 class="in mt-6 font-serif text-[2.6rem] leading-none" style="--d:1">Caio Machado</h1>
+        <p class="in mt-4 rounded-full bg-lime px-4 py-1.5 font-display text-[0.78rem] uppercase tracking-[0.12em] text-[#0c2530]" style="--d:2">Hospitality tech · Implementazione</p>
+        <p class="in mt-5 max-w-[25rem] text-[1.02rem] leading-relaxed text-ivory/85" style="--d:3">
+          Vengo dalla cucina. Oggi porto nella ristorazione gli strumenti digitali che uso ogni giorno a Caterinho: numeri chiari, processi automatizzati e una presenza online che porta clienti veri.
+        </p>
+        <a href={`mailto:${EMAIL}`} class="in mt-6 inline-flex min-h-11 items-center gap-2 rounded-full px-5 text-[0.95rem] ring-1 ring-ivory/25 transition-colors hover:bg-ivory/10" style="--d:4">
+          <Icon name="mail" class="size-4" /> {EMAIL}
+        </a>
+      </header>
+
+      <!-- 02 · IL CASO CATERINHO -->
+      <section class="mt-16" aria-labelledby="caso-t">
+        <p data-reveal class="kicker">02 · Il caso</p>
+        <h2 data-reveal id="caso-t" class="mt-2 font-serif text-[2rem] leading-tight">Caterinho: dalla cucina di casa alla vetrina su strada</h2>
+        <ol class="tl relative mt-8" data-tl>
+          <span class="rail" aria-hidden="true"></span><span class="rail-fill" aria-hidden="true"></span>
+          {caso.map((s, i) => (
+            <li data-reveal class="step relative pb-10 pl-10 last:pb-0" data-step>
+              <span class="dot" aria-hidden="true"></span>
+              <p class="font-display text-[0.8rem] uppercase tracking-[0.14em] text-lime">{s.quando}</p>
+              <h3 class="mt-1 font-display text-[1.25rem] font-medium">{s.titolo}</h3>
+              <p class="mt-2 text-[0.97rem] leading-relaxed text-ivory/80">{s.testo}</p>
+              {s.foto
+                ? <Image src={s.foto} alt={s.alt} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class="photo mt-4 aspect-[4/3] w-full rounded-2xl object-cover object-[50%_30%]" loading="lazy" />
+                : import.meta.env.DEV && <div class="photo ph mt-4 grid aspect-[4/3] w-full place-items-center rounded-2xl p-6 text-center text-[0.85rem] text-ivory/60"><span class="placeholder">[FOTO: {s.segnaposto}]</span></div>}
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- 03 · PROSSIMI PASSI -->
+      <section data-reveal class="card mt-14 rounded-3xl p-6" aria-labelledby="next-t">
+        <p class="kicker">03 · Adesso</p>
+        <h2 id="next-t" class="mt-2 font-serif text-[1.7rem] leading-tight">Cosa sto costruendo</h2>
+        <ul class="mt-4 grid gap-3 text-[0.97rem] leading-relaxed text-ivory/85">
+          <li class="flex gap-3"><Icon name="sparkles" class="mt-1 size-4 shrink-0 text-lime" /><span><strong class="font-medium text-ivory">Un CRM su misura per la ristorazione.</strong> Contatti, richieste, preventivi ed eventi in un solo posto. Un progetto ambizioso, che presto potrò condividere.</span></li>
+          <li class="flex gap-3"><Icon name="sparkles" class="mt-1 size-4 shrink-0 text-lime" /><span><strong class="font-medium text-ivory">Un sistema per i social aziendali.</strong> Organizzare e pubblicare i contenuti con costanza, automatizzando il lavoro ripetitivo.</span></li>
+        </ul>
+      </section>
+
+      <!-- 04 · PERCORSO -->
+      <section class="mt-14" aria-labelledby="perc-t">
+        <p data-reveal class="kicker">04 · Esperienze e progetti</p>
+        <h2 data-reveal id="perc-t" class="mt-2 font-serif text-[2rem] leading-tight">Le cucine da cui vengo</h2>
+        <ul class="mt-6 grid gap-3">
+          {percorso.map((p) => (
+            <li data-reveal class:list={['exp flex items-center gap-4 rounded-2xl p-3', { 'is-oggi': p.oggi }]}>
+              <span class="tile grid h-16 w-24 shrink-0 place-items-center rounded-xl p-2">
+                {p.logo
+                  ? <Image src={p.logo} alt={p.alt} widths={[200, 400]} sizes="6rem" class={`w-auto max-w-full object-contain ${p.h}`} loading="lazy" />
+                  : <span class="font-display text-[1.05rem] font-semibold text-[#232f3e]">{p.nome}</span>}
               </span>
-              {l.ext ? <Icon name="arrow-up-right" class="size-5 shrink-0 opacity-70" /> : <Icon name="arrow-right" class="size-5 shrink-0 opacity-70 transition-transform group-hover:translate-x-1" />}
-              {l.ext && <span class="sr-only">(si apre in una nuova scheda)</span>}
+              <span class="min-w-0">
+                <span class="block font-display text-[1.02rem] font-medium">{p.nome}</span>
+                <span class="block text-[0.86rem] text-ivory/70">{p.ruolo} · {p.dove}</span>
+                {p.nota && <span class="mt-1 block text-[0.84rem] text-ivory/60">{p.nota}</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- 05–07 · OFFERTE -->
+      <section class="mt-14" aria-labelledby="off-t">
+        <h2 data-reveal id="off-t" class="font-serif text-[2rem] leading-tight">Come posso aiutarti</h2>
+        <ul class="mt-6 grid gap-3">
+          {offerte.map((o) => (
+            <li data-reveal>
+              <a href={o.href} {...(o.ext ? { target: '_blank', rel: 'noopener' } : {})} class="card group relative flex min-h-[5.5rem] items-center gap-4 overflow-hidden rounded-2xl p-3 pr-4 text-left">
+                <span class="tile grid h-20 w-20 shrink-0 place-items-center rounded-xl p-2"><Image src={o.logo} alt={o.alt} widths={[160, 320]} sizes="5rem" class={`w-auto max-w-full object-contain ${o.h}`} loading="lazy" /></span>
+                <span class="min-w-0 flex-1">
+                  <span class="block font-display text-[0.75rem] tracking-[0.14em] text-lime">{o.n}</span>
+                  <span class="block font-display text-[1.1rem] font-medium">{o.t}</span>
+                  <span class="block text-[0.88rem] text-ivory/70">{o.d}</span>
+                </span>
+                {o.ext ? <Icon name="arrow-up-right" class="size-5 shrink-0 opacity-70" /> : <Icon name="arrow-right" class="size-5 shrink-0 opacity-70 transition-transform group-hover:translate-x-1" />}
+                {o.ext && <span class="sr-only">(si apre in una nuova scheda)</span>}
+              </a>
+            </li>
+          ))}
+          <li data-reveal>
+            <a href={withUtm('/consulenza/')} class="consulto group relative block overflow-hidden rounded-3xl">
+              <Image src={fotoPensieroso} alt="Caio Machado pensieroso, con la mano sotto il mento" widths={[480, 800]} sizes="(min-width: 32rem) 30rem, 90vw" class="aspect-[4/3] w-full object-cover object-[50%_25%] transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+              <span class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-gradient-to-t from-[#0c2530] via-[#0c2530]/80 to-transparent p-5 pt-16">
+                <span>
+                  <span class="block font-display text-[0.75rem] tracking-[0.14em] text-lime">08</span>
+                  <span class="block font-serif text-[1.6rem] leading-tight">Richiedi una consulenza per il tuo caso specifico</span>
+                </span>
+                <span class="grid size-11 shrink-0 place-items-center rounded-full bg-lime text-[#0c2530]"><Icon name="arrow-right" class="size-5" /></span>
+              </span>
             </a>
           </li>
-        ))}
-      </ul>
-      <Image src={logoCaterinho} alt="" widths={[200, 400]} sizes="9rem" class="in mt-9 h-auto w-36 opacity-90" style="--d:7" loading="lazy" />
-      <ul class="in mt-6 flex flex-wrap justify-center gap-x-5 text-[0.92rem] text-ivory/75" style="--d:8">
-        <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline-offset-4 hover:underline">Instagram</a></li>
-        {LINKEDIN_URL && <li><a href={LINKEDIN_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline-offset-4 hover:underline">LinkedIn</a></li>}
-        <li>{WHATSAPP_URL ? <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline-offset-4 hover:underline">WhatsApp</a> : <span class="inline-flex min-h-11 items-center">WhatsApp <span class="placeholder ml-2">[WHATSAPP]</span></span>}</li>
-      </ul>
-      <p class="mt-6 text-[0.75rem] text-ivory/55">Proverbi 123 di Freitas de Moura Machado Caio · P.IVA 04668830161 · <a href="/privacy/" class="underline">Privacy</a></p>
+        </ul>
+      </section>
+
+      <!-- CONTATTI -->
+      <section data-reveal class="mt-14 text-center" aria-labelledby="cont-t">
+        <h2 id="cont-t" class="font-serif text-[1.7rem]">Contatti</h2>
+        <a href={`mailto:${EMAIL}`} class="mt-4 inline-flex min-h-12 items-center gap-2 rounded-full bg-lime px-6 font-display font-medium text-[#0c2530] transition-transform hover:-translate-y-0.5">
+          <Icon name="mail" class="size-5" /> Scrivimi un’email
+        </a>
+        <p class="mt-2 text-[0.9rem] text-ivory/70">{EMAIL}</p>
+        <ul class="mt-4 flex flex-wrap justify-center gap-x-5 text-[0.92rem] text-ivory/75">
+          <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline-offset-4 hover:underline">Instagram</a></li>
+          {LINKEDIN_URL && <li><a href={LINKEDIN_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center underline-offset-4 hover:underline">LinkedIn</a></li>}
+          <li><a href={withUtm('/')} class="inline-flex min-h-11 items-center underline-offset-4 hover:underline">Il sito completo</a></li>
+        </ul>
+        <p class="mt-6 text-[0.75rem] text-ivory/55">Proverbi 123 di Freitas de Moura Machado Caio · P.IVA 04668830161 · <a href="/privacy/" class="underline">Privacy</a></p>
+      </section>
     </div>
   </main>
 </Base>
 <style>
-  .bio { background: radial-gradient(120% 80% at 50% 0%, #1b4251 0%, #0c2530 55%, #081a22 100%); }
+  .bio { background: radial-gradient(120% 60% at 50% 0%, #1b4251 0%, #0c2530 45%, #081a22 100%); }
   .blob { position: absolute; z-index: -1; border-radius: 50%; filter: blur(60px); opacity: 0.55; }
   .b1 { width: 22rem; height: 22rem; background: #5fb1d1; top: -6rem; left: -8rem; }
-  .b2 { width: 18rem; height: 18rem; background: #d8e64e; bottom: 10%; right: -8rem; opacity: 0.35; }
-  .b3 { width: 14rem; height: 14rem; background: #e4606c; top: 40%; left: -6rem; opacity: 0.3; }
+  .b2 { width: 18rem; height: 18rem; background: #d8e64e; top: 30rem; right: -8rem; opacity: 0.3; }
+  .b3 { width: 14rem; height: 14rem; background: #e4606c; top: 70rem; left: -6rem; opacity: 0.25; }
+  .kicker { font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(241 241 219 / 0.6); }
   .ring { position: relative; padding: 4px; border-radius: 999px; }
   .ring::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: conic-gradient(from 0deg, #d8e64e, #5fb1d1, #e4606c, #d8e64e); }
   .ring > :global(img) { border: 3px solid #0c2530; }
   .card { background: rgb(241 241 219 / 0.08); box-shadow: inset 0 0 0 1px rgb(241 241 219 / 0.16), 0 20px 40px -30px rgb(0 0 0 / 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: transform 0.5s var(--ease-out-soft), background-color 0.4s, box-shadow 0.4s; }
-  .card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.14) 50%, transparent 70%); transform: translateX(-120%); transition: transform 0.9s var(--ease-out-soft); }
-  .card:hover { transform: translateY(-3px); background: rgb(241 241 219 / 0.13); box-shadow: inset 0 0 0 1px rgb(143 208 232 / 0.5), 0 30px 50px -30px rgb(0 0 0 / 0.9); }
-  .card:hover::after { transform: translateX(120%); }
+  a.card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.14) 50%, transparent 70%); transform: translateX(-120%); transition: transform 0.9s var(--ease-out-soft); }
+  a.card:hover { transform: translateY(-3px); background: rgb(241 241 219 / 0.13); box-shadow: inset 0 0 0 1px rgb(143 208 232 / 0.5), 0 30px 50px -30px rgb(0 0 0 / 0.9); }
+  a.card:hover::after { transform: translateX(120%); }
+  .tile { background: linear-gradient(150deg, #fbfbf1 0%, #ecebd3 100%); }
+  .exp { background: rgb(241 241 219 / 0.05); box-shadow: inset 0 0 0 1px rgb(241 241 219 / 0.1); }
+  .exp.is-oggi { box-shadow: inset 0 0 0 1.5px #e4606c; }
+  .consulto { box-shadow: 0 0 0 1px rgb(241 241 219 / 0.16), 0 30px 50px -30px rgb(0 0 0 / 0.9); }
+  .ph { background: repeating-linear-gradient(135deg, rgb(241 241 219 / 0.05) 0 12px, rgb(241 241 219 / 0.09) 12px 24px); box-shadow: inset 0 0 0 1px rgb(241 241 219 / 0.18); }
+  .ph .placeholder { white-space: normal; }
+
+  /* Linea del tempo del caso Caterinho */
+  .rail, .rail-fill { position: absolute; left: 0.45rem; top: 0.4rem; bottom: 0.4rem; width: 2px; border-radius: 2px; }
+  .rail { background: rgb(241 241 219 / 0.15); }
+  .rail-fill { background: linear-gradient(#d8e64e, #5fb1d1); transform-origin: top; transform: scaleY(var(--p, 1)); }
+  .dot { position: absolute; left: 0; top: 0.2rem; width: 1rem; height: 1rem; border-radius: 999px; background: #0c2530; box-shadow: inset 0 0 0 2px rgb(241 241 219 / 0.35); transition: box-shadow 0.5s, background 0.5s; }
+  .step.on .dot { background: #d8e64e; box-shadow: 0 0 0 4px rgb(216 230 78 / 0.2); }
+
   @media (prefers-reduced-motion: no-preference) {
     .ring::before { animation: spin 8s linear infinite; }
     .b1 { animation: drift 18s ease-in-out infinite alternate; }
     .b2 { animation: drift 22s ease-in-out -6s infinite alternate-reverse; }
     .b3 { animation: drift 26s ease-in-out -3s infinite alternate; }
-    .in { animation: rise 0.8s var(--ease-out-soft) both; animation-delay: calc(var(--d) * 80ms + 100ms); }
+    .hin { animation: rise 0.8s var(--ease-out-soft) both; animation-delay: calc(var(--d) * 80ms + 100ms); }
+    .step .photo { transition: transform 1s var(--ease-out-soft); transform: scale(0.97); }
+    .step.on .photo { transform: none; }
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   @keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(3rem, 2rem) scale(1.15); } }
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 </style>
+<script>
+  // I passi del caso si accendono allo scroll e la linea si riempie
+  const tl = document.querySelector<HTMLElement>('[data-tl]');
+  const fill = tl?.querySelector<HTMLElement>('.rail-fill');
+  const steps = [...document.querySelectorAll<HTMLElement>('[data-step]')];
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (tl && fill) {
+    if (calm) steps.forEach((s) => s.classList.add('on'));
+    else {
+      let ticking = false;
+      const upd = () => {
+        ticking = false;
+        const line = innerHeight * 0.7; const r = tl.getBoundingClientRect();
+        fill.style.setProperty('--p', Math.min(1, Math.max(0, (line - r.top) / r.height)).toFixed(3));
+        steps.forEach((s) => s.classList.toggle('on', s.getBoundingClientRect().top < line));
+      };
+      addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
+      upd();
+    }
+  }
+</script>

@@ -59,8 +59,8 @@ export const FORM_ENDPOINT_CANDIDATURA = '';
 export const WAITLIST_ENDPOINT = '';   // lista d'attesa edizioni italiane
 export const FORM_ENDPOINT_SESSIONE = ''; // modulo della Sessione strategica
 export const GUIDA_ENDPOINT = WAITLIST_ENDPOINT; // la guida gratuita usa lo stesso endpoint della lista d'attesa
-/** Email del piano B (mailto). Diventerà l'email istituzionale. */
-export const EMAIL = 'caio.d0004@gmail.com';
+/** Email di contatto del sito (inoltrata a chef.caiomachado@gmail.com con Cloudflare Email Routing). */
+export const EMAIL = 'info@caiomachado.it';
 
 // ── Stato degli strumenti (badge in home) ──
 export const STATO_STRUMENTI = { gestionale: 'IN USO A CATERINHO', crm: 'IN USO A CATERINHO', tocstory: 'IN SVILUPPO' };
