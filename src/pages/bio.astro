@@ -23,10 +23,10 @@ import logoTemakinho from '../assets/loghi/temakinho.png';
 import logoCacau from '../assets/loghi/cacau.png';
 import logoPoke from '../assets/loghi/pokesamba.png';
 import logoMarino from '../assets/loghi/marino.png';
-import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, EMAIL } from '../config';
+import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, EMAIL, EBOOK_DIRETTO_URL, LIBRO_AMAZON_URL } from '../config';
 
 // La storia in ordine cronologico: dalle cucine dei ristoranti a Caterinho.
-type Tappa = { quando: string; titolo: string; ruolo?: string; logo?: ImageMetadata; logoH?: string; testo: string; foto?: ImageMetadata; alt?: string; pos?: string; ar?: string; foto2?: ImageMetadata; alt2?: string; oggi?: boolean };
+type Tappa = { quando: string; titolo: string; ruolo?: string; logo?: ImageMetadata; logoH?: string; testo: string; foto?: ImageMetadata; alt?: string; pos?: string; ar?: string; libro?: boolean; foto2?: ImageMetadata; alt2?: string; oggi?: boolean };
 const storia: Tappa[] = [
   { quando: '2013–2018 · Milano, Roma, Londra', titolo: 'Temakinho', ruolo: 'Executive chef', logo: logoTemakinho, logoH: 'max-h-6',
     testo: 'Da capo bar a executive chef: le cucine di Milano e Roma, il catering eventi e l’apertura di Londra Soho. In quel periodo anche una lezione di sushi nella favela della Rocinha, a Rio.',
@@ -48,6 +48,8 @@ const storia: Tappa[] = [
   { quando: '2021–2022 · Sardegna', titolo: 'Il Marino di Puntaldia', ruolo: 'Consultant chef', logo: logoMarino, logoH: 'max-h-8',
     testo: 'Consulenza come chef in un ristorante sul mare, con un servizio di altissimo livello. Lì ho capito cosa volevo davvero per Caterinho: è il livello a cui puntiamo ancora oggi.',
     foto: fotoMarino, alt: 'Caio di spalle al banco del Marino di Puntaldia mentre un fotografo lo riprende', pos: '50% 40%' },
+  { quando: '2021–2022', titolo: 'Il libro', ruolo: 'Collana Italian Method', logo: logoItalianMethod, logoH: 'max-h-9', libro: true,
+    testo: 'Mentre inauguravamo Caterinho mi sono concentrato a scrivere un libro, in portoghese, sugli errori che fanno chiudere i ristoranti e su come evitarli. Un progetto che forse un giorno mi riporterà in Brasile: chissà, la porta resta aperta.' },
   { quando: '2022 · Bergamo', titolo: 'Il bivio', ruolo: 'Caterinho · fondatore', logo: logoCaterinho, logoH: 'max-h-6',
     testo: 'Portare tutto nel digitale o investire in una vetrina vera? Abbiamo scelto un piccolo locale su strada, gestito da noi: il laboratorio delle nostre ricette, la base per gli eventi e il primo assaggio per chi passa davanti. Un concept brasiliano, fatto come a casa.',
     foto: fotoVetrina, alt: 'Caio con la moglie Raffaella e il fratello davanti all’ingresso di Caterinho, Sushi Poke & Caipirinha', pos: '50% 50%', oggi: true },
@@ -101,6 +103,16 @@ const offerte = [
               </div>
               <p class="mt-3 text-[0.97rem] leading-relaxed text-ivory/80">{s.testo}</p>
               {s.foto && <Image src={s.foto} alt={s.alt!} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class={`photo mt-4 ${s.ar ?? 'aspect-[4/5]'} w-full rounded-2xl object-cover`} style={`object-position:${s.pos}`} loading="lazy" />}
+              {s.libro && (
+                <div class="mt-4 grid gap-2">
+                  <a href={EBOOK_DIRETTO_URL || LIBRO_AMAZON_URL} target="_blank" rel="noopener" class="card group relative flex min-h-12 items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-2.5 text-[0.95rem]">
+                    <span>{EBOOK_DIRETTO_URL ? 'Il manuale in PDF (portoghese)' : 'Il libro in portoghese su Amazon'}</span><Icon name="arrow-up-right" class="size-4 shrink-0 opacity-70" /><span class="sr-only">(si apre in una nuova scheda)</span>
+                  </a>
+                  <a href={withUtm('/#libro')} class="card group relative flex min-h-12 items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-2.5 text-[0.95rem]">
+                    <span>Lista d’attesa per l’edizione italiana</span><Icon name="arrow-right" class="size-4 shrink-0 opacity-70" />
+                  </a>
+                </div>
+              )}
               {s.foto2 && <Image src={s.foto2} alt={s.alt2!} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class="photo mt-3 aspect-[3/2] w-full rounded-2xl object-cover" loading="lazy" />}
             </li>
           ))}
