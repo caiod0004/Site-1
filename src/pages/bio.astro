@@ -7,8 +7,9 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/ui/Icon.astro';
-import fotoSushi from '../assets/foto/sushi_occhiali.jpg';
-import fotoBar from '../assets/foto/bar_caterinho.jpg';
+import fotoSushi from '../assets/foto/sushi_occhiali_hd.jpg';
+import fotoVetrina from '../assets/foto/vetrina_caterinho.jpg';
+import fotoBancone from '../assets/foto/impiattamento_bancone.jpg';
 import fotoPensieroso from '../assets/caio_pensieroso.jpg';
 import logoCaterinho from '../assets/loghi/caterinho.png';
 import logoItalianMethod from '../assets/loghi/italian_method.png';
@@ -34,7 +35,7 @@ const caso = [
   {
     quando: '2022', titolo: 'Il bivio',
     testo: 'Portare tutto nel digitale o investire in una vetrina vera? Abbiamo scelto un piccolo locale su strada a Bergamo, gestito da noi: il laboratorio delle nostre ricette, la base per gli eventi e il primo assaggio per chi passa davanti. Un concept brasiliano, fatto come a casa.',
-    foto: fotoBar, alt: 'Caio dietro il bancone di Caterinho mentre prepara dei cocktail',
+    foto: fotoVetrina, alt: 'Caio e due collaboratori davanti all’ingresso di Caterinho, Sushi Poke & Caipirinha', foto2: fotoBancone, alt2: 'Caio impiatta al bancone di Caterinho',
   },
 ];
 
@@ -63,7 +64,7 @@ const offerte = [
       <!-- 01 · CHI SONO -->
       <header class="flex flex-col items-center text-center">
         <div class="ring hin" style="--d:0">
-          <Image src={fotoSushi} alt="Caio Machado con occhiali da sole rossi e un pezzo di sushi davanti all’occhio" widths={[240, 360]} sizes="7.5rem" class="relative size-[7.5rem] rounded-full object-cover object-[50%_35%]" loading="eager" fetchpriority="high" />
+          <Image src={fotoSushi} alt="Caio Machado con occhiali da sole rossi e un pezzo di sushi davanti all’occhio" widths={[240, 360]} sizes="7.5rem" class="relative size-[7.5rem] rounded-full object-cover" loading="eager" fetchpriority="high" />
         </div>
         <h1 class="in mt-6 font-serif text-[2.6rem] leading-none" style="--d:1">Caio Machado</h1>
         <p class="in mt-4 rounded-full bg-lime px-4 py-1.5 font-display text-[0.78rem] uppercase tracking-[0.12em] text-[#0c2530]" style="--d:2">Hospitality tech · Implementazione</p>
@@ -88,8 +89,9 @@ const offerte = [
               <h3 class="mt-1 font-display text-[1.25rem] font-medium">{s.titolo}</h3>
               <p class="mt-2 text-[0.97rem] leading-relaxed text-ivory/80">{s.testo}</p>
               {s.foto
-                ? <Image src={s.foto} alt={s.alt} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class="photo mt-4 aspect-[4/3] w-full rounded-2xl object-cover object-[50%_30%]" loading="lazy" />
+                ? <Image src={s.foto} alt={s.alt} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class="photo mt-4 aspect-[3/2] w-full rounded-2xl object-cover" loading="lazy" />
                 : import.meta.env.DEV && <div class="photo ph mt-4 grid aspect-[4/3] w-full place-items-center rounded-2xl p-6 text-center text-[0.85rem] text-ivory/60"><span class="placeholder">[FOTO: {s.segnaposto}]</span></div>}
+              {s.foto2 && <Image src={s.foto2} alt={s.alt2} widths={[480, 800]} sizes="(min-width: 32rem) 26rem, 85vw" class="photo mt-3 aspect-[3/2] w-full rounded-2xl object-cover object-[50%_35%]" loading="lazy" />}
             </li>
           ))}
         </ol>
