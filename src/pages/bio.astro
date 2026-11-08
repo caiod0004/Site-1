@@ -23,7 +23,7 @@ import logoTemakinho from '../assets/loghi/temakinho.png';
 import logoCacau from '../assets/loghi/cacau.png';
 import logoPoke from '../assets/loghi/pokesamba.png';
 import logoMarino from '../assets/loghi/marino.png';
-import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, EMAIL, EBOOK_DIRETTO_URL, LIBRO_AMAZON_URL, PREVENDITA_IT_URL, PREZZO_PREVENDITA_IT } from '../config';
+import { withUtm, CATERINHO_URL, INSTAGRAM_URL, LINKEDIN_URL, EMAIL, EBOOK_DIRETTO_URL, LIBRO_AMAZON_URL, PREVENDITA_IT_URL, PREZZO_PREVENDITA_IT, CONSEGNA_PDF } from '../config';
 import fotoLibro from '../assets/libro-copertina.png';
 
 // La storia in ordine cronologico: dalle cucine dei ristoranti a Caterinho.
@@ -110,6 +110,7 @@ const offerte = [
                   <a href={EBOOK_DIRETTO_URL || LIBRO_AMAZON_URL} target="_blank" rel="noopener" class="card group relative flex min-h-12 items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-2.5 text-[0.95rem]">
                     <span>{EBOOK_DIRETTO_URL ? 'Il manuale in PDF (portoghese)' : 'Il libro in portoghese su Amazon'}</span><Icon name="arrow-up-right" class="size-4 shrink-0 opacity-70" /><span class="sr-only">(si apre in una nuova scheda)</span>
                   </a>
+                  {EBOOK_DIRETTO_URL && <p class="text-[0.82rem] text-ivory/60">{CONSEGNA_PDF}</p>}
                   <a href={PREVENDITA_IT_URL || withUtm('/#libro')} {...(PREVENDITA_IT_URL ? { target: '_blank', rel: 'noopener' } : {})} class="card group relative flex min-h-12 items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-2.5 text-[0.95rem]">
                     <span>Edizione italiana in PDF · prevendita {PREZZO_PREVENDITA_IT}</span><Icon name="arrow-right" class="size-4 shrink-0 opacity-70" />
                   </a>

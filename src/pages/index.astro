@@ -29,7 +29,7 @@ import { SEO_HOME, PROVE, STORIA, FAQ_HOME, PORTE } from '../data/home';
 import { CATEGORIE } from '../content.config';
 import {
   SITE_URL, STATO_STRUMENTI, LIBRO_AMAZON_URL, EBOOK_DIRETTO_URL, PREZZO_EBOOK, INSTAGRAM_URL, INSTAGRAM_CATERINHO_URL,
-  LINKEDIN_URL, CATERINHO_URL, PREVENDITA_IT_URL, PREZZO_PREVENDITA_IT,
+  LINKEDIN_URL, CATERINHO_URL, PREVENDITA_IT_URL, PREZZO_PREVENDITA_IT, CONSEGNA_PDF,
 } from '../config';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -246,7 +246,7 @@ const jsonLd = [
             {PREVENDITA_IT_URL && <a href={PREVENDITA_IT_URL} target="_blank" rel="noopener" class="btn btn-line">Edizione italiana in PDF · prevendita {PREZZO_PREVENDITA_IT} <Icon name="arrow-up-right" /></a>}
             <button type="button" class="btn btn-line" aria-expanded="false" aria-controls="lista-attesa" data-wait-btn>Entra in lista d’attesa per l’edizione italiana</button>
           </div>
-          <p class="mt-4 text-[0.9rem] text-paper-muted">Manuale digitale (PDF, leggibile anche su Kindle) e copia Amazon: per ora solo in portoghese.</p>
+          <p class="mt-4 text-[0.9rem] text-paper-muted">Manuale digitale (PDF, leggibile anche su Kindle) e copia Amazon: per ora solo in portoghese.{EBOOK_DIRETTO_URL && ` ${CONSEGNA_PDF}`}</p>
           <div id="lista-attesa" class="mt-8 rounded-[1.5rem] bg-paper-3 p-6 sm:p-8" hidden>
             <p class="font-display font-medium">Lista d’attesa per l’edizione italiana</p>
             <p class="mt-1 text-[0.95rem] text-paper-muted">Ricevi una sola email quando è pronta.</p>

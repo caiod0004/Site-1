@@ -32,11 +32,13 @@ export const GIORNI_PROPOSTA = '5 giorni lavorativi';
 export const PERCORSI_CONTEMPORANEA = '1';
 
 // ── Link esterni ──
-export const LIBRO_AMAZON_URL = 'https://www.amazon.com.br/dp/B0DYYJLXW6';
+export const LIBRO_AMAZON_URL = 'https://www.amazon.com.br/Erros-Evitar-Antes-Abrir-Restaurante/dp/B0DYYJLXW6';
 /** Manuale digitale (PDF, leggibile anche su Kindle) in portoghese venduto direttamente da Caio (es. link Stripe). Vuoto = segnaposto. Prima di attivarlo: verificare che il libro NON sia in KDP Select (esclusiva Amazon sull'ebook). */
 export const EBOOK_DIRETTO_URL = '';
 /** Prezzo del manuale digitale venduto direttamente, es. '9,90 €'. Vuoto = segnaposto. */
 export const PREZZO_EBOOK = '';
+/** Consegna del PDF dopo il pagamento: per ora Caio lo invia a mano via email. */
+export const CONSEGNA_PDF = 'Ricevi il PDF via email entro 24 ore dal pagamento.';
 export const INSTAGRAM_URL = 'https://instagram.com/chef.caiomachado';
 export const INSTAGRAM_CATERINHO_URL = 'https://instagram.com/caterinho.it';
 export const CATERINHO_URL = 'https://caterinho.it';
